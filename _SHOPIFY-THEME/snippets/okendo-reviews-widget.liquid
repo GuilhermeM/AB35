@@ -1,0 +1,28 @@
+{% if shop.metafields.okendo.settings.isWidgetPlusEnabled == true or shop.metafields.okendo.settings.isWidgetPlusAdminEnabled == true %}
+    {% assign renderWidgetPlusScript = true %}
+{% endif %}
+
+{% if product != blank %}
+{% capture product_data_attribute %}data-oke-reviews-product-id="shopify-{{ product.id }}"{% endcapture %}
+{% endif %}
+
+<div class="Container">
+{% if renderWidgetPlusScript == true %}
+    {%- if shop.metafields.okendo.WidgetPreRenderBodyStyleTags != blank -%}
+        {{- shop.metafields.okendo.WidgetPreRenderBodyStyleTags }}
+    {%- endif -%}
+    <div
+        data-oke-widget
+        {{ product_data_attribute }}
+    >
+        {{ product.metafields.okendo.ReviewsWidgetSnippet }}
+    </div>
+
+{% else %}
+<div class="okeReviews-widget-holder" data-oke-reviews-widget-holder {{ product_data_attribute }}>
+    <div data-oke-reviews-nav-bar></div>
+    <div data-oke-reviews-widget>{{ product.metafields.okendo.ProductReviewsWidgetSnippet }}</div>
+    <div data-oke-reviews-qanda></div>
+</div>
+{% endif %}
+</div>

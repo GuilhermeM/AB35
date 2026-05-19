@@ -1,0 +1,58 @@
+{% assign sec = section.settings %}
+<div class="product-benefits__inner">
+  <div class="Container">
+    <div class="product-benefits__wrapper">
+      <div class="product-benefits__items">
+        {% for block in section.blocks %}
+          <div class="product-benefits__item">
+            <div class="product-benefits__img">
+              <a href="{{ block.settings.btn_url }}">
+                <img src="{{ block.settings.icon_image | image_url }}" alt="">
+              </a>
+            </div>
+            <div class="product-benefits__content">
+              {{ block.settings.title_text }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Icon with text",
+  "class": "product-benefits",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon image"
+        },
+        {
+          "type": "richtext",
+          "id": "title_text",
+          "label": "Title text"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon with text"
+    }
+  ]
+}
+{% endschema %}

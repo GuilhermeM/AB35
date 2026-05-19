@@ -1,0 +1,60 @@
+<section class="Section Section--spacingNormal featured-collections_section featured-collection__Container" data-section-id="{{ section.id }}">
+  {%- if section.settings.heading != blank -%}
+    <header class="SectionHeader SectionHeader--center Border--true">
+      <div class="Container">
+        <h3 class="SectionHeader__Heading Heading u-h1">{{ section.settings.heading | escape }}</h3>
+      </div>
+    </header>
+  {%- endif -%}
+{% if shop.metafields.okendo.settings.isWidgetPlusEnabled == true or shop.metafields.okendo.settings.isWidgetPlusAdminEnabled == true %}
+    {% assign renderWidgetPlusScript = true %}
+{% endif %}
+<div class="{% if section.settings.include_margins %}Container{% endif %}">
+  {% if renderWidgetPlusScript == true %}
+    {%- if shop.metafields.okendo.WidgetPreRenderBodyStyleTags != blank -%}
+        {{- shop.metafields.okendo.WidgetPreRenderBodyStyleTags }}
+    {%- endif -%}
+    <div data-oke-widget data-oke-reviews-product-id="shopify-{{ product.id }}">
+    {{ product.metafields.okendo.ReviewsWidgetSnippet }}
+	</div>
+  {% else %}
+    <div class="okeReviews-widget-holder" data-oke-reviews-widget-holder data-oke-reviews-product-id="shopify-{{ product.id }}">
+      <div data-oke-reviews-nav-bar></div>
+      <div data-oke-reviews-widget>{{ product.metafields.okendo.ProductReviewsWidgetSnippet }}</div>
+      <div data-oke-reviews-qanda></div>
+    </div>
+  {% endif %}
+</div>
+</section>
+
+{% schema %}
+{
+  "name": "Okendo Reviews Widget",
+  "class": "shopify-section--featured index__section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "include_margins",
+      "label": "Include margins",
+      "default": true
+    },
+	{
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Reviews"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Okendo Reviews Widget",
+	  "category": "Product"
+    }
+  ]
+}
+{% endschema %}

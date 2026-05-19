@@ -1,0 +1,1836 @@
+{% comment %}
+  Gift Guide V3 — Nominal
+  Full-page section: Hero, Trust Bar, Quiz, Budget, Products, Reviews, Videos, CTA
+  All content is editable via Theme Editor (settings + blocks).
+  Drop this file into sections/ and use with page.gift-guide-v3.json
+{% endcomment %}
+
+{%- comment -%} ——— LCP HERO PRELOAD ——— {%- endcomment -%}
+{%- if section.settings.hero_image != blank -%}
+  <link rel="preload" as="image" href="{{ section.settings.hero_image | image_url: width: 2000 }}" fetchpriority="high">
+{%- else -%}
+  <link rel="preload" as="image" href="https://cdn.shopify.com/s/files/1/2556/8900/files/hero-image-compressed-resized.webp?v=1778353921" fetchpriority="high">
+{%- endif -%}
+
+{%- comment -%} ——— GOOGLE FONTS ——— {%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+{%- comment -%} ——— STYLES ——— {%- endcomment -%}
+<style>
+  /* ===== SCOPE: all styles under #gv3 to avoid theme conflicts ===== */
+  #gv3 {
+    --gv3-black: #0a0a0a;
+    --gv3-off-white: #f7f5f2;
+    --gv3-warm-white: #faf9f7;
+    --gv3-mid-gray: #8a8a8a;
+    --gv3-light-gray: #e8e6e3;
+    --gv3-green: #1a2e1a;
+    --gv3-gold: #c9a96e;
+    --gv3-tan: #f0ebe3;
+    --gv3-serif: 'Cormorant Garamond', Georgia, serif;
+    --gv3-sans: 'DM Sans', sans-serif;
+
+    background: var(--gv3-warm-white);
+    color: var(--gv3-black);
+    font-family: var(--gv3-sans);
+    font-weight: 300;
+    overflow-x: hidden;
+    line-height: 1.5;
+  }
+  #gv3 *, #gv3 *::before, #gv3 *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  #gv3 h1, #gv3 h2, #gv3 h3, #gv3 h4, #gv3 p { margin: 0; padding: 0; font-size: inherit; font-weight: inherit; }
+  #gv3 a { text-decoration: none; color: inherit; }
+  #gv3 img { max-width: 100%; display: block; }
+
+  /* ===== BUTTONS ===== */
+  #gv3 .gv3-btn-primary {
+    display: inline-block; background: var(--gv3-off-white); color: var(--gv3-black);
+    padding: 14px 36px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    text-decoration: none; transition: background 0.25s, color 0.25s;
+    width: fit-content; border: none; cursor: pointer; font-family: var(--gv3-sans);
+  }
+  #gv3 .gv3-btn-primary:hover { background: var(--gv3-gold); color: #fff; }
+  #gv3 .gv3-btn-outline-light {
+    display: inline-block; border: 1px solid rgba(255,255,255,0.4); color: #fff;
+    padding: 14px 36px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    text-decoration: none; transition: background 0.25s, color 0.25s, border-color 0.25s;
+    width: fit-content; background: transparent; cursor: pointer; font-family: var(--gv3-sans);
+  }
+  #gv3 .gv3-btn-outline-light:hover { background: #fff; color: var(--gv3-black); border-color: #fff; }
+  #gv3 .gv3-btn-outline {
+    display: inline-block; border: 1px solid var(--gv3-black); color: var(--gv3-black);
+    padding: 14px 36px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    text-decoration: none; transition: background 0.25s, color 0.25s;
+    width: fit-content; background: transparent; cursor: pointer; font-family: var(--gv3-sans);
+  }
+  #gv3 .gv3-btn-outline:hover { background: var(--gv3-black); color: #fff; }
+  #gv3 .gv3-btn-dark {
+    display: inline-block; background: var(--gv3-black); color: #fff;
+    padding: 14px 36px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    text-decoration: none; transition: background 0.25s, color 0.25s;
+    width: fit-content; border: none; cursor: pointer; font-family: var(--gv3-sans);
+  }
+  #gv3 .gv3-btn-dark:hover { background: var(--gv3-gold); }
+
+  /* ===== SECTION HEADER (reusable) ===== */
+  #gv3 .gv3-section-header { text-align: center; padding: 80px 48px 48px; }
+  #gv3 .gv3-section-eyebrow {
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--gv3-mid-gray); margin-bottom: 16px;
+  }
+  #gv3 .gv3-section-title {
+    font-family: var(--gv3-serif); font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300; line-height: 1.1;
+  }
+  #gv3 .gv3-section-title em { font-style: italic; }
+  #gv3 .gv3-section-desc {
+    font-size: 14px; line-height: 1.75; color: var(--gv3-mid-gray);
+    max-width: 480px; margin: 16px auto 0;
+  }
+
+  /* ===== 1. HERO ===== */
+  #gv3 .gv3-hero {
+    position: relative;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; align-items: flex-start;
+    padding: 120px 64px 64px;
+    height: 500px;
+    overflow: hidden;
+  }
+  #gv3 .gv3-hero-bg-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top; z-index: 0;
+  }
+  #gv3 .gv3-hero-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: rgba(28, 27, 27, 0.6);
+  }
+  #gv3 .gv3-hero-inner {
+    position: relative; z-index: 2;
+    width: 100%;
+  }
+  #gv3 .gv3-hero-content {
+    display: flex; flex-direction: column;
+    justify-content: flex-end; align-items: flex-start;
+    gap: 48px;
+    max-width: 500px;
+  }
+  #gv3 .gv3-hero-text {
+    display: flex; flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  #gv3 .gv3-hero-eyebrow {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-size: 14px; font-weight: 400;
+    line-height: 120%; text-transform: uppercase;
+    color: #fff;
+  }
+  #gv3 .gv3-hero-title,
+  #gv3 .gv3-hero-title p {
+    font-family: var(--gv3-serif) !important;
+    font-size: clamp(52px, 5.5vw, 80px) !important; font-weight: 500 !important;
+    line-height: 100% !important; color: #fff;
+    margin: 0; padding: 0;
+  }
+  #gv3 .gv3-hero-title em { font-style: italic; color: var(--gv3-gold); }
+  #gv3 .gv3-hero-sub {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-size: 16px; font-weight: 400;
+    line-height: 160%; letter-spacing: 0.04em;
+    color: #fff;
+  }
+  #gv3 .gv3-hero-btns {
+    display: flex; flex-direction: row; align-items: flex-start;
+    gap: 12px; width: 100%;
+  }
+  #gv3 .gv3-hero-btns a {
+    flex: 1; display: flex; justify-content: center; align-items: center;
+    padding: 16px 40px; height: 48px;
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-size: 14px; font-weight: 500;
+    line-height: 17px; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer; transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  #gv3 .gv3-hero-btns .gv3-btn-primary {
+    background: #C8A983; color: #1C1B1B; border: none;
+    width: auto; padding: 16px 40px;
+  }
+  #gv3 .gv3-hero-btns .gv3-btn-primary:hover { background: #b8956f; }
+  #gv3 .gv3-hero-btns .gv3-btn-outline-light {
+    background: transparent; color: #fff;
+    border: 1px solid #fff; width: auto; padding: 16px 40px;
+  }
+  #gv3 .gv3-hero-btns .gv3-btn-outline-light:hover { background: #fff; color: #1C1B1B; }
+
+  /* ===== 2. TRUST BAR / MARQUEE ===== */
+  #gv3 .gv3-trust-bar {
+    background: var(--gv3-black); padding: 12px 48px;
+    overflow: hidden; white-space: nowrap; position: relative;
+    height: 48px; display: flex; align-items: center;
+  }
+  #gv3 .gv3-trust-bar::before,
+  #gv3 .gv3-trust-bar::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
+  }
+  #gv3 .gv3-trust-bar::before { left: 0; background: linear-gradient(to right, var(--gv3-black), transparent); }
+  #gv3 .gv3-trust-bar::after { right: 0; background: linear-gradient(to left, var(--gv3-black), transparent); }
+  #gv3 .gv3-marquee-track {
+    display: inline-flex; gap: 80px; align-items: center;
+    animation: gv3Marquee 30s linear infinite;
+  }
+  #gv3 .gv3-trust-item {
+    display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0;
+  }
+  #gv3 .gv3-trust-item img { width: 24px; max-width: 24px; height: 24px; object-fit: contain; }
+  #gv3 .gv3-trust-item span {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 14px; line-height: 120%;
+    text-transform: uppercase; color: #fff;
+  }
+  #gv3 .gv3-marquee-dot { color: var(--gv3-gold); font-size: 10px; flex-shrink: 0; }
+  @keyframes gv3Marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ===== 3. QUIZ ===== */
+  #gv3 .gv3-quiz-section {
+    background: #F1EFEA;
+  }
+  #gv3 .gv3-quiz-inner {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 80px 64px; gap: 32px;
+    max-width: 1440px; margin: 0 auto;
+  }
+  #gv3 .gv3-quiz-left {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 32px; width: 100%;
+  }
+  #gv3 .gv3-quiz-text-group {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 16px;
+  }
+  #gv3 .gv3-quiz-title-group {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 8px;
+  }
+  #gv3 .gv3-quiz-eyebrow {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 14px; line-height: 120%;
+    text-transform: uppercase; color: #9F755B;
+  }
+  #gv3 .gv3-quiz-title {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 24px; line-height: 140%;
+    letter-spacing: 0.02em; text-transform: capitalize;
+    color: #1C1B1B;
+  }
+  #gv3 .gv3-quiz-desc {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 16px; line-height: 160%;
+    letter-spacing: 0.04em; color: #666666;
+  }
+  #gv3 .gv3-quiz-chips {
+    display: flex; flex-direction: row; flex-wrap: wrap;
+    justify-content: center; align-items: center; align-content: center;
+    gap: 8px; width: 100%;
+  }
+  #gv3 .gv3-chip {
+    display: flex; justify-content: center; align-items: center;
+    padding: 10px 20px; min-width: 171px; background: #FFFFFF; border-radius: 4px;
+    border: none; cursor: pointer; transition: background 0.2s, color 0.2s;
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 12px; line-height: 120%;
+    text-transform: uppercase; color: #1C1B1B;
+    white-space: nowrap;
+  }
+  #gv3 .gv3-chip:hover { background: #e8dfd3; }
+  #gv3 .gv3-chip.active { background: #C8A983; color: #1C1B1B; }
+  #gv3 .gv3-quiz-right { flex-shrink: 0; width: 100%; display: flex; justify-content: center; }
+  #gv3 .gv3-quiz-result-panel {
+    box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 24px; gap: 24px;
+    width: 800px; max-width: 100%;
+    background: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 4px;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  #gv3 .gv3-quiz-result-panel.visible { opacity: 1; transform: translateY(0); }
+  #gv3 .gv3-quiz-result-content {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    gap: 24px; width: 100%;
+  }
+  #gv3 .gv3-result-header {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 8px;
+  }
+  #gv3 .gv3-result-label {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 14px; line-height: 120%;
+    text-transform: uppercase; color: #9F755B;
+  }
+  #gv3 .gv3-result-title {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 24px; line-height: 140%;
+    letter-spacing: 0.02em; text-transform: capitalize;
+    color: #1C1B1B; text-align: center;
+  }
+  #gv3 .gv3-result-images {
+    display: flex; flex-direction: row; align-items: flex-start;
+    gap: 8px; width: 100%;
+  }
+  #gv3 .gv3-result-product-card {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px; text-decoration: none; flex: 1;
+    transition: opacity 0.2s; position: relative; isolation: isolate;
+  }
+  #gv3 .gv3-result-product-card:hover { opacity: 0.8; }
+  #gv3 .gv3-result-product-info {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  #gv3 .gv3-result-product-name {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 14px !important; line-height: 23px !important;
+    letter-spacing: 0.5px !important; text-align: center !important;
+    text-transform: capitalize !important;
+    color: #1C1B1B !important; text-decoration: none !important;
+    word-wrap: break-word;
+  }
+  #gv3 .gv3-result-product-price {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 12px; line-height: 120%;
+    text-transform: uppercase; color: #9F755B; text-align: center;
+  }
+  #gv3 .gv3-result-img {
+    width: 100%; aspect-ratio: 7/8;
+    object-fit: cover; transition: opacity 0.3s ease;
+    background: #FBF4EC;
+  }
+  #gv3 .gv3-result-wishlist {
+    position: absolute; top: 0; right: 0; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+    padding: 8px; width: 33px; height: 33px;
+    background: none; border: none; cursor: pointer;
+  }
+  #gv3 .gv3-result-wishlist svg {
+    width: 17px; height: 17px; fill: none; stroke: #000; stroke-width: 1.5;
+  }
+  #gv3 .gv3-result-desc,
+  #gv3 .gv3-result-desc p,
+  #gv3 .gv3-result-desc span {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 16px !important; line-height: 160% !important;
+    letter-spacing: 0.04em !important; text-align: center !important;
+    color: #666666 !important;
+    text-decoration: none !important;
+    margin: 0; padding: 0;
+  }
+  #gv3 .gv3-result-desc a {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 600 !important; font-size: 16px !important; line-height: 160% !important;
+    letter-spacing: 0.04em !important;
+    color: #C8A983 !important;
+    text-decoration: underline !important;
+  }
+  #gv3 .gv3-result-desc { align-self: stretch; }
+  #gv3 .gv3-quiz-cta {
+    display: flex; justify-content: center; align-items: center;
+    padding: 16px 40px; height: 48px;
+    background: #C8A983; border: none; border-radius: 0;
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 500; font-size: 14px; line-height: 17px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #1C1B1B; text-decoration: none; cursor: pointer;
+    align-self: stretch; transition: background 0.25s;
+  }
+  #gv3 .gv3-quiz-cta:hover { background: #b8956f; }
+
+  /* ===== REVIEWS BAR ===== */
+  #gv3 .gv3-reviews-bar {
+    display: flex; justify-content: center; align-items: center;
+    padding: 14px 48px; gap: 12px;
+    background: #1C1B1B; width: 100%;
+  }
+  #gv3 .gv3-reviews-bar-stars {
+    display: flex; gap: 2px;
+  }
+  #gv3 .gv3-reviews-bar-stars svg {
+    width: 16px; height: 16px; fill: #C8A983;
+  }
+  #gv3 .gv3-reviews-bar-text {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 500; font-size: 14px; line-height: 17px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #FFFFFF;
+  }
+
+  /* ===== COLLECTIONS GRID ===== */
+  #gv3 .gv3-collections-section {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 80px 64px; gap: 48px;
+    background: #FFFFFF;
+  }
+  #gv3 .gv3-collections-title {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 32px; line-height: 140%;
+    letter-spacing: 0.02em; text-transform: capitalize;
+    color: #0A0A0A; text-align: center;
+  }
+  #gv3 .gv3-collections-title p { margin: 0; padding: 0; }
+  #gv3 .gv3-collections-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; width: 100%; max-width: 1312px;
+  }
+  #gv3 .gv3-collection-card {
+    position: relative; overflow: hidden;
+    aspect-ratio: 3/4; display: flex;
+    flex-direction: column; justify-content: flex-end;
+    text-decoration: none; color: #fff;
+  }
+  #gv3 .gv3-collection-card-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0;
+    transition: transform 0.4s ease;
+  }
+  #gv3 .gv3-collection-card:hover .gv3-collection-card-bg {
+    transform: scale(1.05);
+  }
+  #gv3 .gv3-collection-card-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 60%);
+  }
+  #gv3 .gv3-collection-card-content {
+    position: relative; z-index: 2;
+    padding: 24px; display: flex;
+    flex-direction: column; gap: 8px;
+  }
+  #gv3 .gv3-collection-card-title {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 400; font-size: 20px; line-height: 140%;
+    letter-spacing: 0.02em; color: #fff;
+  }
+  #gv3 .gv3-collection-card-cta {
+    font-family: 'Instrument Sans', var(--gv3-sans);
+    font-weight: 500; font-size: 12px; line-height: 120%;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #C8A983;
+  }
+  @media (max-width: 1024px) {
+    #gv3 .gv3-collections-grid { grid-template-columns: repeat(2, 1fr); }
+    #gv3 .gv3-collections-section { padding: 60px 48px; }
+  }
+  @media (max-width: 640px) {
+    #gv3 .gv3-collections-grid { grid-template-columns: 1fr; }
+    #gv3 .gv3-collections-section { padding: 48px 24px; gap: 32px; }
+    #gv3 .gv3-collections-title { font-size: 28px; }
+    #gv3 .gv3-reviews-bar { padding: 12px 16px; }
+    #gv3 .gv3-reviews-bar-text { font-size: 12px; }
+  }
+
+  /* ===== 4. SHOP BY BUDGET ===== */
+  #gv3 .gv3-budget-wrapper {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 80px 64px; gap: 48px;
+    background: #F1EFEA;
+  }
+  #gv3 .gv3-budget-header {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 16px;
+  }
+  #gv3 .gv3-budget-header-top {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 8px;
+  }
+  #gv3 .gv3-budget-eyebrow {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 14px !important; line-height: 120% !important;
+    text-transform: uppercase; color: #9F755B !important;
+  }
+  #gv3 .gv3-budget-title,
+  #gv3 .gv3-budget-title p {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 32px !important; line-height: 140% !important;
+    letter-spacing: 0.02em !important; text-transform: capitalize;
+    color: #0A0A0A !important; text-align: center;
+    margin: 0 !important; padding: 0 !important;
+  }
+  #gv3 .gv3-budget-title em { font-style: italic; color: #9F755B !important; }
+  #gv3 .gv3-budget-subtitle {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 16px !important; line-height: 160% !important;
+    letter-spacing: 0.04em; color: #666666 !important; text-align: center;
+  }
+  #gv3 .gv3-budget-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    width: 100%;
+  }
+  #gv3 .gv3-budget-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    text-decoration: none; display: flex;
+    flex-direction: row; align-items: flex-end;
+    padding: 24px; height: 432px;
+    background: var(--gv3-black);
+    transition: opacity 0.3s;
+  }
+  #gv3 .gv3-budget-card:hover { opacity: 0.9; }
+  #gv3 .gv3-budget-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+  }
+  #gv3 .gv3-budget-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(28, 27, 27, 0.5), rgba(28, 27, 27, 0.5));
+  }
+  #gv3 .gv3-budget-content {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 24px; flex: 1;
+  }
+  #gv3 .gv3-budget-text {
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 8px; align-self: stretch;
+  }
+  #gv3 .gv3-budget-label {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 14px !important; line-height: 120% !important;
+    text-transform: uppercase; color: #FFFFFF !important;
+  }
+  #gv3 .gv3-budget-range {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 32px !important; line-height: 140% !important;
+    letter-spacing: 0.02em; text-transform: capitalize;
+    color: #FFFFFF !important;
+  }
+  #gv3 .gv3-budget-desc {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 16px !important; line-height: 160% !important;
+    letter-spacing: 0.04em; color: #FFFFFF !important;
+    align-self: stretch;
+  }
+  #gv3 .gv3-budget-link {
+    display: flex; flex-direction: row; align-items: center;
+    padding: 8px 0; gap: 8px; align-self: stretch;
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 500 !important; font-size: 14px !important; line-height: 17px !important;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #FFFFFF !important; text-decoration: none !important;
+  }
+
+  /* ===== 5. PRODUCTS ===== */
+  #gv3 .gv3-products-wrapper {
+    display: flex; flex-direction: column; align-items: flex-start;
+    padding: 80px 64px; gap: 48px;
+    background: #FFFFFF;
+  }
+  #gv3 .gv3-products-header {
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 16px;
+  }
+  #gv3 .gv3-products-header-top {
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 8px;
+  }
+  #gv3 .gv3-products-eyebrow {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 14px !important; line-height: 120% !important;
+    text-transform: uppercase; color: #9F755B !important;
+  }
+  #gv3 .gv3-products-title,
+  #gv3 .gv3-products-title p {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 32px !important; line-height: 140% !important;
+    letter-spacing: 0.02em !important; text-transform: capitalize;
+    color: #0A0A0A !important; margin: 0 !important; padding: 0 !important;
+  }
+  #gv3 .gv3-products-title em { font-style: italic; color: #9F755B !important; }
+  #gv3 .gv3-products-subtitle {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 16px !important; line-height: 160% !important;
+    letter-spacing: 0.04em; color: #666666 !important;
+    max-width: 504px;
+  }
+  #gv3 .gv3-product-shelf {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    width: 100%;
+  }
+  #gv3 .gv3-product-card {
+    display: flex; flex-direction: column; cursor: pointer;
+    text-decoration: none; color: inherit;
+  }
+  #gv3 .gv3-product-img-wrap {
+    aspect-ratio: 1/1; background: #FBF4EC;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; margin-bottom: 16px;
+  }
+  #gv3 .gv3-product-img-wrap img {
+    width: 100%; height: 100%; object-fit: contain;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  #gv3 .gv3-product-card:hover .gv3-product-img-wrap img { transform: scale(1.05); }
+  #gv3 .gv3-product-badge {
+    position: absolute; top: 10px; left: 10px;
+    background: #1C1B1B; color: #fff; opacity: 0.9;
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-size: 14px !important; font-weight: 400 !important;
+    line-height: 23px; padding: 2px 8px;
+  }
+  #gv3 .gv3-badge-gold { background: #C8A983; color: #1C1B1B; }
+  #gv3 .gv3-badge-green { background: #1A2E1A; color: #fff; }
+  #gv3 .gv3-product-heart {
+    position: absolute; top: 12px; right: 12px;
+    width: 24px; height: 24px; cursor: pointer;
+    fill: none; stroke: #1C1B1B; stroke-width: 1.5;
+    transition: fill 0.2s;
+  }
+  #gv3 .gv3-product-heart:hover { fill: #1C1B1B; }
+  #gv3 .gv3-product-type {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-size: 12px !important; letter-spacing: 0.06em !important; text-transform: uppercase;
+    color: #9F755B !important; margin-bottom: 4px;
+  }
+  #gv3 .gv3-product-name {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-size: 16px !important; font-weight: 400 !important;
+    color: #1C1B1B !important; margin-bottom: 12px; line-height: 140% !important;
+  }
+  #gv3 .gv3-product-stars {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
+    flex-wrap: nowrap;
+  }
+  #gv3 .gv3-product-stars svg { width: 16px; height: 16px; flex-shrink: 0; }
+  #gv3 .gv3-product-stars .gv3-star-filled { fill: #C8A983; }
+  #gv3 .gv3-product-stars .gv3-star-empty { fill: var(--gv3-light-gray); }
+  #gv3 .gv3-product-stars .gv3-review-count {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-size: 14px !important; color: #666666 !important;
+    white-space: nowrap;
+  }
+  #gv3 .gv3-product-price {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-size: 16px !important; font-weight: 500 !important; color: #1C1B1B !important;
+  }
+
+  /* ===== 6+7: Reviews & Videos use theme native CSS (outside #gv3) ===== */
+
+  /* ===== 8. FOOTER CTA ===== */
+  #gv3 .gv3-footer-cta {
+    display: flex; flex-direction: row; justify-content: center;
+    align-items: center; padding: 48px 20px; gap: 80px;
+    background: #FFFFFF;
+  }
+  #gv3 .gv3-cta-image {
+    width: 500px; height: 500px; flex-shrink: 0;
+    object-fit: cover;
+  }
+  #gv3 .gv3-cta-right {
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: flex-start; gap: 32px; max-width: 400px;
+  }
+  #gv3 .gv3-cta-title,
+  #gv3 .gv3-cta-title p {
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 400 !important; font-size: 24px !important;
+    line-height: 160% !important; letter-spacing: 0.02em !important;
+    text-transform: capitalize;
+    color: #1C1B1B !important; margin: 0 !important; padding: 0 !important;
+  }
+  #gv3 .gv3-cta-btns {
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; gap: 16px; width: 100%;
+  }
+  #gv3 .gv3-cta-btns a {
+    display: flex; justify-content: center; align-items: center;
+    padding: 16px 40px; width: 400px; max-width: 100%; height: 48px;
+    font-family: 'Instrument Sans', var(--gv3-sans) !important;
+    font-weight: 500 !important; font-size: 14px !important; line-height: 17px !important;
+    letter-spacing: 0.1em !important; text-transform: uppercase;
+    text-decoration: none; cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+  }
+  #gv3 .gv3-cta-btns .gv3-cta-btn-primary {
+    background: #C8A983; color: #1C1B1B !important; border: none;
+  }
+  #gv3 .gv3-cta-btns .gv3-cta-btn-primary:hover { background: #b8956f; }
+
+  /* ===== ANIMATIONS ===== */
+  #gv3 .gv3-fade-up {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94),
+                transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  #gv3 .gv3-fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ===== RESPONSIVE: TABLET ===== */
+  @media (max-width: 1024px) {
+    #gv3 .gv3-quiz-inner { padding: 60px 48px; }
+    #gv3 .gv3-quiz-right { width: 100%; }
+    #gv3 .gv3-quiz-result-panel { width: 100%; max-width: 500px; margin: 0 auto; }
+    #gv3 .gv3-product-shelf { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ===== RESPONSIVE: MOBILE ===== */
+  @media (max-width: 640px) {
+    #gv3 .gv3-hero { padding: 120px 24px 40px; height: auto; min-height: 500px; }
+    #gv3 .gv3-hero-content { max-width: 100%; }
+    #gv3 .gv3-hero-btns { flex-direction: column; }
+    #gv3 .gv3-hero-btns a { text-align: center; flex: none; width: 100%; }
+    #gv3 .gv3-quiz-inner { padding: 48px 24px; gap: 32px; }
+    #gv3 .gv3-quiz-result-panel { padding: 20px; width: 100%; }
+    #gv3 .gv3-result-images { gap: 12px; }
+    #gv3 .gv3-result-img { width: 90px; height: 90px; }
+    #gv3 .gv3-quiz-cta { padding: 14px 24px; }
+    #gv3 .gv3-budget-wrapper { padding: 48px 24px; gap: 32px; }
+    #gv3 .gv3-budget-grid { grid-template-columns: 1fr; }
+    #gv3 .gv3-budget-card { height: 360px; }
+    #gv3 .gv3-products-wrapper { padding: 48px 24px; gap: 32px; }
+    #gv3 .gv3-product-shelf { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    #gv3 .gv3-product-stars { gap: 4px; }
+    #gv3 .gv3-product-stars svg { width: 12px; height: 12px; }
+    #gv3 .gv3-product-stars .gv3-review-count { font-size: 12px !important; }
+    #gv3 .gv3-footer-cta { flex-direction: column; padding: 48px 24px; gap: 40px; }
+    #gv3 .gv3-cta-image { width: 100%; height: auto; aspect-ratio: 1/1; }
+    #gv3 .gv3-cta-right { max-width: 100%; align-items: center; text-align: center; }
+    #gv3 .gv3-cta-btns a { width: 100%; }
+    #gv3 .gv3-section-header { padding: 60px 24px 36px; }
+  }
+
+  /* ===== PERFORMANCE: defer offscreen render until in-viewport ===== */
+  /* Below-the-fold sections — browser skips layout/paint work until scrolled near. */
+  /* Browsers without support (Safari <18) ignore the rule — graceful degradation. */
+  .gv3-collections-section,
+  .gv3-budget-wrapper,
+  .gv3-products-wrapper,
+  .gv3-footer-cta,
+  #shopify-section-{{ section.id }} .customar-video,
+  #shopify-section-{{ section.id }} .reviews {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 800px;
+  }
+</style>
+
+{%- comment -%} ——— SVG DEFS (star icons) ——— {%- endcomment -%}
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+  <symbol id="gv3-star" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+  </symbol>
+</svg>
+
+<div id="gv3">
+
+  {%- comment -%} ========== 1. HERO ========== {%- endcomment -%}
+  <section class="gv3-hero">
+    {%- if section.settings.hero_image != blank -%}
+      <img
+        src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+        alt="{{ section.settings.hero_title | strip_html | escape }}"
+        class="gv3-hero-bg-img"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- else -%}
+      <img
+        src="https://cdn.shopify.com/s/files/1/2556/8900/files/hero-image-compressed-resized.webp?v=1778353921"
+        alt="{{ section.settings.hero_title | strip_html | escape }}"
+        class="gv3-hero-bg-img"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+    <div class="gv3-hero-overlay"></div>
+    <div class="gv3-hero-inner">
+      <div class="gv3-hero-content gv3-fade-up">
+        <div class="gv3-hero-text">
+          {%- if section.settings.hero_eyebrow != blank -%}
+            <div class="gv3-hero-eyebrow">{{ section.settings.hero_eyebrow }}</div>
+          {%- endif -%}
+          {%- if section.settings.hero_title != blank -%}
+            <h1 class="gv3-hero-title">{{ section.settings.hero_title }}</h1>
+          {%- endif -%}
+          {%- if section.settings.hero_subtitle != blank -%}
+            <p class="gv3-hero-sub">{{ section.settings.hero_subtitle }}</p>
+          {%- endif -%}
+        </div>
+        <div class="gv3-hero-btns">
+          {%- if section.settings.hero_btn1_text != blank -%}
+            <a href="{{ section.settings.hero_btn1_link }}" class="gv3-btn-primary">
+              {{ section.settings.hero_btn1_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.hero_btn2_text != blank -%}
+            <a href="{{ section.settings.hero_btn2_link }}" class="gv3-btn-outline-light">
+              {{ section.settings.hero_btn2_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ========== 2. TRUST BAR / MARQUEE ========== {%- endcomment -%}
+  <div class="gv3-trust-bar">
+    <div class="gv3-marquee-track">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'trust_item' -%}
+          <div class="gv3-trust-item" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != blank -%}
+              <img src="{{ block.settings.icon | image_url: width: 40 }}" alt="" loading="lazy">
+            {%- elsif block.settings.icon_url != blank -%}
+              <img src="{{ block.settings.icon_url }}" alt="" width="40" height="40" loading="lazy">
+            {%- endif -%}
+            <span>{{ block.settings.text }}</span>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- comment -%} Duplicate for seamless loop {%- endcomment -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'trust_item' -%}
+          <div class="gv3-trust-item">
+            {%- if block.settings.icon != blank -%}
+              <img src="{{ block.settings.icon | image_url: width: 40 }}" alt="" loading="lazy">
+            {%- elsif block.settings.icon_url != blank -%}
+              <img src="{{ block.settings.icon_url }}" alt="" width="40" height="40" loading="lazy">
+            {%- endif -%}
+            <span>{{ block.settings.text }}</span>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} ========== 3. QUIZ ========== {%- endcomment -%}
+  <section class="gv3-quiz-section">
+    <div class="gv3-quiz-inner">
+      <div class="gv3-quiz-left gv3-fade-up">
+        <div class="gv3-quiz-text-group">
+          <div class="gv3-quiz-title-group">
+            {%- if section.settings.quiz_eyebrow != blank -%}
+              <div class="gv3-quiz-eyebrow">{{ section.settings.quiz_eyebrow }}</div>
+            {%- endif -%}
+            {%- if section.settings.quiz_title != blank -%}
+              <h2 class="gv3-quiz-title">{{ section.settings.quiz_title }}</h2>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.quiz_desc != blank -%}
+            <p class="gv3-quiz-desc">{{ section.settings.quiz_desc }}</p>
+          {%- endif -%}
+        </div>
+        <div class="gv3-quiz-chips">
+          {%- assign quiz_chip_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'quiz_chip' -%}
+              <button class="gv3-chip" data-quiz-index="{{ quiz_chip_index }}" {{ block.shopify_attributes }}>
+                {{ block.settings.chip_label }}
+              </button>
+              {%- assign quiz_chip_index = quiz_chip_index | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="gv3-quiz-right">
+        <div class="gv3-quiz-result-panel" id="gv3-quiz-result">
+          {%- assign quiz_result_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'quiz_chip' -%}
+              <div class="gv3-quiz-result-content" data-result-index="{{ quiz_result_index }}"{% unless quiz_result_index == 0 %} style="display:none;"{% endunless %}>
+                <div class="gv3-result-header">
+                  <div class="gv3-result-label">{{ block.settings.result_title }}</div>
+                </div>
+                <div class="gv3-result-images">
+                  {%- if block.settings.result_product_1 != blank -%}
+                    <a href="{{ block.settings.result_product_1.url }}" class="gv3-result-product-card">
+                      <img class="gv3-result-img" src="{{ block.settings.result_product_1.featured_image | image_url: width: 500 }}" alt="{{ block.settings.result_product_1.title | escape }}" loading="lazy">
+                      <button class="gv3-result-wishlist" aria-label="Add to wishlist"><svg viewBox="0 0 17 17"><path d="M8.5 14.5L2.1 8.3C0.6 6.8 0.6 4.3 2.1 2.8C3.6 1.3 6.1 1.3 7.6 2.8L8.5 3.7L9.4 2.8C10.9 1.3 13.4 1.3 14.9 2.8C16.4 4.3 16.4 6.8 14.9 8.3L8.5 14.5Z"/></svg></button>
+                      <div class="gv3-result-product-info">
+                        <span class="gv3-result-product-name">{{ block.settings.result_product_1.title }}</span>
+                        <span class="gv3-result-product-price">
+                          {%- if block.settings.result_product_1.price_varies -%}From {{ block.settings.result_product_1.price_min | money }}{%- else -%}{{ block.settings.result_product_1.price | money }}{%- endif -%}
+                        </span>
+                      </div>
+                    </a>
+                  {%- endif -%}
+                  {%- if block.settings.result_product_2 != blank -%}
+                    <a href="{{ block.settings.result_product_2.url }}" class="gv3-result-product-card">
+                      <img class="gv3-result-img" src="{{ block.settings.result_product_2.featured_image | image_url: width: 500 }}" alt="{{ block.settings.result_product_2.title | escape }}" loading="lazy">
+                      <button class="gv3-result-wishlist" aria-label="Add to wishlist"><svg viewBox="0 0 17 17"><path d="M8.5 14.5L2.1 8.3C0.6 6.8 0.6 4.3 2.1 2.8C3.6 1.3 6.1 1.3 7.6 2.8L8.5 3.7L9.4 2.8C10.9 1.3 13.4 1.3 14.9 2.8C16.4 4.3 16.4 6.8 14.9 8.3L8.5 14.5Z"/></svg></button>
+                      <div class="gv3-result-product-info">
+                        <span class="gv3-result-product-name">{{ block.settings.result_product_2.title }}</span>
+                        <span class="gv3-result-product-price">
+                          {%- if block.settings.result_product_2.price_varies -%}From {{ block.settings.result_product_2.price_min | money }}{%- else -%}{{ block.settings.result_product_2.price | money }}{%- endif -%}
+                        </span>
+                      </div>
+                    </a>
+                  {%- endif -%}
+                  {%- if block.settings.result_product_3 != blank -%}
+                    <a href="{{ block.settings.result_product_3.url }}" class="gv3-result-product-card">
+                      <img class="gv3-result-img" src="{{ block.settings.result_product_3.featured_image | image_url: width: 500 }}" alt="{{ block.settings.result_product_3.title | escape }}" loading="lazy">
+                      <button class="gv3-result-wishlist" aria-label="Add to wishlist"><svg viewBox="0 0 17 17"><path d="M8.5 14.5L2.1 8.3C0.6 6.8 0.6 4.3 2.1 2.8C3.6 1.3 6.1 1.3 7.6 2.8L8.5 3.7L9.4 2.8C10.9 1.3 13.4 1.3 14.9 2.8C16.4 4.3 16.4 6.8 14.9 8.3L8.5 14.5Z"/></svg></button>
+                      <div class="gv3-result-product-info">
+                        <span class="gv3-result-product-name">{{ block.settings.result_product_3.title }}</span>
+                        <span class="gv3-result-product-price">
+                          {%- if block.settings.result_product_3.price_varies -%}From {{ block.settings.result_product_3.price_min | money }}{%- else -%}{{ block.settings.result_product_3.price | money }}{%- endif -%}
+                        </span>
+                      </div>
+                    </a>
+                  {%- endif -%}
+                </div>
+                <a href="{{ block.settings.result_link }}" class="gv3-quiz-cta">{{ block.settings.result_btn_text | default: 'Shop All Gifts' }}</a>
+              </div>
+              {%- assign quiz_result_index = quiz_result_index | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ========== REVIEWS BAR ========== {%- endcomment -%}
+  <div class="gv3-reviews-bar">
+    <div class="gv3-reviews-bar-stars">
+      <svg viewBox="0 0 16 16"><polygon points="8,0 10.5,5.1 16,5.9 12,9.8 12.9,15.3 8,12.7 3.1,15.3 4,9.8 0,5.9 5.5,5.1"/></svg>
+      <svg viewBox="0 0 16 16"><polygon points="8,0 10.5,5.1 16,5.9 12,9.8 12.9,15.3 8,12.7 3.1,15.3 4,9.8 0,5.9 5.5,5.1"/></svg>
+      <svg viewBox="0 0 16 16"><polygon points="8,0 10.5,5.1 16,5.9 12,9.8 12.9,15.3 8,12.7 3.1,15.3 4,9.8 0,5.9 5.5,5.1"/></svg>
+      <svg viewBox="0 0 16 16"><polygon points="8,0 10.5,5.1 16,5.9 12,9.8 12.9,15.3 8,12.7 3.1,15.3 4,9.8 0,5.9 5.5,5.1"/></svg>
+      <svg viewBox="0 0 16 16"><polygon points="8,0 10.5,5.1 16,5.9 12,9.8 12.9,15.3 8,12.7 3.1,15.3 4,9.8 0,5.9 5.5,5.1"/></svg>
+    </div>
+    <span class="gv3-reviews-bar-text">{{ section.settings.reviews_bar_text | default: '25,000+ 5-STAR REVIEWS' }}</span>
+  </div>
+
+  {%- comment -%} ========== COLLECTIONS GRID ========== {%- endcomment -%}
+  <section class="gv3-collections-section gv3-fade-up">
+    {%- if section.settings.collections_title != blank -%}
+      <h2 class="gv3-collections-title">{{ section.settings.collections_title }}</h2>
+    {%- endif -%}
+    <div class="gv3-collections-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'collection_card' -%}
+          <a href="{{ block.settings.link | default: '#' }}" class="gv3-collection-card" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title | escape }}" class="gv3-collection-card-bg" loading="lazy">
+            {%- elsif block.settings.image_url != blank -%}
+              <img src="{{ block.settings.image_url | append: '&width=800' }}" alt="{{ block.settings.title | escape }}" class="gv3-collection-card-bg" loading="lazy">
+            {%- endif -%}
+            <div class="gv3-collection-card-overlay"></div>
+            <div class="gv3-collection-card-content">
+              <div class="gv3-collection-card-title">{{ block.settings.title }}</div>
+              <div class="gv3-collection-card-cta">{{ block.settings.cta_text | default: 'SHOP THE EDIT →' }}</div>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
+
+  {%- comment -%} ========== 4. SHOP BY BUDGET ========== {%- endcomment -%}
+  <section class="gv3-budget-wrapper">
+    <div class="gv3-budget-header gv3-fade-up">
+      <div class="gv3-budget-header-top">
+        {%- if section.settings.budget_eyebrow != blank -%}
+          <div class="gv3-budget-eyebrow">{{ section.settings.budget_eyebrow }}</div>
+        {%- endif -%}
+        {%- if section.settings.budget_title != blank -%}
+          <h2 class="gv3-budget-title">{{ section.settings.budget_title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.budget_desc != blank -%}
+        <p class="gv3-budget-subtitle">{{ section.settings.budget_desc }}</p>
+      {%- endif -%}
+    </div>
+    <div class="gv3-budget-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'price_card' -%}
+          <a href="{{ block.settings.link }}" class="gv3-budget-card" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 800 }}"
+                alt="{{ block.settings.price_range | escape }}"
+                class="gv3-budget-bg"
+                loading="lazy"
+              >
+            {%- else -%}
+              {%- assign price_label = block.settings.label | downcase -%}
+              {%- if price_label contains 'sweet' -%}
+                <img src="https://cdn.shopify.com/s/files/1/2556/8900/files/banner-under-75.webp?v=1778353505" alt="{{ block.settings.price_range | escape }}" class="gv3-budget-bg" loading="lazy">
+              {%- elsif price_label contains 'popular' -%}
+                <img src="https://cdn.shopify.com/s/files/1/2556/8900/files/banner-most-popular.webp?v=1778353510" alt="{{ block.settings.price_range | escape }}" class="gv3-budget-bg" loading="lazy">
+              {%- elsif price_label contains 'investment' -%}
+                <img src="https://cdn.shopify.com/s/files/1/2556/8900/files/banner-investment-pieces.webp?v=1778353518" alt="{{ block.settings.price_range | escape }}" class="gv3-budget-bg" loading="lazy">
+              {%- endif -%}
+            {%- endif -%}
+            <div class="gv3-budget-overlay"></div>
+            <div class="gv3-budget-content">
+              <div class="gv3-budget-text">
+                {%- if block.settings.label != blank -%}
+                  <div class="gv3-budget-label">{{ block.settings.label }}</div>
+                {%- endif -%}
+                <div class="gv3-budget-range">{{ block.settings.price_range }}</div>
+              </div>
+              <div class="gv3-budget-link">Explore <span>&rarr;</span></div>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+  </section>
+
+  {%- comment -%} ========== 5. MOST LOVED PRODUCTS ========== {%- endcomment -%}
+  <section class="gv3-products-wrapper">
+    <div class="gv3-products-header gv3-fade-up">
+      <div class="gv3-products-header-top">
+        {%- if section.settings.products_eyebrow != blank -%}
+          <div class="gv3-products-eyebrow">{{ section.settings.products_eyebrow }}</div>
+        {%- endif -%}
+        {%- if section.settings.products_title != blank -%}
+          <h2 class="gv3-products-title">{{ section.settings.products_title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.products_desc != blank -%}
+        <p class="gv3-products-subtitle">{{ section.settings.products_desc }}</p>
+      {%- endif -%}
+    </div>
+    <div class="gv3-product-shelf">
+      {%- assign product_collection = section.settings.products_collection -%}
+      {%- assign product_limit = section.settings.products_limit | default: 4 -%}
+      {%- if product_collection != blank -%}
+        {%- for product in collections[product_collection].products limit: product_limit -%}
+          <a href="{{ product.url }}" class="gv3-product-card">
+            <div class="gv3-product-img-wrap">
+              {%- if product.featured_image != blank -%}
+                <img
+                  src="{{ product.featured_image | image_url: width: 600 }}"
+                  alt="{{ product.title | escape }}"
+                  loading="lazy"
+                >
+              {%- endif -%}
+              {%- if product.metafields.custom.badge != blank -%}
+                <div class="gv3-product-badge">{{ product.metafields.custom.badge }}</div>
+              {%- elsif product.tags contains 'custom' -%}
+                <div class="gv3-product-badge gv3-badge-gold">Make Your Own</div>
+              {%- elsif product.tags contains 'Just Restocked"' or product.tags contains 'New Release' -%}
+                <div class="gv3-product-badge gv3-badge-green">New Release</div>
+              {%- elsif product.tags contains 'Category_Best Sellers' -%}
+                <div class="gv3-product-badge">Bestseller</div>
+              {%- else -%}
+                <div class="gv3-product-badge gv3-badge-green">Most Gifted</div>
+              {%- endif -%}
+              <svg class="gv3-product-heart" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="gv3-product-name">{{ product.title }}</div>
+              <div class="gv3-product-stars">
+                {%- assign rating_value = product.metafields.reviews.rating.value.rating | default: 0 | times: 1.0 -%}
+                {%- assign rating_count = product.metafields.reviews.rating_count.value | default: 0 -%}
+                {%- for i in (1..5) -%}
+                  {%- assign prev_star = i | minus: 1 -%}
+                  {%- if rating_value >= i -%}
+                    <svg class="gv3-star-filled"><use href="#gv3-star"/></svg>
+                  {%- elsif rating_value > prev_star -%}
+                    <svg class="gv3-star-filled"><use href="#gv3-star"/></svg>
+                  {%- else -%}
+                    <svg class="gv3-star-empty"><use href="#gv3-star"/></svg>
+                  {%- endif -%}
+                {%- endfor -%}
+                <span class="gv3-review-count">{{ rating_count }} Reviews</span>
+              </div>
+              <div class="gv3-product-price">
+                {%- if product.price_varies -%}
+                  From {{ product.price_min | money }}
+                {%- else -%}
+                  {{ product.price | money }}
+                {%- endif -%}
+              </div>
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <div class="gv3-product-card">
+              <div class="gv3-product-img-wrap" style="background:var(--gv3-light-gray);"></div>
+              <div class="gv3-product-name">Product Name</div>
+              <div class="gv3-product-stars">
+                {%- for s in (1..5) -%}
+                  <svg class="gv3-star-empty"><use href="#gv3-star"/></svg>
+                {%- endfor -%}
+                <span class="gv3-review-count">0 Reviews</span>
+              </div>
+              <div class="gv3-product-price">$0</div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+  </section>
+
+  {%- comment -%} ========== 6+7. UGC — REVIEWS + VIDEO (using theme native components) ========== {%- endcomment -%}
+</div>{%- comment -%} Close #gv3 so theme CSS applies to native review components {%- endcomment -%}
+
+<section class="reviews">
+  <div class="reviews__inner">
+    <div class="Container">
+      <div class="reviews__wrapper">
+        <div class="reviews__wrap">
+
+          <style>
+            .gv3-reviews-title,
+            .gv3-reviews-title p,
+            .gv3-reviews-title em {
+              font-family: 'Instrument Sans', sans-serif !important;
+              font-weight: 400 !important;
+              font-size: 24px !important;
+              line-height: 160% !important;
+              letter-spacing: .48px !important;
+              text-align: center !important;
+              text-transform: capitalize !important;
+              color: #1C1B1B !important;
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            .gv3-reviews-title em { font-style: italic !important; color: #9F755B !important; }
+
+            #shopify-section-{{ section.id }} .reviews__btn a {
+              display: inline-flex !important;
+              justify-content: center !important;
+              align-items: center !important;
+              padding: 16px 40px !important;
+              height: 48px !important;
+              background: #C8A983 !important;
+              border: none !important;
+              border-radius: 0 !important;
+              font-family: 'Instrument Sans', sans-serif !important;
+              font-weight: 500 !important;
+              font-size: 14px !important;
+              line-height: 17px !important;
+              letter-spacing: 0.1em !important;
+              text-transform: uppercase !important;
+              color: #1C1B1B !important;
+              text-decoration: none !important;
+              transition: background 0.25s !important;
+            }
+            #shopify-section-{{ section.id }} .reviews__btn a:hover {
+              background: #b8956f !important;
+            }
+          </style>
+          {%- if section.settings.reviews_headline != blank -%}
+            <h2 class="gv3-reviews-title">{{ section.settings.reviews_headline }}</h2>
+          {%- endif -%}
+
+          <div class="reviews__star">
+            <div>
+              <img class="reviews__star-img" src="{{ 'stars.png' | asset_url }}" alt="Star rating" loading="lazy">
+              {%- if section.settings.reviews_rating != blank -%}
+                <span>{{ section.settings.reviews_rating }}</span>
+              {%- endif -%}
+            </div>
+            {%- if section.settings.reviews_subtitle != blank -%}
+              <p class="reviews__subtitle">{{ section.settings.reviews_subtitle }}</p>
+            {%- endif -%}
+          </div>
+
+          <div class="reviews__items">
+            <div class="reviews__list">
+              {%- assign review_index = 0 -%}
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'review_card' -%}
+                  {%- assign pair_index = review_index | modulo: 2 -%}
+                  {%- if pair_index == 0 -%}
+                    <div class="reviews__item">
+                  {%- endif -%}
+
+                  <div class="reviews-card" {{ block.shopify_attributes }}>
+                    <div class="reviews-card__Header">
+                      {%- if block.settings.reviewer_image != blank -%}
+                        <img class="reviews-card__img" src="{{ block.settings.reviewer_image | image_url: width: 500 }}" alt="{{ block.settings.reviewer_name | escape }}" loading="lazy">
+                      {%- elsif block.settings.reviewer_image_url != blank -%}
+                        <img class="reviews-card__img" src="{{ block.settings.reviewer_image_url }}" alt="{{ block.settings.reviewer_name | escape }}" loading="lazy">
+                      {%- endif -%}
+                      <div class="reviews-card__Des">
+                        {%- if block.settings.review_heading != blank -%}
+                          <h4>{{ block.settings.review_heading }}</h4>
+                        {%- endif -%}
+                        {%- if block.settings.short_text != blank -%}
+                          <p data-fullhtml="{{ block.settings.full_text | escape }}" data-expanded="false">
+                            {{ block.settings.short_text }}
+                            {%- if block.settings.full_text != blank -%}
+                              <a href="#" class="reviews-card__readmore">Read more...</a>
+                            {%- endif -%}
+                          </p>
+                        {%- endif -%}
+                      </div>
+                    </div>
+
+                    <div class="reviews-card__Footer">
+                      <div class="reviews-card__buyer">
+                        {{ block.settings.reviewer_name }}
+                        <span>Verified Buyer</span>
+                        <img src="{{ 'verfied.png' | asset_url }}" alt="Verified badge" loading="lazy">
+                      </div>
+                      <div class="reviews-card__stars">
+                        <img src="{{ 'stars.png' | asset_url }}" alt="Star rating" loading="lazy">
+                      </div>
+                    </div>
+                  </div>
+
+                  {%- if pair_index == 1 or forloop.last -%}
+                    </div>
+                  {%- endif -%}
+                  {%- assign review_index = review_index | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+
+          {%- if section.settings.reviews_btn_text != blank -%}
+            <div class="reviews__btn">
+              <a href="{{ section.settings.reviews_btn_link | default: '/pages/reviews' }}">{{ section.settings.reviews_btn_text }}</a>
+            </div>
+          {%- endif -%}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="customar-video">
+  <div class="customar-video__inner">
+    <div class="container">
+      <div class="customar__video-title">
+        <h2 style="font-family:'Instrument Sans',sans-serif!important;font-weight:400!important;font-size:24px!important;line-height:160%!important;letter-spacing:0.48px!important;text-transform:capitalize!important;color:#1C1B1B!important;text-align:center;">Customer Videos</h2>
+      </div>
+
+      <div class="customar-video__wrapper">
+        <div class="customar__video-items">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'video_card' -%}
+              <div class="customar-video-card" {{ block.shopify_attributes }}>
+                <div class="customar-video-card__img">
+                  {%- if block.settings.video != blank -%}
+                    <video preload="metadata" playsinline>
+                      {%- assign vid_sources = block.settings.video.sources | where: "mime_type", "video/mp4" -%}
+                      {%- for source in vid_sources -%}
+                        <source src="{{ source.url }}#t=0.001" type="{{ source.mime_type }}">
+                      {%- endfor -%}
+                    </video>
+                  {%- elsif block.settings.video_url != blank -%}
+                    <video preload="metadata" playsinline>
+                      <source src="{{ block.settings.video_url }}#t=0.001" type="video/mp4">
+                    </video>
+                  {%- endif -%}
+                  <div class="customar-video-card__playbtn">
+                    <img src="{{ 'customar-video-btn.svg' | asset_url }}" alt="Play video">
+                  </div>
+                </div>
+
+                <div class="customar-video-card__content">
+                  <div class="customar-video-card__product-info">
+                    <div class="customar-video-card__reating">
+                      <img src="{{ 'customar-video-reating.svg' | asset_url }}" alt="Rating">
+                    </div>
+                    {%- if block.settings.quote != blank -%}
+                      <div class="customar-video-card__say">
+                        <p>"{{ block.settings.quote }}"</p>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="gv3">{%- comment -%} Reopen #gv3 for footer CTA {%- endcomment -%}
+  {%- comment -%} ========== 8. FOOTER CTA ========== {%- endcomment -%}
+  <section class="gv3-footer-cta gv3-fade-up">
+    <img
+      src="https://cdn.shopify.com/s/files/1/2556/8900/files/gift-bottom-img-resized.jpg?v=1778550916"
+      alt="Nominal jewelry flat lay"
+      class="gv3-cta-image"
+      loading="lazy"
+    >
+    <div class="gv3-cta-right">
+      {%- if section.settings.cta_title != blank -%}
+        <h2 class="gv3-cta-title">{{ section.settings.cta_title }}</h2>
+      {%- endif -%}
+      <div class="gv3-cta-btns">
+        {%- if section.settings.cta_btn1_text != blank -%}
+          <a href="{{ section.settings.cta_btn1_link }}" class="gv3-cta-btn-primary">
+            {{ section.settings.cta_btn1_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+</div>
+
+{%- comment -%} ——— JAVASCRIPT ——— {%- endcomment -%}
+<script>
+  (function() {
+    /* 1. Fade-up on scroll */
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('#gv3 .gv3-fade-up').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    /* 2. Quiz chip logic */
+    var chips = document.querySelectorAll('#gv3 .gv3-chip');
+    var resultPanel = document.getElementById('gv3-quiz-result');
+    var resultContents = document.querySelectorAll('#gv3 .gv3-quiz-result-content');
+
+    function selectChip(chip) {
+      chips.forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+
+      var index = chip.getAttribute('data-quiz-index');
+      resultContents.forEach(function(content) {
+        content.style.display = content.getAttribute('data-result-index') === index ? '' : 'none';
+      });
+
+      resultPanel.classList.add('visible');
+    }
+
+    chips.forEach(function(chip) {
+      chip.addEventListener('click', function() { selectChip(this); });
+    });
+
+    /* Auto-select first chip */
+    if (chips.length > 0) {
+      selectChip(chips[0]);
+    }
+
+    /* 3. Video play/pause — handled by theme native customar-video JS */
+
+    /* 4. Read more toggle (for native reviews) */
+    document.querySelectorAll('.reviews-card__readmore').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var pEl = this.closest('p');
+        var fullHtml = pEl.getAttribute('data-fullhtml');
+        if (fullHtml && pEl.getAttribute('data-expanded') === 'false') {
+          pEl.textContent = fullHtml;
+          pEl.setAttribute('data-expanded', 'true');
+        }
+      });
+    });
+  })();
+
+</script>
+
+{% schema %}
+{
+  "name": "Gift Guide V3",
+  "tag": "section",
+  "class": "gv3-section-wrapper",
+  "max_blocks": 50,
+  "settings": [
+    {
+      "type": "header",
+      "content": "--- HERO ---"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Hero Eyebrow",
+      "default": "The Nominal Gift Guide \u00b7 2025"
+    },
+    {
+      "type": "richtext",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "<p>Gifts That<br>Carry <em>Meaning</em></p>"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "For the women who carry their faith, heritage, and identity with quiet pride \u2014 jewelry that says more than words ever could."
+    },
+    {
+      "type": "text",
+      "id": "hero_btn1_text",
+      "label": "Hero Primary Button Text",
+      "default": "Explore the Guide"
+    },
+    {
+      "type": "url",
+      "id": "hero_btn1_link",
+      "label": "Hero Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "hero_btn2_text",
+      "label": "Hero Secondary Button Text",
+      "default": "Start the Quiz \u2192"
+    },
+    {
+      "type": "url",
+      "id": "hero_btn2_link",
+      "label": "Hero Secondary Button Link"
+    },
+    {
+      "type": "header",
+      "content": "--- QUIZ SECTION ---"
+    },
+    {
+      "type": "text",
+      "id": "quiz_eyebrow",
+      "label": "Quiz Eyebrow",
+      "default": "Find the Perfect Gift"
+    },
+    {
+      "type": "richtext",
+      "id": "quiz_title",
+      "label": "Quiz Title",
+      "default": "<p>Who Are You Shopping <em>For?</em></p>"
+    },
+    {
+      "type": "text",
+      "id": "quiz_desc",
+      "label": "Quiz Description",
+      "default": "Answer one question and we\u2019ll point you exactly where to go."
+    },
+    {
+      "type": "text",
+      "id": "quiz_result_label",
+      "label": "Quiz Result Label",
+      "default": "Your Recommendation"
+    },
+    {
+      "type": "header",
+      "content": "--- REVIEWS BAR ---"
+    },
+    {
+      "type": "text",
+      "id": "reviews_bar_text",
+      "label": "Reviews Bar Text",
+      "default": "25,000+ 5-STAR REVIEWS"
+    },
+    {
+      "type": "header",
+      "content": "--- COLLECTIONS ---"
+    },
+    {
+      "type": "text",
+      "id": "collections_title",
+      "label": "Collections Title",
+      "default": "Collections That Feel Like Home"
+    },
+    {
+      "type": "header",
+      "content": "--- SHOP BY BUDGET ---"
+    },
+    {
+      "type": "text",
+      "id": "budget_eyebrow",
+      "label": "Budget Eyebrow",
+      "default": "Shop By Budget"
+    },
+    {
+      "type": "richtext",
+      "id": "budget_title",
+      "label": "Budget Title",
+      "default": "<p>Every <em>Budget,</em> Perfectly Met</p>"
+    },
+    {
+      "type": "text",
+      "id": "budget_desc",
+      "label": "Budget Description",
+      "default": "From thoughtful everyday pieces to investment heirlooms \u2014 the right gift is here."
+    },
+    {
+      "type": "header",
+      "content": "--- BESTSELLERS ---"
+    },
+    {
+      "type": "text",
+      "id": "products_eyebrow",
+      "label": "Products Eyebrow",
+      "default": "What Everyone\u2019s Getting"
+    },
+    {
+      "type": "richtext",
+      "id": "products_title",
+      "label": "Products Title",
+      "default": "<p>Most <em>Loved,</em> Most Worn</p>"
+    },
+    {
+      "type": "text",
+      "id": "products_desc",
+      "label": "Products Description",
+      "default": "Our bestsellers aren\u2019t accidents. These are the pieces 400,000+ customers chose for the women they love most."
+    },
+    {
+      "type": "collection",
+      "id": "products_collection",
+      "label": "Products Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of Products",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "--- REVIEWS ---"
+    },
+    {
+      "type": "richtext",
+      "id": "reviews_headline",
+      "label": "Reviews Headline",
+      "default": "<p>Over <em>2 Million Pieces</em> Sold Across 150+ Countries</p>"
+    },
+    {
+      "type": "text",
+      "id": "reviews_rating",
+      "label": "Overall Rating",
+      "default": "4.7"
+    },
+    {
+      "type": "text",
+      "id": "reviews_subtitle",
+      "label": "Reviews Subtitle",
+      "default": "Across over 23,000 reviews"
+    },
+    {
+      "type": "text",
+      "id": "reviews_btn_text",
+      "label": "Reviews Button Text",
+      "default": "Read All Reviews"
+    },
+    {
+      "type": "url",
+      "id": "reviews_btn_link",
+      "label": "Reviews Button Link"
+    },
+    {
+      "type": "header",
+      "content": "--- FOOTER CTA ---"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_image",
+      "label": "CTA Decorative Image"
+    },
+    {
+      "type": "text",
+      "id": "cta_eyebrow",
+      "label": "CTA Eyebrow",
+      "default": "The Gift That Lasts"
+    },
+    {
+      "type": "richtext",
+      "id": "cta_title",
+      "label": "CTA Title",
+      "default": "<p>Start With <em>Her Name</em></p>"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_desc",
+      "label": "CTA Description",
+      "default": "Every Nominal order arrives gift-ready. Free wrapping, a personal note, and jewelry built to last a lifetime."
+    },
+    {
+      "type": "text",
+      "id": "cta_btn1_text",
+      "label": "CTA Primary Button Text",
+      "default": "Shop All Gifts"
+    },
+    {
+      "type": "url",
+      "id": "cta_btn1_link",
+      "label": "CTA Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_btn2_text",
+      "label": "CTA Secondary Button Text",
+      "default": "Build a Custom Name \u2192"
+    },
+    {
+      "type": "url",
+      "id": "cta_btn2_link",
+      "label": "CTA Secondary Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Bar Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        },
+        {
+          "type": "url",
+          "id": "icon_url",
+          "label": "Icon URL (fallback if no image picked)"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Lifetime Warranty"
+        }
+      ]
+    },
+    {
+      "type": "quiz_chip",
+      "name": "Quiz Option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "chip_label",
+          "label": "Button Label",
+          "default": "For My Mom"
+        },
+        {
+          "type": "text",
+          "id": "result_title",
+          "label": "Result Title",
+          "default": "The Mom Edit"
+        },
+        {
+          "type": "richtext",
+          "id": "result_desc",
+          "label": "Result Description",
+          "default": "<p>Ayatul Kursi Cuff, Custom Name Necklace, or the Henna Hand Chain. Pieces she\u2019ll wear every day.</p>"
+        },
+        {
+          "type": "product",
+          "id": "result_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "result_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "product",
+          "id": "result_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "result_image_1",
+          "label": "Product 1 Image Override"
+        },
+        {
+          "type": "image_picker",
+          "id": "result_image_2",
+          "label": "Product 2 Image Override"
+        },
+        {
+          "type": "image_picker",
+          "id": "result_image_3",
+          "label": "Product 3 Image Override"
+        },
+        {
+          "type": "text",
+          "id": "result_btn_text",
+          "label": "Result Button Text",
+          "default": "Shop For Mom"
+        },
+        {
+          "type": "url",
+          "id": "result_link",
+          "label": "Result Button Link"
+        }
+      ]
+    },
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Collection Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "image_url",
+          "label": "Background Image URL (fallback)",
+          "info": "Paste a CDN image URL if not uploading above"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card Link"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Text",
+          "default": "SHOP THE EDIT →"
+        }
+      ]
+    },
+    {
+      "type": "price_card",
+      "name": "Price Bracket Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "price_range",
+          "label": "Price Range",
+          "default": "Under $75"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Sweet Spot"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Meaningful pieces that feel far more generous than the price tag suggests."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card Link"
+        }
+      ]
+    },
+    {
+      "type": "review_card",
+      "name": "Review Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "reviewer_image",
+          "label": "Reviewer Photo"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_image_url",
+          "label": "Reviewer Photo URL (external)",
+          "info": "Paste a CDN image URL if not uploading above"
+        },
+        {
+          "type": "text",
+          "id": "review_heading",
+          "label": "Review Title",
+          "default": "Exceeded My Expectations"
+        },
+        {
+          "type": "text",
+          "id": "short_text",
+          "label": "Short Text (visible)",
+          "default": "I bought the Ayatul Kursi Bundle (Mom and I couldn\u2019t be happier with my purchase!",
+          "info": "First 2-3 lines shown by default"
+        },
+        {
+          "type": "textarea",
+          "id": "full_text",
+          "label": "Full Text",
+          "info": "Shown when Read More is clicked"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Daniela, Verified Buyer"
+        },
+        {
+          "type": "range",
+          "id": "star_rating",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    },
+    {
+      "type": "video_card",
+      "name": "Video Review Card",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Customer Video",
+          "info": "Upload a Shopify-hosted video"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL (external)",
+          "info": "Paste a CDN video URL if not using Shopify-hosted video above"
+        },
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Video Thumbnail",
+          "info": "Optional poster image. Falls back to video first frame."
+        },
+        {
+          "type": "text",
+          "id": "quote",
+          "label": "Quote Text",
+          "default": "Amazing Quality"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Hanan T."
+        },
+        {
+          "type": "range",
+          "id": "star_rating",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide V3"
+    }
+  ]
+}
+{% endschema %}

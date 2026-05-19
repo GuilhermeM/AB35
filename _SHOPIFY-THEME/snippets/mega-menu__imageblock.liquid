@@ -1,0 +1,18 @@
+<div class="MegaMenu__Image">
+  {%- if link != blank -%}
+  <a class="MegaMenu__Link" href="{{ link }}">
+    {%- endif -%}
+    {%- assign max_width = 370 | at_most: image.width -%}
+    <div class="MegaMenu__PushImageWrapper AspectRatio" style="background: url({{ image | img_url: '1x1', format: 'jpg' }}); max-width: {{ max_width }}px; --aspect-ratio: {{ image.aspect_ratio }}">
+      <img class="Image--lazyLoad Image--fadeIn"
+           data-src="{{ image | img_url: '370x230', scale: 2 }}"
+           alt="{{ image.alt | escape }}">
+      <span class="Image__Loader"></span>
+    </div>
+    {%- if heading != blank -%}
+    <p class="MegaMenu__PushHeading Heading u-h6"{% if heading_color != blank %} style="color:{{heading_color}};"{% endif %}>{{ heading | escape }}</p>
+    {%- endif -%}
+    {%- if link != blank -%}
+  </a>
+  {%- endif -%}
+</div>

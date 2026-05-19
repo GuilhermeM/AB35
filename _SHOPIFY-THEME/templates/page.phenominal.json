@@ -1,0 +1,97 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_html_dMqAgT": {
+      "type": "custom-html",
+      "custom_css": [
+        ".Section--spacingNormal {padding: 0 !important;}",
+        ".Container {padding: 0 !important;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "html": "<div id=\"phenominal-header\">\n<div class=\"logo-container\">\n<a href=\"/\"> <img src=\"https://cdn.shopify.com/s/files/1/2556/8900/files/Nominal-Full-Logo-RGB-White.png?v=1714073826\">\n</a>\n</div>\n</div>\n<style>\n@media (min-width: 1000px) {\nbody {}\n}\n#shopify-section-announcement,\n#shopify-section-header {\ndisplay: none!important;\n}\n#phenominal-header {\nmin-width: 100%;\nheight: 102px;\nbackground-color: #000;\ndisplay: flex;\njustify-content: center;\nalign-items: center;\n}\n.logo-container > a > img {\nmax-width: 200px;\nmargin-bottom: 0;\nmargin-top: 0;\n}\n@media (max-width: 1000px) {\n.logo-container > a > img {\nmax-width: 140px;\n}\n#phenominal-header {\nheight: 70px;\n}\n}\n</style>"
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "text_with_image_ViNjiw": {
+      "type": "text-with-image",
+      "custom_css": [
+        "h1 {font-size: 45px; max-width: 100% !important; line-height: 1.2 !important;}",
+        ".FeatureText__Content,.SectionHeader__Description {max-width: 100% !important;}",
+        ".Section--spacingNormal {padding: 20px 0 0 0 !important;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "image_position": "right",
+        "content": "<h1>#PheNominal Moms Contest</h1>",
+        "link_text": "",
+        "link_url": "",
+        "background_color": "#ffffff"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "custom_css": [
+        ".Container > div {margin-bottom: 0 !important;}",
+        ".Container > header {display: none !important;}"
+      ],
+      "settings": {
+        "show_large": true
+      }
+    },
+    "text_with_image_JKMGe7": {
+      "type": "text-with-image",
+      "custom_css": [
+        ".Section {padding: 0 !important;}",
+        ".SectionHeader__Description,.FeatureText__Content {max-width: 780px;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "image_position": "right",
+        "content": "<p>The PheNominal Moms contest is our attempt to repay the beautiful mothers all over the world. All you have to do is submit a 60 second video talking about the best mother you know, even if it’s yourself! Tell a story on why she deserves the spotlight and upload below & submit!</p><p>Submissions are due by May 4. We will be picking three winners by Mother’s Day and each winner will win gorgeous jewelry and a $1,500 prize that can be used on a little gift of love for mom like self-care, staycation, or a month’s worth of daycare fully paid for.</p><p>Good luck!</p>",
+        "link_text": "",
+        "link_url": "",
+        "background_color": "#ffffff"
+      }
+    },
+    "1655741152a445af3d": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "{border-top: 0 !important;}",
+        ".Section--spacingNormal {padding: 0 !important;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<script type=\"text/javascript\" src=\"https://form.jotform.com/jsform/241126737192052\"></script>"
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "custom_html_dMqAgT",
+    "shogun-helper",
+    "text_with_image_ViNjiw",
+    "main",
+    "text_with_image_JKMGe7",
+    "1655741152a445af3d",
+    "shogun-optimizer"
+  ]
+}

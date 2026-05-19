@@ -1,0 +1,22 @@
+{% if shop.metafields.okendo.settings.isWidgetPlusEnabled == true or shop.metafields.okendo.settings.isWidgetPlusAdminEnabled == true %}
+    {% assign renderWidgetPlusScript = true %}
+{% endif %}
+
+
+{% if product != blank %}
+    {% capture product_data_attribute %}data-oke-reviews-product-id="shopify-{{ product.id }}"{% endcapture %}
+{% endif %}
+{% if product.metafields.okendo.StarRatingSnippet %}
+{% if renderWidgetPlusScript == true %}
+    <div
+        data-oke-star-rating
+        {{ product_data_attribute }}
+    >
+        {{ product.metafields.okendo.StarRatingSnippet }}
+    </div>
+{% else %}
+    <div data-oke-reviews-product-listing-rating>
+        {{ product.metafields.okendo.ProductListingSnippet }}
+    </div>
+{% endif %}
+{% endif %}

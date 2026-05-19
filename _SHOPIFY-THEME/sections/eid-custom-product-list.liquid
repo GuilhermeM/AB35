@@ -1,0 +1,272 @@
+<link rel="stylesheet" href="{{ 'custom-product.css' | asset_url }}">
+
+{%- assign desktop_items_per_row = section.settings.grid_desktop_items_per_row | times: 1 -%}
+{%- assign mobile_items_per_row  = section.settings.grid_mobile_items_per_row | times: 1 -%}
+
+{%- if desktop_items_per_row == 4 -%}
+  {%- assign tablet_items_per_row = 3 -%}
+{%- else -%}
+  {%- assign tablet_items_per_row = 2 -%}
+{%- endif -%}
+
+
+<section class="Section Section--spacingNormal CustomProduct__Section {% if section.settings.show_wide_width == false %}CustomProduct__Container{% endif %}">
+  <header class="SectionHeader SectionHeader--center Border--{{section.settings.show_border}}">
+    <div class="Container">
+      {%- if section.settings.subtitle != blank -%}
+      <h3 class="SectionHeader__SubHeading Heading u-h6">{{ section.settings.subtitle }}</h3>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+      <h2 class="SectionHeader__Heading Heading u-h1">{{ section.settings.title }}</h2>
+      {%- endif -%}
+    </div>
+  </header>
+  <div class="Container">
+    <div class="CustomProduct__grid ProductList ProductList--grid Grid" data-mobile-count="{{ mobile_items_per_row }}" data-desktop-count="{{ desktop_items_per_row }}">
+      {%- for block in section.blocks -%}
+      {%- for i in (1..2) -%}
+      
+      {%- capture product %}product{{i}}{% endcapture -%}
+      {%- capture image %}image{{i}}{% endcapture -%}
+      {%- capture title %}title{{i}}{% endcapture -%}
+      {%- capture timetext %}timetext{{i}}{% endcapture -%}
+      {%- capture time %}time{{i}}{% endcapture -%}
+      {% assign selectedProduct = all_products[block.settings[product]] %}
+        {%- if block.settings[product] != blank and selectedProduct.featured_media != blank -%}
+      
+      	  <div class="CustomProduct__Wrapper Grid__Cell 1/{{ mobile_items_per_row }}--phone 1/{{ tablet_items_per_row }}--tablet-and-up 1/{{ desktop_items_per_row }}--desk">
+            <div class="CustomProduct">
+              {%- if selectedProduct.featured_media != blank -%}
+                <div class="CustomProduct__ImageWrapper">
+                  {%- capture supported_sizes -%}{%- render 'image-size', sizes: '400,600,700,800,900,1000,1200', image: selectedProduct.featured_media -%}{%- endcapture -%}
+                  {%- assign media_aspect_ratio = selectedProduct.featured_media.aspect_ratio | default: selectedProduct.featured_media.preview_image.aspect_ratio -%}
+                  
+                  <a href="{{ selectedProduct.url }}" class="">
+                  <div class="AspectRatio AspectRatio--{% if use_natural_size %}withFallback{% endif%}" style="max-width: {{ selectedProduct.preview_image.width }}px; --aspect-ratio: {{ media_aspect_ratio }}">
+                    {%- assign image_url = selectedProduct.featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+                    <img class="ProductItem__Image Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" 
+                         data-expand="-200" 
+                         data-widths="[{{ supported_sizes }}]" 
+                         data-sizes="auto" alt="{{ selectedProduct.featured_media.image.alt | escape }}">
+                     <span class="Image__Loader"></span>
+                    <noscript>
+                      <img src="{{ selectedProduct.featured_media | img_url: '800x' }}" alt="{{ selectedProduct.featured_media.alt | escape }}">
+                    </noscript>
+                   
+                  </div>
+                  </a>
+                </div>
+              {%- endif -%}
+              
+              <div class="CustomProduct__info"> 
+                <div class="CustomProduct_SectionHeader">
+                  <h2 class="CustomProductItem___Heading"><a href="{{ selectedProduct.url }}">{{ selectedProduct.title }}</a></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+      	{%- else -%}
+          <div class="CustomProduct__Wrapper Grid__Cell 1/{{ mobile_items_per_row }}--phone 1/{{ tablet_items_per_row }}--tablet-and-up 1/{{ desktop_items_per_row }}--desk">
+            <div class="CustomProduct">
+              {% assign selectedProduct = all_products[block.settings[product]] %}
+              
+              {%- if block.settings[image] != blank -%}
+                <div class="CustomProduct__ImageWrapper">
+                  {%- capture supported_sizes -%}{%- render 'image-size', sizes: '400,600,700,800,900,1000,1200', image: block.settings[image] -%}{%- endcapture -%}
+                  <a href="{{ selectedProduct.url }}">
+                  <div class="AspectRatio" style="max-width: {{ block.settings[image].width }}px; --aspect-ratio: {{ block.settings[image].aspect_ratio }}">
+                    {%- assign image_url = block.settings[image] | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+                    <img class="ProductItem__Image Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" 
+                         data-expand="-200" 
+                         data-widths="[{{ supported_sizes }}]" 
+                         data-sizes="auto" alt="{{ block.settings[image].alt | escape }}">
+                     <span class="Image__Loader"></span>
+                    <noscript>
+                      <img src="{{ block.settings[image] | img_url: '800x' }}" alt="{{ block.settings[image].alt | escape }}">
+                    </noscript>
+                  </div>
+                  </a>
+
+                  {%- if block.settings[time] != blank -%}
+                  <a href="{{selectedProduct.url}}" class="CustomProduct__Time">
+                    <div class="CustomProductTime__Detail">
+                      <h2>
+                        {{ block.settings[timetext] }}
+                        <span>{{ block.settings[time] }}</span>
+                      </h2>
+                    </div>
+                  </a>
+                  {%- endif -%}
+
+                </div>
+              {%- endif -%}
+              
+              {%- if block.settings[title] != blank -%}
+              <div class="CustomProduct__info"> 
+                <div class="CustomProduct_SectionHeader">
+                  <h2 class="CustomProductItem___Heading"><a href="{{ selectedProduct.url }}">{{ block.settings[title] }}</a></h2>
+                </div>
+              </div>
+
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- if section.settings.button_text != blank -%}
+    <div class="Container">
+      <div class="SectionFooter">
+        <a href="{{ section.settings.button_link }}" class="Button Button--secondary">{{ section.settings.button_text | escape }}</a>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+
+{% schema %}
+  {
+    "name": "Custom Product List",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "heading",
+        "default": "SHOP BY CATEGORY"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_border",
+        "label": "Show border",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Sub-heading"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text",
+        "default": "View products"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link",
+        "info": "If none is set, collection URL is used."
+      },
+  	  {
+        "type": "header",
+        "content": "Grid"
+      },
+      {
+        "type": "select",
+        "id": "grid_mobile_items_per_row",
+        "label": "Products per row (mobile)",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          }
+        ],
+        "default": "2"
+      },
+      {
+        "type": "range",
+        "min": 2,
+        "max": 4,
+        "id": "grid_desktop_items_per_row",
+        "label": "Products per row (desktop)",
+        "default": 4
+      }
+	],
+	"blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+		  {
+            "type": "header",
+            "content": "Product1"
+          },
+    	  {
+            "type": "product",
+            "id": "product1",
+            "label": "Product"
+          },
+          {
+            "type": "image_picker",
+            "id": "image1",
+            "label": "Image"
+          },
+		  {
+            "type": "text",
+            "id": "title1",
+            "label": "Heading"
+          },
+		  {		
+            "type": "text",
+            "id": "timetext1",
+            "label": "Prefix Text"
+          },
+          {
+            "type": "text",
+            "id": "time1",
+            "label": "Time"
+          },
+		  {
+            "type": "header",
+            "content": "Product2"
+          },
+    	  {
+            "type": "product",
+            "id": "product2",
+            "label": "Product"
+          },
+          {
+            "type": "image_picker",
+            "id": "image2",
+            "label": "Image"
+          },
+		  {
+            "type": "text",
+            "id": "title2",
+            "label": "Heading"
+          },
+		  {		
+            "type": "text",
+            "id": "timetext2",
+            "label": "Prefix Text"
+          },
+          {
+            "type": "text",
+            "id": "time2",
+            "label": "Time"
+          }
+        ]
+      }
+	],
+  	"presets": [
+      {
+        "category": "Text",
+        "name": "Eid Custom Product List"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

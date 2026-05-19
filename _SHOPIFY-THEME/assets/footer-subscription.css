@@ -1,0 +1,287 @@
+/* ==========================================================================
+   Footer Subscription — Phase 1
+   Figma spacing: footer padding 48px 0, container padding 0 64px, gap 140px
+   Logo column: 360px fixed, internal gap 24px
+   ========================================================================== */
+
+/* --- Footer overall spacing --- */
+@media screen and (min-width: 1024px) {
+  footer.Footer {
+    padding: 48px 0;
+  }
+
+  footer.Footer > .Container {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+
+  footer .Footer__Inner {
+    margin-left: 0;
+    margin-right: 0;
+    flex-wrap: nowrap;
+  }
+
+  /* Logo_text block: fixed left column with right margin as gap */
+  footer .Footer__Inner .Footer__Block--logo_text {
+    flex: 0 0 420px;
+    max-width: 420px;
+    margin-right: 100px;
+  }
+
+  /* Link columns share remaining space equally */
+  footer .Footer__Inner .Footer__Block--links {
+    flex: 1;
+  }
+}
+
+/* --- Logo column internal spacing (24px between elements) --- */
+.Footer__Block--logo_text .Footer_logo {
+  margin-bottom: 24px;
+}
+
+/* Contact info text: 13px/21px, 8px gap between lines */
+.Footer__Block--logo_text .Footer__Content.Rte {
+  margin-bottom: 24px;
+}
+
+.Footer__Block--logo_text .Footer__Content.Rte p {
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 13px;
+  line-height: 21px;
+  color: #1C1B1B;
+  margin: 0;
+  padding: 0;
+}
+
+.Footer__Block--logo_text .Footer__Content.Rte p + p {
+  margin-top: 8px;
+}
+
+.Footer__Block--logo_text .Footer__Content.Rte p:empty {
+  display: none;
+}
+
+.Footer__Block--logo_text .Footer__Content.Rte strong {
+  font-weight: 700;
+}
+
+.Footer__Block--logo_text .Footer__Content.Rte a {
+  font-weight: 400;
+  color: #1C1B1B;
+  text-decoration: none;
+}
+
+/* Social icons: align flush left with other content */
+.Footer__Block--logo_text .Footer__Social.HorizontalList {
+  margin-left: 0;
+}
+
+.Footer__Block--logo_text .Footer__Social .HorizontalList__Item:first-child {
+  margin-left: 0;
+}
+
+/* --- Newsletter section --- */
+.footer-sub {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.footer-sub__heading {
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 21px;
+  color: #1C1B1B;
+  margin: 0 0 8px;
+}
+
+/* --- Form: input + button in a row --- */
+.footer-sub__form {
+  display: flex;
+  max-width: 360px;
+}
+
+.footer-sub__input {
+  flex: 1;
+  height: 40px;
+  border: 1px solid #CCCCCC;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  padding: 8px 16px;
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  color: #1C1B1B;
+  background: transparent;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.footer-sub__input::placeholder {
+  color: #6A6A6A;
+}
+
+.footer-sub__input:focus {
+  border-color: #1C1B1B;
+}
+
+.footer-sub__btn {
+  width: 88px;
+  height: 40px;
+  background: #000000;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  padding: 0 12px;
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 21px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.footer-sub__btn:hover {
+  background: #333333;
+}
+
+/* --- Error message --- */
+.footer-sub__error {
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #E55B4A;
+  margin: 6px 0 0;
+}
+
+.footer-sub__error[hidden] {
+  display: none;
+}
+
+/* --- Privacy disclaimer --- */
+.footer-sub__disclaimer {
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #6A6A6A;
+  margin: 8px 0 0;
+  max-width: 360px;
+}
+
+.footer-sub__disclaimer a {
+  color: #6A6A6A;
+  text-decoration: underline;
+}
+
+.footer-sub__disclaimer a:hover {
+  color: #1C1B1B;
+}
+
+/* --- Success modal --- */
+.footer-sub__modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9998;
+}
+
+.footer-sub__modal-backdrop[hidden] {
+  display: none;
+}
+
+.footer-sub__modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 64px 24px;
+  gap: 24px;
+  width: 500px;
+  max-width: 90vw;
+  background: #FFFFFF;
+  z-index: 9999;
+  text-align: center;
+}
+
+.footer-sub__modal[hidden] {
+  display: none;
+}
+
+.footer-sub__modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F2F2F2;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 15px;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  color: #000000;
+  padding: 0;
+}
+
+.footer-sub__modal-close:hover {
+  opacity: 0.7;
+}
+
+.footer-sub__modal-title {
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 140%;
+  color: #000000;
+  margin: 0;
+}
+
+.footer-sub__modal-message {
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  color: #000000;
+  margin: 0;
+}
+
+/* --- Footer links: underline on hover --- */
+footer .Footer__Block--links .Linklist__Item a:hover {
+  text-decoration: underline;
+}
+
+footer .Footer__Block--logo_text .Footer__Content.Rte a:hover {
+  text-decoration: underline;
+}
+
+/* --- Footer aside: match footer background --- */
+footer .Footer__Aside {
+  background: #F1EFEA;
+}
+
+@media screen and (min-width: 1024px) {
+  #section-footer .Footer__Aside {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
+
+/* --- Responsive: mobile --- */
+@media screen and (max-width: 1023px) {
+  .footer-sub__form {
+    max-width: 100%;
+  }
+}

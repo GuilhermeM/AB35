@@ -1,0 +1,83 @@
+
+<section id="section-{{ section.id }}" class="Newsletter__Section">
+  <div class="Container">
+    <div class="Newsletter__Wrapper">
+      {%- if section.settings.image != blank -%}
+        <div class="Newsletter__ImageWrapper">
+          {%- capture supported_sizes -%}{%- render 'image-size', sizes: '400,600,700,800,900,1000,1200', image: section.settings.image -%}{%- endcapture -%}
+
+          <div class="AspectRatio" style="max-width: {{ section.settings.image.width }}px; --aspect-ratio: {{ section.settings.image.aspect_ratio }}">
+            {%- assign image_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            <img class="Image--lazyLoad Image--slide{{ section.settings.image_position | capitalize }}" data-src="{{ image_url }}" data-expand="-200" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ section.settings.image.alt | escape }}">
+
+            <noscript>
+              <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.image.alt | escape }}">
+            </noscript>
+          </div>
+        </div>
+      {%- endif -%}
+      <div class="Newsletter__Form">
+        {% if section.settings.content != blank %}
+          <div class="Newsletter__Content">
+            {{ section.settings.content }}
+          </div>
+        {% endif %}
+        <div class="klaviyo-form-Ypcfcc"></div>
+        {% comment %}
+          {%- form 'customer', id: 'footer-newsletter', class: 'Footer__Newsletter Form' -%}
+          {%- if form.posted_successfully? -%}
+          <p class="Form__Alert Alert Alert--success">{{ 'footer.newsletter.success' | t }}</p>
+          {%- else -%}
+          {%- if form.errors -%}
+          <p class="Form__Alert Alert Alert--error">{{ form.errors.messages['email'] }}</p>
+          {%- endif -%}
+
+          {%- endif -%}
+          {%- endform -%}
+        {% endcomment %}
+        {% if section.settings.content != blank %}
+        <div class="Newsletter__footer">
+          {{ section.settings.footertext }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+  "name": "Custom Newsletter",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "1500 x 800px .jpg recommended"
+    },
+	{
+      "type": "richtext",
+      "id": "content",
+      "label": "Text"
+    },
+	{
+      "type": "richtext",
+      "id": "footertext",
+      "label": "Footer Text"
+    }
+    
+  ],
+  "presets": [
+    {
+      "category": "Promotional",
+      "name": "Eid Custom Newsletter",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

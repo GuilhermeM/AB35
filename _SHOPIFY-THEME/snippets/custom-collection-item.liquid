@@ -1,0 +1,40 @@
+{%- assign collection_image = block.settings.image | default: collection.image | default: collection.products.first.featured_image -%}
+
+<a href="{{ block.settings.button_link | default: collection.url }}" {{ block.shopify_attributes }} class="CollectionItem custom_collectionItem {% if section.settings.expand_collection %}CollectionItem--expand{% endif %} Carousel__Cell {% if index_loop_first %}is-selected{% endif %}" data-slide-index="{{ index_loop }}">
+  {%- capture mobile_size -%}750x{% if collection_image.height >= 960 %}960{% else %}{{ collection_image.height }}{% endif %}{%- endcapture -%}
+  {%- assign image_crop = block.settings.image_alignment | split: ' ' | last -%}
+  <div class="Custom_CollectionItem__Wrapper Custom_CollectionItem__Wrapper--{{ section.settings.image_size }}">
+    <div class="CollectionItem__ImageWrapper">
+      <div class="CollectionItem__Image {% if apply_overlay %}Image--contrast{% endif %} Image--lazyLoad Image--zoomOut hide-no-js"
+           style="background-position: {{ block.settings.image_alignment }}"
+           data-optimumx="1.4"
+           data-expand="1000"
+           {% if collection_image %}data-bgset="{{ collection_image | img_url: mobile_size, crop: image_crop }} 750w, {{ collection_image | img_url: '1000x' }} 1000w, {{ collection_image | img_url: '1500x' }} 1500w"{% endif %}>
+        {%- if collection_image == nil -%}
+          <div class="PlaceholderBackground PlaceholderSvg--dark">
+            {%- capture image_name -%}lifestyle-{% cycle 'anchor': '1', '2' %}{%- endcapture -%}
+            {{ image_name | placeholder_svg_tag: 'PlaceholderBackground__Svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if collection_image -%}
+        <noscript>
+          <div class="CollectionItem__Image {% if apply_overlay %}Image--contrast{% endif %}" style="background-position: {{ block.settings.image_alignment }}; background-image: url({{ collection_image | img_url: '1000x' }})"></div>
+        </noscript>
+      {%- endif -%}
+    </div>
+    <div class="CollectionItem__Content">
+      <div class="CollectionItem_SectionHeader">
+        {%- if block.settings.subheading != blank -%}
+        <h3 class="CollectionItem__SubHeading Heading u-h6">{{ block.settings.subheading | escape }}</h3>
+        {%- endif -%}
+        <h2 class="CollectionItem___Heading SectionHeader__Heading--emphasize Heading u-h1">{{ block.settings.title | default: collection.title | escape }}</h2>
+        {%- if block.settings.button_text != blank -%}
+        <div class="SectionHeader__ButtonWrapper">
+          <span class="CollectionItem__Link Button">{{ block.settings.button_text | escape }}</span>
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</a>

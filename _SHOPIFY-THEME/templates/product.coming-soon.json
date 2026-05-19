@@ -1,0 +1,193 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "product_meta": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": false,
+            "show_sku": false,
+            "show_product_rating": true,
+            "show_taxes_included": false
+          }
+        },
+        "variant_selector": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "show_color_swatch": true,
+            "show_color_carousel": true,
+            "size_chart": ""
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
+            "show_label": false
+          }
+        },
+        "smile_io_smile_points_on_product_page_tNXUNd": {
+          "type": "shopify://apps/smile-io/blocks/smile-points-on-product-page/2fae4e25-1841-4ea2-bc02-bd548478c4f6",
+          "settings": {
+            "primary_colour": "#121212",
+            "secondary_colour": "#f8f8f8",
+            "preview_scenario": "log_in_required_to_earn_points",
+            "should_show_icon": true,
+            "should_show_points_label": true,
+            "points_text_logged_in": "<p>Earn [points_amount] when you buy this item.</p>",
+            "points_text_logged_out": "<p>Members earn [points_amount] when they buy this item. <a href=\"/account/register/\">Sign up</a> or <a href=\"/account/login/\">log in</a>.</p>"
+          }
+        },
+        "68e0dcec-5de4-434a-b498-d79b53289f2f": {
+          "type": "inventory",
+          "settings": {
+            "inventory_quantity_threshold": 5
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_price_in_button": false,
+            "show_payment_button": false,
+            "show_ship_notification": true,
+            "ship_notification_text": "In Stock - Ships in 1 Business Day",
+            "custom_ship_notification_text": "Hand-Made - Ships in 5-9 Days"
+          }
+        },
+        "liquid_QEJ9zK": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<div class=\"nominal-bf-countdown\" data-sale-end=\"2025-12-23T04:59:00Z\">\n  <div class=\"nominal-bf-countdown__label-row\">\n    <span class=\"nominal-bf-countdown__dot\"></span>\n    <span class=\"nominal-bf-countdown__label\">\n      Free U.S. Express Shipping Above $150 for on-time gifts\n    </span>\n  </div>\n\n  <div class=\"nominal-bf-countdown__timer\">\n    <div class=\"nominal-bf-countdown__unit\">\n      <span class=\"nominal-bf-countdown__value\" data-unit=\"days\">00</span>\n      <span class=\"nominal-bf-countdown__text\">Days</span>\n    </div>\n    <div class=\"nominal-bf-countdown__separator\">:</div>\n    <div class=\"nominal-bf-countdown__unit\">\n      <span class=\"nominal-bf-countdown__value\" data-unit=\"hours\">00</span>\n      <span class=\"nominal-bf-countdown__text\">Hours</span>\n    </div>\n    <div class=\"nominal-bf-countdown__separator\">:</div>\n    <div class=\"nominal-bf-countdown__unit\">\n      <span class=\"nominal-bf-countdown__value\" data-unit=\"minutes\">00</span>\n      <span class=\"nominal-bf-countdown__text\">Mins</span>\n    </div>\n    <div class=\"nominal-bf-countdown__separator\">:</div>\n    <div class=\"nominal-bf-countdown__unit\">\n      <span class=\"nominal-bf-countdown__value\" data-unit=\"seconds\">00</span>\n      <span class=\"nominal-bf-countdown__text\">Secs</span>\n    </div>\n  </div>\n</div>\n\n<style>\n  .nominal-bf-countdown {\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, \"SF Pro Text\",\n      \"Helvetica Neue\", Arial, sans-serif;\n    border-radius: 14px;\n    border: 1px solid #e5ddce;\n    padding: 14px 20px;\n    display: inline-flex;\n    flex-direction: column;\n    gap: 8px;\n    align-items: center;\n    justify-content: center;\n    background: #faf7f2;\n    box-shadow: 0 8px 24px rgba(0,0,0,0.04);\n    animation: fadeUp 400ms ease-out;\n  }\n\n  .nominal-bf-countdown__label-row {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    text-align: center;\n  }\n\n  .nominal-bf-countdown__dot {\n    width: 7px;\n    height: 7px;\n    border-radius: 50%;\n    background: #c99b4a;\n    box-shadow: 0 0 0 0 rgba(201,155,74,0.6);\n    animation: dotPulse 1.6s ease-out infinite;\n    flex-shrink: 0;\n  }\n\n  .nominal-bf-countdown__label {\n    font-size: 12px;\n    font-weight: 600;\n    letter-spacing: 0.16em;\n    text-transform: uppercase;\n    color: #3e3a34;\n    line-height: 1.35;\n  }\n\n  .nominal-bf-countdown__timer {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    font-variant-numeric: tabular-nums;\n  }\n\n  .nominal-bf-countdown__value {\n    font-size: 20px;\n    font-weight: 700;\n    color: #b68c42;\n    transition: transform 150ms ease-out;\n  }\n\n  .nominal-bf-countdown__text {\n    font-size: 10px;\n    letter-spacing: .18em;\n    text-transform: uppercase;\n    color: #8d8579;\n    margin-top: 2px;\n  }\n\n  .nominal-bf-countdown__separator {\n    font-size: 17px;\n    font-weight: 600;\n    color: #b8afa1;\n    margin-bottom: 10px;\n  }\n\n  .nominal-bf-countdown__value--tick {\n    transform: translateY(-2px);\n  }\n\n  @keyframes dotPulse {\n    0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(201,155,74,.6); }\n    65%  { transform: scale(1.14); box-shadow: 0 0 0 10px rgba(201,155,74,0); }\n    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201,155,74,0); }\n  }\n\n  @keyframes fadeUp {\n    from { opacity: 0; transform: translateY(5px); }\n    to   { opacity: 1; transform: translateY(0); }\n  }\n\n  @media (max-width: 600px) {\n    .nominal-bf-countdown__label {\n      font-size: 11px;\n      letter-spacing: 0.14em;\n    }\n  }\n</style>\n\n<script>\n(function() {\n  var container = document.querySelector(\".nominal-bf-countdown\");\n  if (!container) return;\n\n  // Dec 22, 2025 11:59 PM EST → Dec 23, 2025 04:59 UTC\n  var saleEnd = new Date(\"2025-12-23T04:59:00Z\");\n\n  var units = {\n    days: container.querySelector('[data-unit=\"days\"]'),\n    hours: container.querySelector('[data-unit=\"hours\"]'),\n    minutes: container.querySelector('[data-unit=\"minutes\"]'),\n    seconds: container.querySelector('[data-unit=\"seconds\"]')\n  };\n\n  function pad(n) { return n < 10 ? \"0\" + n : n; }\n\n  function animate(el) {\n    el.classList.remove(\"nominal-bf-countdown__value--tick\");\n    void el.offsetWidth;\n    el.classList.add(\"nominal-bf-countdown__value--tick\");\n  }\n\n  function update() {\n    var now = new Date();\n    var diff = saleEnd - now;\n\n    if (diff <= 0) {\n      container.style.display = \"none\";\n      clearInterval(intervalId);\n      return;\n    }\n\n    var t = Math.floor(diff / 1000);\n    var d = Math.floor(t / 86400);\n    var h = Math.floor((t % 86400) / 3600);\n    var m = Math.floor((t % 3600) / 60);\n    var s = t % 60;\n\n    var map = { days: d, hours: h, minutes: m, seconds: s };\n\n    for (var key in map) {\n      var el = units[key];\n      var val = pad(map[key]);\n      if (el && el.textContent !== val) {\n        el.textContent = val;\n        animate(el);\n      }\n    }\n  }\n\n  update();\n  var intervalId = setInterval(update, 1000);\n})();\n</script>"
+          }
+        },
+        "86f08e54-1ad7-4f6b-94e0-11d01cecd09b": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "<div id=\"donation-message\" style=\"\n    font-family: 'Poppins', sans-serif; \n    font-weight: 500; \n    color: #1a1a1a; \n    padding: 12px 16px; \n    border-radius: 8px; \n    border-top: 2px solid #E63946; /* Subtle red accent */\n    border-bottom: 2px solid #2A9D8F; /* Subtle green accent */\n    background: linear-gradient(45deg, rgba(230, 57, 70, 0.05), rgba(42, 157, 143, 0.05)); /* Light gradient */\n    max-width: 100%; \n    box-sizing: border-box; \n    text-align: center;\n    margin-top: 10px;\n    position: relative;\n    overflow: hidden;\n\">\n\n  <!-- Moving Gradient Background -->\n  <div style=\"\n      position: absolute; \n      top: 0; \n      left: 0; \n      right: 0; \n      bottom: 0; \n      background: linear-gradient(45deg, rgba(230, 57, 70, 0.05), rgba(42, 157, 143, 0.05), rgba(60, 179, 113, 0.05));\n      animation: gradientMove 15s infinite linear;\n      z-index: 0;\n  \"></div>\n\n  <!-- Shimmer Effect on Text -->\n  <h1 style=\"\n      color: #1a1a1a; \n      font-size: 14px; \n      position: relative; \n      z-index: 1;\n      background: linear-gradient(90deg, #1a1a1a, #2A9D8F, #E63946, #1a1a1a);\n      background-size: 200%;\n      -webkit-background-clip: text;\n      -webkit-text-fill-color: transparent;\n      animation: textShimmer 6s infinite;\n      display: inline-block;\n  \">\n    <span class=\"glowing-flag\">🇵🇸</span> Your order donates to Palestine. <span class=\"glowing-flag\">🇵🇸</span>\n  </h1>\n</div>\n\n<style>\n  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');\n\n  /* Gradient Background Animation */\n  @keyframes gradientMove {\n    0% { background-position: 0% 50%; }\n    100% { background-position: 100% 50%; }\n  }\n\n  /* Text Shimmer Animation */\n  @keyframes textShimmer {\n    0% { background-position: 0% 50%; }\n    100% { background-position: 200% 50%; }\n  }\n\n  /* Glowing Flag Animation */\n  @keyframes flagGlow {\n    0%, 100% { \n      filter: drop-shadow(0 0 1px rgba(230, 57, 70, 0.5)); \n      transform: scale(1);\n    }\n    50% { \n      filter: drop-shadow(0 0 5px rgba(230, 57, 70, 0.8)); \n      transform: scale(1.05); \n    }\n  }\n\n  .glowing-flag {\n    animation: flagGlow 5s infinite;\n    display: inline-block;\n    margin: 0 3px;\n  }\n\n  @media (max-width: 480px) {\n    #donation-message h1 {\n      font-size: 13px;\n    }\n    #donation-message {\n      padding: 10px 12px;\n    }\n  }\n</style>"
+          }
+        },
+        "donation_blcok_PUfCWq": {
+          "type": "donation_blcok",
+          "settings": {
+            "main_image": "shopify://shop_images/HotMeals.png",
+            "donation_img_1": "shopify://shop_images/HotMeals.png",
+            "donation_img_2": "shopify://shop_images/hotMeals2.png",
+            "donation_img_3": "shopify://shop_images/hotMeals3.png",
+            "donation_img_4": "shopify://shop_images/hotMeals4.png",
+            "donation_banner_text": "<h2>Every Order Donates A<br/>Meal To Palestine.</h2><p>With each purchase made through Nominal, we provide a meal. Thank you for being part of this impact.</p><p><a>Learn how it works</a></p>",
+            "donation_modal_text": "<h2>Every order donates a meal to Palestine</h2><p>Since October 2023, we've committed to serving a freshly made meal in Palestine with every single order placed. To date, over <strong>400,000 meals</strong> have been donated, all thanks to you. This is made possible by the brave and selfless Pious Projects team who is on the ground in Gaza City as we speak, making meals amidst the genocide happening in Palestine. Thank you, Nominal Family, for being a part of something bigger.</p>"
+          }
+        },
+        "11685449-d180-41fd-890a-4c715e6febe0": {
+          "type": "key_features",
+          "settings": {
+            "enable_key_features": true
+          }
+        },
+        "share_buttons": {
+          "type": "share_buttons",
+          "disabled": true,
+          "settings": {}
+        },
+        "description_GyyF9m": {
+          "type": "description",
+          "settings": {}
+        },
+        "smile_io_smile_points_on_product_page_h8pXax": {
+          "type": "shopify://apps/smile-io/blocks/smile-points-on-product-page/2fae4e25-1841-4ea2-bc02-bd548478c4f6",
+          "settings": {
+            "primary_colour": "#121212",
+            "secondary_colour": "#f8f8f8",
+            "preview_scenario": "customer_can_earn_points",
+            "should_show_icon": true,
+            "should_show_points_label": true,
+            "points_text_logged_in": "<p>Earn [points_amount] when you buy this item.</p>",
+            "points_text_logged_out": "<p>Members earn [points_amount] when they buy this item. <a href=\"/account/register/\">Sign up</a> or <a href=\"/account/login/\">log in</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "product_meta",
+        "variant_selector",
+        "quantity_selector",
+        "smile_io_smile_points_on_product_page_tNXUNd",
+        "68e0dcec-5de4-434a-b498-d79b53289f2f",
+        "buy_buttons",
+        "liquid_QEJ9zK",
+        "86f08e54-1ad7-4f6b-94e0-11d01cecd09b",
+        "donation_blcok_PUfCWq",
+        "11685449-d180-41fd-890a-4c715e6febe0",
+        "share_buttons",
+        "description_GyyF9m",
+        "smile_io_smile_points_on_product_page_h8pXax"
+      ],
+      "settings": {
+        "image_size": "large",
+        "stack_images": true,
+        "show_thumbnails": true,
+        "enable_image_zoom": true,
+        "enable_video_looping": false
+      }
+    },
+    "design_pack_faq_simple_JzitAN": {
+      "type": "design_pack_-_faq_-_simple",
+      "settings": {
+        "show_answers": false,
+        "text_size": 80,
+        "alignment": "left",
+        "heading_color": "#121212",
+        "text_color": "#121212",
+        "background_color": "linear-gradient(184deg, rgba(255, 255, 255, 1) 7%, rgba(255, 255, 255, 1) 94%)",
+        "border_color": "#121212",
+        "base_width": 90,
+        "max_width": "",
+        "inner_padding": 0,
+        "outer_margin": 5,
+        "custom_css": "",
+        "mobile_custom_css": "",
+        "override_theme_font": false,
+        "heading_font": "serif",
+        "main_font": "system_ui_n4"
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "show_wide_width": false,
+        "heading": "You may also like",
+        "show_border": true,
+        "show_product_info": true,
+        "show_vendor": false,
+        "show_color_swatch": false
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "show_wide_width": false,
+        "title": "Recently viewed",
+        "show_border": true,
+        "show_product_info": true,
+        "show_vendor": false,
+        "show_color_swatch": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "design_pack_faq_simple_JzitAN",
+    "product-recommendations",
+    "recently-viewed-products"
+  ]
+}

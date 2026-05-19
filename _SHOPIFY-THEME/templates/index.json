@@ -1,0 +1,1140 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_top_NkQwRk": {
+      "type": "header-top",
+      "name": "Header top",
+      "settings": {
+        "icon_image": "shopify://shop_images/donation-icon.png",
+        "content_text": "<p>Every order donates a meal to Palestine.<br/>Over<em> $1.2 Million</em> donated so far</p>",
+        "content_text_desk": "<p>Every order donates a meal to Palestine | Over<em> $1.2 Million</em> donated so far</p>"
+      }
+    },
+    "hero_NwqCzM": {
+      "type": "hero",
+      "disabled": true,
+      "name": "Hero",
+      "settings": {
+        "desk_image": "shopify://shop_images/Desktop_Banner_Shots_1_77f166f7-a27a-4b9e-98da-9274896451a8.png",
+        "mobile_image": "shopify://shop_images/Mobile_App_Banner_Shots_3.png",
+        "heading_text": "<h2>The Ramadan Sale <br/>Up to 60% Off | Live Now</h2>",
+        "btn_text": "Shop The Sale",
+        "btn_url": "shopify://collections/women"
+      }
+    },
+    "e4602a94-8e9f-42d9-96ad-dd7640f3321b": {
+      "type": "gift-slideshow",
+      "blocks": {
+        "image_Ap8E8g": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Desktop_Banner_Shots_af8f75e1-41ab-4dbd-a949-648f3028e3f8.png",
+            "mobile_image": "shopify://shop_images/Eid_Al_Adha_Digital-5239.jpg",
+            "apply_overlay": false,
+            "content_position": "middleRight",
+            "subheading": "",
+            "title": "Eid Sale Now Live <span> 30-65% Off</span>",
+            "info": "",
+            "mobile_info": false,
+            "info_font_style": "none",
+            "info_font_style_mobile": "none",
+            "heading_align": "center",
+            "title_font_size": 30,
+            "mobile_title_font_size": 28,
+            "sub_title_font_size": 20,
+            "mobile_sub_title_font_size": 16,
+            "text_font_size": 16,
+            "mobile_text_font_size": 14,
+            "button_1_text": "Shop now",
+            "button_1_m_text": "Shop Now",
+            "button_1_link": "shopify://collections/eid-al-adha-2026",
+            "button_2_text": "",
+            "button_2_m_text": "",
+            "button_2_link": "",
+            "btn_border_radius": 0,
+            "heading_font": "default",
+            "sub_title_color": "#ffffff",
+            "title_color": "#1c1b1b",
+            "title_color_mobile": "#ffffff",
+            "info_color": "#ffffff",
+            "button_color": "#ffffff",
+            "button_hover_color": "#1c1b1b",
+            "button_background": "#000000",
+            "button_hover_bg": "#ffffff"
+          }
+        },
+        "7451857b-1c9e-463f-9c85-31bec5c682a3": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Desktop_Banner_Shots_13_d485821c-c4ac-4094-8c51-5abfab209878.png",
+            "mobile_image": "shopify://shop_images/Mobile_App_Banner_Shots_23.png",
+            "apply_overlay": false,
+            "content_position": "middleRight",
+            "subheading": "",
+            "title": "The Ramadan SaleEnds this Sunday",
+            "info": "<p>Up to 60% off ends this Sunday.<br/>No restocks. No code needed.<br/>Shop before it ends.</p>",
+            "mobile_info": false,
+            "info_font_style": "none",
+            "info_font_style_mobile": "none",
+            "heading_align": "center",
+            "title_font_size": 25,
+            "mobile_title_font_size": 25,
+            "sub_title_font_size": 21,
+            "mobile_sub_title_font_size": 14,
+            "text_font_size": 14,
+            "mobile_text_font_size": 15,
+            "button_1_text": "Shop Now",
+            "button_1_m_text": "Shop Now",
+            "button_1_link": "shopify://collections/women",
+            "button_2_text": "",
+            "button_2_m_text": "",
+            "button_2_link": "",
+            "btn_border_radius": 21,
+            "heading_font": "aktiv",
+            "sub_title_color": "#1c1b1b",
+            "title_color": "#1c1b1b",
+            "title_color_mobile": "#ffffff",
+            "info_color": "#1c1b1b",
+            "button_color": "#1c1b1b",
+            "button_hover_color": "#000000",
+            "button_background": "#c8a983",
+            "button_hover_bg": "#363636"
+          }
+        }
+      },
+      "block_order": [
+        "image_Ap8E8g",
+        "7451857b-1c9e-463f-9c85-31bec5c682a3"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 1000px) {.SectionHeader__Heading, .SectionHeader__SubHeading {color: #000000; }}"
+      ],
+      "settings": {
+        "show_fullscreen": false,
+        "show_arrow": false,
+        "autoplay": true,
+        "cycle_speed": 6,
+        "heading_font": "",
+        "sub_heading_font": "",
+        "text_font": ""
+      }
+    },
+    "icon_with_text_bEdNnx": {
+      "type": "icon-with-text",
+      "blocks": {
+        "item_dwfJPc": {
+          "type": "item",
+          "settings": {
+            "icon_image": "shopify://shop_images/product-benefits-img-1.webp",
+            "title_text": "<p>WATERPROOF + LIFETIME WARRANTY</p>",
+            "btn_url": "shopify://pages/nominal-lifetime-warranty"
+          }
+        },
+        "item_T9J3cP": {
+          "type": "item",
+          "settings": {
+            "icon_image": "shopify://shop_images/product-benefits-img-2.webp",
+            "title_text": "<p>100-DAY MONEYBACK GUARANTEE</p>",
+            "btn_url": ""
+          }
+        },
+        "item_TigWkU": {
+          "type": "item",
+          "settings": {
+            "icon_image": "shopify://shop_images/product-benefits-img-3.webp",
+            "title_text": "<p>EVERY ORDER DONATES TO PALESTINE</p>",
+            "btn_url": ""
+          }
+        },
+        "item_GUq6BH": {
+          "type": "item",
+          "settings": {
+            "icon_image": "shopify://shop_images/product-benefits-img-4.avif",
+            "title_text": "<p>FREE RETURNS FOR THE U.S. & CA</p>",
+            "btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_dwfJPc",
+        "item_T9J3cP",
+        "item_TigWkU",
+        "item_GUq6BH"
+      ],
+      "name": "Icon with text",
+      "settings": {}
+    },
+    "16449952987af5b48b": {
+      "type": "static-icons-small",
+      "blocks": {
+        "a0f70c2d-e1cf-4031-8454-a75472ca09f1": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/2_fc32709c-ba03-4042-b68f-4d811d07481e.png",
+            "title": "<p><strong>WATERPROOF + LIFETIME WARRANTY</strong></p>",
+            "text": "",
+            "link": "shopify://pages/nominal-lifetime-warranty"
+          }
+        },
+        "e9a13163-ee98-490b-bb75-f6e3ba248308": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/4_78600e0d-02b3-4bba-bc78-e8555bd07e5c.png",
+            "title": "<p><strong>20,000+ REVIEWS</strong></p>",
+            "text": "",
+            "link": "shopify://pages/reviews"
+          }
+        },
+        "42a495d4-e093-450e-8ee1-24fa741b71f1": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/Untitled_design_21.png",
+            "title": "<p><strong>100-DAY MONEYBACK GUARANTEE</strong></p>",
+            "text": "",
+            "link": ""
+          }
+        },
+        "9dc0da52-b800-4760-ad50-4944d0ce9271": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/Untitled_design_76_5b7671d0-0f8d-4018-a596-47aa72db6455.png",
+            "title": "<p><strong>$1M + DONATED</strong></p>",
+            "text": "",
+            "link": ""
+          }
+        },
+        "text_XjUg6U": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/ico1.webp",
+            "title": "<p><strong>EVERY ORDER DONATES TO PALESTINE</strong></p>",
+            "text": "",
+            "link": ""
+          }
+        },
+        "text_3Bgn3p": {
+          "type": "text",
+          "settings": {
+            "icon": "shopify://shop_images/ico2.avif",
+            "title": "<p><strong>FREE RETURNS FOR US & CA</strong></p>",
+            "text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "a0f70c2d-e1cf-4031-8454-a75472ca09f1",
+        "e9a13163-ee98-490b-bb75-f6e3ba248308",
+        "42a495d4-e093-450e-8ee1-24fa741b71f1",
+        "9dc0da52-b800-4760-ad50-4944d0ce9271",
+        "text_XjUg6U",
+        "text_3Bgn3p"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_font": "",
+        "text_font": "",
+        "title_font_size": 15,
+        "text_font_size": 15,
+        "title_color": "#ffffff",
+        "text_color": "#ffffff",
+        "section_background": "#1c1b1b"
+      }
+    },
+    "16442106478d4a1213": {
+      "type": "custom-collection-list",
+      "blocks": {
+        "acb6d978-2cb3-412b-b250-e0b7b5c64cd7": {
+          "type": "collection",
+          "settings": {
+            "collection": "necklaces",
+            "image": "shopify://shop_images/Necklaces.png",
+            "hover_image": "shopify://shop_images/Necklace_Hover.png",
+            "image_alignment": "center center",
+            "subheading": "",
+            "title": "Necklaces",
+            "button_text": "",
+            "button_link": "shopify://collections/necklaces",
+            "apply_overlay": false
+          }
+        },
+        "3148955f-2175-4cfa-8575-78257b43a8eb": {
+          "type": "collection",
+          "settings": {
+            "collection": "rings",
+            "image": "shopify://shop_images/Rings.png",
+            "hover_image": "shopify://shop_images/Ring_Hover.png",
+            "image_alignment": "center center",
+            "subheading": "",
+            "title": "Rings",
+            "button_text": "",
+            "button_link": "",
+            "apply_overlay": false
+          }
+        },
+        "93185ccb-fafd-48be-8157-da0035c6969d": {
+          "type": "collection",
+          "settings": {
+            "collection": "bracelets",
+            "image": "shopify://shop_images/Bracelets.png",
+            "hover_image": "shopify://shop_images/Bracelet_Hover.png",
+            "image_alignment": "center center",
+            "subheading": "",
+            "title": "Bracelets",
+            "button_text": "",
+            "button_link": "",
+            "apply_overlay": false
+          }
+        },
+        "da2bb31b-3ff0-452e-9c1a-c4671b0f962f": {
+          "type": "collection",
+          "settings": {
+            "collection": "earrings",
+            "image": "shopify://shop_images/Earrings.png",
+            "hover_image": "shopify://shop_images/Earring_Hover.png",
+            "image_alignment": "center center",
+            "subheading": "",
+            "title": "Earrings",
+            "button_text": "",
+            "button_link": "",
+            "apply_overlay": false
+          }
+        },
+        "ff9108dd-f57d-44ed-bb93-336c1cb0cc99": {
+          "type": "collection",
+          "settings": {
+            "collection": "hand-chains",
+            "image": "shopify://shop_images/WB-HENNACH-G.jpg",
+            "hover_image": "shopify://shop_images/HennaHandchain-4689.jpg",
+            "image_alignment": "center center",
+            "subheading": "",
+            "title": "Hand chains",
+            "button_text": "",
+            "button_link": "shopify://collections/hand-chains",
+            "apply_overlay": false
+          }
+        },
+        "collection_N9YRam": {
+          "type": "collection",
+          "settings": {
+            "collection": "sale",
+            "image": "shopify://shop_images/WN-ARB-LTR-B-GGRP1_1800x1800_f29eb175-0c58-4a01-a3f5-0e3f16117a6d.webp",
+            "hover_image": "shopify://shop_images/ArabicBubbleLetterNecklace-5313_1799x1799_217cf99a-2354-4e57-9c3e-dfc3d0c0f99f.webp",
+            "image_alignment": "center center",
+            "subheading": "Sub-heading",
+            "title": "Clearance",
+            "button_text": "View products",
+            "button_link": "",
+            "apply_overlay": true
+          }
+        }
+      },
+      "block_order": [
+        "acb6d978-2cb3-412b-b250-e0b7b5c64cd7",
+        "3148955f-2175-4cfa-8575-78257b43a8eb",
+        "93185ccb-fafd-48be-8157-da0035c6969d",
+        "da2bb31b-3ff0-452e-9c1a-c4671b0f962f",
+        "ff9108dd-f57d-44ed-bb93-336c1cb0cc99",
+        "collection_N9YRam"
+      ],
+      "settings": {
+        "title": "",
+        "show_border": true,
+        "subtitle": "",
+        "layout_type": "columns",
+        "image_size": "normal",
+        "add_spacing": true,
+        "expand_collection": false,
+        "stack_on_mobile": false,
+        "text_color": "#1c1b1b",
+        "button_color": "#363636"
+      }
+    },
+    "1642725150bfbb9cd2": {
+      "type": "featured-collections",
+      "blocks": {
+        "1642725150686ac420-0": {
+          "type": "collection",
+          "settings": {
+            "collection": "eid-al-adha-2026",
+            "title": "Eid Sale",
+            "grid_items_count": 50,
+            "button_text": "Shop Eid Sale  →"
+          }
+        }
+      },
+      "block_order": [
+        "1642725150686ac420-0"
+      ],
+      "custom_css": [],
+      "settings": {
+        "show_wide_width": true,
+        "title": "30-65% Off Sale Section",
+        "title_font": "'Ubuntu', sans-serif",
+        "show_border": false,
+        "layout_mode": "carousel",
+        "show_product_info": true,
+        "show_vendor": false,
+        "show_color_swatch": true,
+        "grid_mobile_items_per_row": "2",
+        "grid_desktop_items_per_row": 4
+      }
+    },
+    "8f963305-b595-4204-b9af-aebf28a913e9": {
+      "type": "featured-collections",
+      "blocks": {
+        "f8f439b9-a199-4559-b976-5b5ee5fc4f25": {
+          "type": "collection",
+          "settings": {
+            "collection": "top-picks",
+            "title": "Women",
+            "grid_items_count": 50,
+            "button_text": "Shop Best Sellers →"
+          }
+        },
+        "template--16045302874299__8f963305-b595-4204-b9af-aebf28a913e9-1669919342bd8737dc-0": {
+          "type": "collection",
+          "settings": {
+            "collection": "mens-most-wanted",
+            "title": "Men",
+            "grid_items_count": 50,
+            "button_text": "Shop Best Sellers →"
+          }
+        }
+      },
+      "block_order": [
+        "f8f439b9-a199-4559-b976-5b5ee5fc4f25",
+        "template--16045302874299__8f963305-b595-4204-b9af-aebf28a913e9-1669919342bd8737dc-0"
+      ],
+      "settings": {
+        "show_wide_width": false,
+        "title": "Best Sellers You’ll Love",
+        "title_font": "'Ubuntu', sans-serif",
+        "show_border": true,
+        "layout_mode": "carousel",
+        "show_product_info": true,
+        "show_vendor": false,
+        "show_color_swatch": false,
+        "grid_mobile_items_per_row": "2",
+        "grid_desktop_items_per_row": 4
+      }
+    },
+    "1661616228a24ec554": {
+      "type": "featured-product",
+      "blocks": {
+        "166161622711d7ac91-0": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": true,
+            "show_sku": false,
+            "show_product_rating": false,
+            "show_taxes_included": false
+          }
+        },
+        "166161622711d7ac91-1": {
+          "type": "share_buttons",
+          "disabled": true,
+          "settings": {}
+        },
+        "166161622711d7ac91-2": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "dropdown",
+            "show_color_swatch": false,
+            "show_color_carousel": false,
+            "size_chart": ""
+          }
+        },
+        "166161622711d7ac91-3": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_price_in_button": false,
+            "show_payment_button": true
+          }
+        }
+      },
+      "block_order": [
+        "166161622711d7ac91-0",
+        "166161622711d7ac91-1",
+        "166161622711d7ac91-2",
+        "166161622711d7ac91-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "subheading": "A beautiful and necessary reminder",
+        "title": "Top Seller of the Month",
+        "show_headings_on_mobile": true,
+        "product": "verily-with-every-hardship-comes-ease-crescent"
+      }
+    },
+    "1644224538bd9d6fa0": {
+      "type": "image-text-banner",
+      "blocks": {
+        "a4205697-9960-447e-9c07-02d443f2217b": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Arabic_Letter_Necklaces-Group1.jpg",
+            "title": "",
+            "button_text": "SHOP LETTERS",
+            "link": "shopify://collections/letter-collection",
+            "apply_overlay": false,
+            "text_color": "#1c1b1b",
+            "button_color": "#1c1b1b",
+            "text_hover_color": "#ffffff"
+          }
+        },
+        "7d61ea3a-d454-418b-97b4-ead3b8bb840b": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IG649_2.jpg",
+            "title": "",
+            "button_text": "SHOP HOMETOWNS",
+            "link": "shopify://collections/homeland-collection",
+            "apply_overlay": false,
+            "text_color": "#1c1b1b",
+            "button_color": "#1c1b1b",
+            "text_hover_color": "#ffffff"
+          }
+        },
+        "ded599bb-1acf-4f69-887e-a4355b400b09": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_1814.jpg",
+            "title": "",
+            "button_text": "SHOP RINGS",
+            "link": "shopify://collections/rings",
+            "apply_overlay": false,
+            "text_color": "#1c1b1b",
+            "button_color": "#ffffff",
+            "text_hover_color": "#1c1b1b"
+          }
+        },
+        "b65564f1-7b95-4873-b69c-31f605a6865b": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of_Essentials_V4.jpg",
+            "title": "",
+            "button_text": "SHOP ESSENTIALS",
+            "link": "shopify://collections/essential-pieces",
+            "apply_overlay": false,
+            "text_color": "#1c1b1b",
+            "button_color": "#1c1b1b",
+            "text_hover_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "a4205697-9960-447e-9c07-02d443f2217b",
+        "7d61ea3a-d454-418b-97b4-ead3b8bb840b",
+        "ded599bb-1acf-4f69-887e-a4355b400b09",
+        "b65564f1-7b95-4873-b69c-31f605a6865b"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Top Collections",
+        "show_border": false,
+        "image_size": "small"
+      }
+    },
+    "1654907864476934ef": {
+      "type": "gift-featured-collections",
+      "blocks": {
+        "1654907864d9ca1336-0": {
+          "type": "collection",
+          "settings": {
+            "collection": "eid-al-adha-sale-2022",
+            "grid_items_count": 8
+          }
+        }
+      },
+      "block_order": [
+        "1654907864d9ca1336-0"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "New Limited Edition Releases",
+        "sub_title": "Sitewide sale applies to all new releases!",
+        "heading_align": "center",
+        "heading_width": "half-width",
+        "layout_mode": "grid",
+        "show_product_info": true,
+        "show_vendor": false,
+        "show_color_swatch": false,
+        "grid_mobile_items_per_row": "2",
+        "grid_desktop_items_per_row": 4,
+        "product_info_align": "center",
+        "button_text": "see all new",
+        "button_url": "shopify://collections/eid-al-adha-sale-2022",
+        "heading_color": "",
+        "btn_label_color": "#000000",
+        "btn_label_hover_color": "#ffffff",
+        "btn_bg_color": "#000000",
+        "product_heading_color": "",
+        "product_price_color": ""
+      }
+    },
+    "reviews_rzUxLG": {
+      "type": "reviews",
+      "blocks": {
+        "review_qgADm9": {
+          "type": "review",
+          "settings": {
+            "reviewer_image": "shopify://shop_images/1_cdc3e516-6fd1-42ab-8dbc-ececf55f07d2.jpg",
+            "review_heading": "Exceeded My Expectations",
+            "short_text": "I bought the Ayatul Kursi Bundle (Men) and I couldn’t be happier with my purchase! The design is abs",
+            "full_text": "I bought the Ayatul Kursi Bundle (Men) and I couldn’t be happier with my purchase! The design is absolutely beautiful, the quality feels premium, and it looks even better in person than online. I live in Europe and was really impressed with how quickly it arrived — I ordered on August 14th and received it by August 22nd. Everything about this experience was perfect: from the product itself to the packaging and service. Nominal truly exceeded my expectations!",
+            "reviewer_name": "Daniela"
+          }
+        },
+        "review_NAYiyy": {
+          "type": "review",
+          "settings": {
+            "reviewer_image": "shopify://shop_images/4.webp",
+            "review_heading": "The Most Beautiful Ring",
+            "short_text": "I discovered this shop on instagram because they shared their support for Palestine and many other ",
+            "full_text": "I discovered this shop on instagram because they shared their support for Palestine and many other countries who need our voices and support. Came for the humanity, stayed for the quality. I love this ring I wear it every day. Will definitely be buying from here again.",
+            "reviewer_name": "Shaylin A."
+          }
+        },
+        "review_WK4P3A": {
+          "type": "review",
+          "settings": {
+            "reviewer_image": "shopify://shop_images/2.webp",
+            "review_heading": "Strong, Sturdy, & Pretty!",
+            "short_text": "I do garden design & maintenance, so I work with my hands all day everyday - this ring really withst",
+            "full_text": "I do garden design & maintenance, so I work with my hands all day everyday - this ring really withstands the tough love!! All my rings eventually either turn my finger green or get super bent, but this one seems to be holding up. Love that it also supports a small Palestinian business! 10/10 💛",
+            "reviewer_name": "kristina m."
+          }
+        },
+        "review_GwnLBL": {
+          "type": "review",
+          "settings": {
+            "reviewer_image": "shopify://shop_images/5.avif",
+            "review_heading": "Perfect",
+            "short_text": "I knew from others the jewelry was beautiful yet still I was extremely impressed by the quality & we",
+            "full_text": "I knew from others the jewelry was beautiful yet still I was extremely impressed by the quality & weight of the piece. It's absolutely stunning! I get compliments everytime I wear it which allows for conversations for what truly matters right now, supporting Palestinians both in Gaza & West Bank. I will definitely making more purchases.",
+            "reviewer_name": "Kelly s."
+          }
+        },
+        "review_aVHwEh": {
+          "type": "review",
+          "settings": {
+            "reviewer_image": "shopify://shop_images/3.webp",
+            "review_heading": "More Beautiful In Person",
+            "short_text": "I was so excited to receive my “With Hardship Comes Ease) crescent moon necklace! It’s even more bea",
+            "full_text": "I was so excited to receive my “With Hardship Comes Ease) crescent moon necklace! It’s even more beautiful than in the photos. Nominal also shipped my order very quickly, which I appreciate. Judging by the quality and appearance of my necklace, I will certainly be purchasing more Nominal items soon. It’s a bonus that the company donates a portion of the proceeds to feed hungry families in Palestine.",
+            "reviewer_name": "Andrea W."
+          }
+        },
+        "review_mKf3NC": {
+          "type": "review",
+          "settings": {
+            "reviewer_image": "shopify://shop_images/6.webp",
+            "review_heading": "Beautiful",
+            "short_text": "I recently purchased this ring and I'm absolutely delighted with it. The craftsmanship is excellent—",
+            "full_text": "I recently purchased this ring and I'm absolutely delighted with it. The craftsmanship is excellent—the details are clean and precise, and the finish gives it a luxurious shine. It feels solid and well-made without being too heavy, making it comfortable for daily wear.",
+            "reviewer_name": "Shaista A."
+          }
+        }
+      },
+      "block_order": [
+        "review_qgADm9",
+        "review_NAYiyy",
+        "review_WK4P3A",
+        "review_GwnLBL",
+        "review_aVHwEh",
+        "review_mKf3NC"
+      ],
+      "name": "Reviews",
+      "settings": {
+        "title": "<p>Over <em>2 million pieces</em> sold across 150+ countries</p>",
+        "star_rating": "4.7",
+        "subtitle": "Across over 23,000 reviews",
+        "button_text": "READ ALL REVIEWS",
+        "button_link": "shopify://pages/reviews"
+      }
+    },
+    "video_review_8HT7Ld": {
+      "type": "video-review",
+      "blocks": {
+        "video_card_KBMg6J": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/1.mp4",
+            "review_text": "“Allah's love and compassion is always there”"
+          }
+        },
+        "video_card_NLJb8e": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/2.mp4",
+            "review_text": "“Each piece has a meaningful design”"
+          }
+        },
+        "video_card_7h6B9C": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/3.mp4",
+            "review_text": "“They're beautiful, long lasting and waterproof”"
+          }
+        },
+        "video_card_UHHw7B": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/4.mp4",
+            "review_text": "“Beautiful, Beautiful! I love the details, that's absolutely stunning”"
+          }
+        },
+        "video_card_yAP4JL": {
+          "type": "video_card",
+          "settings": {
+            "video": "shopify://files/videos/5.mp4",
+            "review_text": "“Buying jewellery and you know where your money is going, to and for a better cause”"
+          }
+        }
+      },
+      "block_order": [
+        "video_card_KBMg6J",
+        "video_card_NLJb8e",
+        "video_card_7h6B9C",
+        "video_card_UHHw7B",
+        "video_card_yAP4JL"
+      ],
+      "name": "Customer Videos",
+      "settings": {
+        "section_title": "Customer Videos",
+        "button_text": "Shop Best Sellers",
+        "button_link": "shopify://collections/top-picks"
+      }
+    },
+    "1644211814403d3187": {
+      "type": "media",
+      "blocks": {
+        "36b448d5-4262-4972-81d8-8bcdc3152a45": {
+          "type": "richtext",
+          "settings": {
+            "titles": "allure",
+            "richtext": "<p>\"One of the top Muslim-owned brands you need to know: Nominal is for anyone obsessed with accessories.\"</p>",
+            "image": "shopify://shop_images/allure-logo-black.png",
+            "image_height": 140
+          }
+        },
+        "9d5c62da-4fe9-4eed-89eb-29bb48dbb974": {
+          "type": "richtext",
+          "settings": {
+            "titles": "forbes",
+            "richtext": "<p>\"Nominal is a powerful example of what storytelling can do; the brand gives its customers ownership of their stories.\"</p>",
+            "image": "shopify://shop_images/Untitled_design-3.png",
+            "image_height": 100
+          }
+        },
+        "8fc68501-bf6e-4346-859a-76d4ea6c5ac0": {
+          "type": "richtext",
+          "settings": {
+            "titles": "popsugar",
+            "richtext": "<p>\"Nominal is a high-quality jewelry and lifestyle brand that specializes in creating modern and minimalist pieces. It's a must-have.\"</p>",
+            "image": "shopify://shop_images/Popsugar_Logo.png",
+            "image_height": 100
+          }
+        }
+      },
+      "block_order": [
+        "36b448d5-4262-4972-81d8-8bcdc3152a45",
+        "9d5c62da-4fe9-4eed-89eb-29bb48dbb974",
+        "8fc68501-bf6e-4346-859a-76d4ea6c5ac0"
+      ],
+      "settings": {
+        "title": "The world's take on us",
+        "show_border": true
+      }
+    },
+    "164501434054059cb0": {
+      "type": "order-section",
+      "blocks": {
+        "0cc715c9-c0b2-4082-ae13-3087b553c83b": {
+          "type": "order-image",
+          "disabled": true,
+          "settings": {
+            "order_img": "shopify://shop_images/ba0ac756-1554489762900-ir-encased-fullsig-blue-screen-website2_101z01001z00x000002028.png"
+          }
+        },
+        "279d57e3-f856-4f67-8c15-673737867206": {
+          "type": "order-image",
+          "disabled": true,
+          "settings": {
+            "order_img": "shopify://shop_images/55e6d2c3-image2_102h00u000000000000028.png"
+          }
+        },
+        "87967154-3e71-4c37-8b83-315a59e7cdda": {
+          "type": "order-image",
+          "disabled": true,
+          "settings": {
+            "order_img": "shopify://shop_images/4f599165-image-12_102z00w02x00w001000028.png"
+          }
+        }
+      },
+      "block_order": [
+        "0cc715c9-c0b2-4082-ae13-3087b553c83b",
+        "279d57e3-f856-4f67-8c15-673737867206",
+        "87967154-3e71-4c37-8b83-315a59e7cdda"
+      ],
+      "disabled": true,
+      "settings": {
+        "order_text": "<p><em>Every single order during the sale donates to Ethiopian aid through Islamic Relief!</em></p>",
+        "bg_color": "#f5f5f5"
+      }
+    },
+    "16421991412c88cc84": {
+      "type": "text-with-image",
+      "settings": {
+        "subheading": "Waterproof & Lifeproof",
+        "title": "Nominal's Lifetime Warranty",
+        "image": "shopify://shop_images/WhatsApp_Image_2022-03-28_at_6.31.07_PM.jpg",
+        "image_position": "left",
+        "content": "<p>At Nominal, we only use real 18k gold plating and pure nickel-free steel so only quality ever touches your skin. We're so confident in that quality, if you ever do experience fading or tarnish on your jewelry, we replace your item for free.</p>",
+        "link_text": "",
+        "link_url": "shopify://pages/materials-warranty",
+        "background_color": "#f7f6ef"
+      }
+    },
+    "image_text_banner_NxNFUn": {
+      "type": "image-text-banner",
+      "blocks": {
+        "image_MayTNM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-05-20_at_12.19.36_PM.png",
+            "title": "Our Story",
+            "button_text": "LEARN MORE",
+            "link": "shopify://pages/about-us",
+            "apply_overlay": false,
+            "text_color": "#ffffff",
+            "button_color": "#ffffff",
+            "text_hover_color": "#1c1b1b"
+          }
+        },
+        "image_Yi8ND4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Flat_Lay_Lifestyle_2.jpg",
+            "title": "350,000+ Served",
+            "button_text": "READ REVIEWS",
+            "link": "shopify://pages/reviews",
+            "apply_overlay": false,
+            "text_color": "#ffffff",
+            "button_color": "#ffffff",
+            "text_hover_color": "#1c1b1b"
+          }
+        }
+      },
+      "block_order": [
+        "image_MayTNM",
+        "image_Yi8ND4"
+      ],
+      "settings": {
+        "title": "Why Nominal?",
+        "show_border": false,
+        "image_size": "normal"
+      }
+    },
+    "16442080325f28929b": {
+      "type": "gift-slideshow",
+      "blocks": {
+        "164420803212673dd0-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_design_69_faaf3eca-f73b-45fc-8522-13c8031aafda.png",
+            "mobile_image": "shopify://shop_images/Untitled_design_68_4487c52a-91d7-4cd7-995a-0780e3a490dd.png",
+            "apply_overlay": false,
+            "content_position": "middleCenter",
+            "subheading": "",
+            "title": "Any name, <span> any spelling.</span>",
+            "info": "",
+            "mobile_info": false,
+            "info_font_style": "none",
+            "info_font_style_mobile": "none",
+            "heading_align": "center",
+            "title_font_size": 40,
+            "mobile_title_font_size": 36,
+            "sub_title_font_size": 17,
+            "mobile_sub_title_font_size": 27,
+            "text_font_size": 15,
+            "mobile_text_font_size": 14,
+            "button_1_text": "Shop Custom",
+            "button_1_m_text": "",
+            "button_1_link": "shopify://collections/name-necklaces",
+            "button_2_text": "",
+            "button_2_m_text": "",
+            "button_2_link": "",
+            "btn_border_radius": 0,
+            "heading_font": "default",
+            "sub_title_color": "#1c1b1b",
+            "title_color": "",
+            "title_color_mobile": "",
+            "info_color": "#1c1b1b",
+            "button_color": "#363636",
+            "button_hover_color": "#363636",
+            "button_background": "#ffffff",
+            "button_hover_bg": "#363636"
+          }
+        }
+      },
+      "block_order": [
+        "164420803212673dd0-0"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_fullscreen": false,
+        "show_arrow": false,
+        "autoplay": true,
+        "cycle_speed": 5,
+        "heading_font": "montserrat_n7",
+        "sub_heading_font": "lato_n4",
+        "text_font": "lato_n4"
+      }
+    },
+    "16463673923e8b8459": {
+      "type": "apps",
+      "blocks": {
+        "f8e73390-afdb-4f8c-af2e-7b8e7d5236e5": {
+          "type": "shopify://apps/okendo/blocks/reviews-carousel/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "settings": {
+            "show_heading": false,
+            "heading": "",
+            "badge_link": "",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "f8e73390-afdb-4f8c-af2e-7b8e7d5236e5"
+      ],
+      "disabled": true,
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1643397348b30bd170": {
+      "type": "product-with-text-info",
+      "disabled": true,
+      "settings": {
+        "title": "Rope Chain Bundle",
+        "info": "<p>Our featured bundle for the most gifted Valentine's stack!</p>",
+        "btn_label": "shop now",
+        "btn_url": "",
+        "title_color": "#1c1b1b",
+        "info_color": "#1c1b1b",
+        "btn_bg_color": "",
+        "btn_label_color": "#363636",
+        "text_info_align": "left",
+        "info_align": "left",
+        "product_info_align": "left",
+        "product_title_color": "#1c1b1b",
+        "product_price_color": "#000000",
+        "collection": "",
+        "show_product_info": true,
+        "show_vendor": false,
+        "show_color_swatch": false
+      }
+    },
+    "1642797050e27fa737": {
+      "type": "apps",
+      "disabled": true,
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "featured-collections": {
+      "type": "featured-collections",
+      "blocks": {
+        "790c51c9-9197-492d-b198-5f7722710e33": {
+          "type": "collection",
+          "settings": {
+            "collection": "everything-customizable",
+            "title": "Customizable Pieces",
+            "grid_items_count": 50,
+            "button_text": "shop custom →"
+          }
+        }
+      },
+      "block_order": [
+        "790c51c9-9197-492d-b198-5f7722710e33"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_wide_width": false,
+        "title": "Tell the world who you are.",
+        "title_font": "'Ubuntu', sans-serif",
+        "show_border": false,
+        "layout_mode": "carousel",
+        "show_product_info": true,
+        "show_vendor": false,
+        "show_color_swatch": true,
+        "grid_mobile_items_per_row": "2",
+        "grid_desktop_items_per_row": 4
+      }
+    },
+    "16421978107c5d1c6d": {
+      "type": "collection-list",
+      "blocks": {
+        "1642197810af15df26-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "essential-pieces",
+            "image": "shopify://shop_images/Essentials_V3.jpg",
+            "image_alignment": "center center",
+            "content_position": "middleCenter",
+            "subheading": "elegance, elevated.",
+            "title": "daily essentials",
+            "button_text": "Shop Now",
+            "button_link": "shopify://collections/essential-pieces",
+            "apply_overlay": true
+          }
+        },
+        "1642197810af15df26-0": {
+          "type": "collection",
+          "settings": {
+            "collection": "letter-collection",
+            "image": "shopify://shop_images/Arabic_Letter_Necklaces-Group3_1_00f5924a-ad9d-4d4b-920f-9416d1c698eb.jpg",
+            "image_alignment": "center center",
+            "content_position": "middleCenter",
+            "subheading": "Meaningful & Timeless",
+            "title": "Arabic Letter Collection",
+            "button_text": "Shop Now",
+            "button_link": "shopify://collections/letter-collection",
+            "apply_overlay": true
+          }
+        },
+        "1642197810af15df26-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "homeland-collection",
+            "image": "shopify://shop_images/IG649_2.jpg",
+            "image_alignment": "center center",
+            "content_position": "middleCenter",
+            "subheading": "Express Your Culture",
+            "title": "Hometown Collection",
+            "button_text": "Shop Now",
+            "button_link": "shopify://collections/homeland-collection",
+            "apply_overlay": true
+          }
+        }
+      },
+      "block_order": [
+        "1642197810af15df26-2",
+        "1642197810af15df26-0",
+        "1642197810af15df26-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_size": "small",
+        "add_spacing": true,
+        "expand_collection": false,
+        "stack_on_mobile": true,
+        "text_color": "#ffffff",
+        "button_color": "#363636"
+      }
+    },
+    "164219882319e891e0": {
+      "type": "text-with-image",
+      "disabled": true,
+      "settings": {
+        "subheading": "",
+        "title": "who are we?",
+        "image": "shopify://shop_images/Founders.jpg",
+        "image_position": "right",
+        "content": "<p>Nominal was founded by wife and husband, Lena & Akram, to give people an avenue to express their language, culture, or values. We're all unique, and that means we share common ground in knowing that we all have something in us worth expressing.</p><p>Wear jewelry proudly. Wear identity proudly.</p>",
+        "link_text": "Shop your identity",
+        "link_url": "shopify://collections/women",
+        "background_color": "#ffffff"
+      }
+    },
+    "1661127525b4ecc2fb": {
+      "type": "slideshow",
+      "blocks": {
+        "16611275258723920c-0": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "apply_overlay": true,
+            "content_position": "bottomLeft",
+            "subheading": "Slide title",
+            "title": "Tell your story",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": ""
+          }
+        },
+        "16611275258723920c-1": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "apply_overlay": true,
+            "content_position": "bottomLeft",
+            "subheading": "Slide title",
+            "title": "Tell your story",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16611275258723920c-0",
+        "16611275258723920c-1"
+      ],
+      "settings": {
+        "show_fullscreen": false,
+        "show_arrow": false,
+        "autoplay": true,
+        "cycle_speed": 5,
+        "text_color": "#ffffff",
+        "button_color": "#363636",
+        "button_background": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "header_top_NkQwRk",
+    "hero_NwqCzM",
+    "e4602a94-8e9f-42d9-96ad-dd7640f3321b",
+    "icon_with_text_bEdNnx",
+    "16449952987af5b48b",
+    "16442106478d4a1213",
+    "1642725150bfbb9cd2",
+    "8f963305-b595-4204-b9af-aebf28a913e9",
+    "1661616228a24ec554",
+    "1644224538bd9d6fa0",
+    "1654907864476934ef",
+    "reviews_rzUxLG",
+    "video_review_8HT7Ld",
+    "1644211814403d3187",
+    "164501434054059cb0",
+    "16421991412c88cc84",
+    "image_text_banner_NxNFUn",
+    "16442080325f28929b",
+    "16463673923e8b8459",
+    "1643397348b30bd170",
+    "1642797050e27fa737",
+    "featured-collections",
+    "16421978107c5d1c6d",
+    "164219882319e891e0",
+    "1661127525b4ecc2fb"
+  ]
+}

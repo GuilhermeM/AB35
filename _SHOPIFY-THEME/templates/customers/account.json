@@ -1,0 +1,56 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-customers-account",
+      "blocks": {
+        "smile_io_smile_points_on_account_page_Tb386q": {
+          "type": "shopify://apps/smile-io/blocks/smile-points-on-account-page/2fae4e25-1841-4ea2-bc02-bd548478c4f6",
+          "settings": {
+            "primary_colour": "#121212",
+            "secondary_colour": "#F8F8F8",
+            "preview_scenario": "can_afford_reward",
+            "show_icon": true,
+            "show_points_label": true,
+            "cannot_afford_reward_body_text": "<p>You’ve got [points_balance]. Earn more to redeem rewards.</p>",
+            "can_afford_reward_body_text": "<p>You’ve got [points_balance]! Redeem them for rewards.</p>",
+            "ways_to_earn_button_text": "View ways to earn",
+            "ways_to_redeem_button_text": "View ways to redeem"
+          }
+        },
+        "header": {
+          "type": "header",
+          "settings": {}
+        },
+        "order_list": {
+          "type": "order_list",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "smile_io_smile_points_on_account_page_Tb386q",
+        "header",
+        "order_list"
+      ],
+      "settings": {}
+    },
+    "1750139047a69e1e38": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1750139047a69e1e38"
+  ]
+}

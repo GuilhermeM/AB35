@@ -1,0 +1,227 @@
+<div class="gift_image_with_text product_image_with_text_section">
+  {% if section.settings.wide_width == false %}
+  <div class="container">
+  {% endif %}
+  <div class="gift_image_with_text_content">
+    {% for block in section.blocks %}
+    <div class="image_with_text_grid align-grid-{{block.settings.grid_layout}} block_{{block.id}}">
+      <div class="img">
+        {% if block.settings.btn_url != blank %}
+        <a href="{{ block.settings.btn_url }}">
+        {% endif %}
+          {% if block.settings.image != blank %}
+          {% assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+          <img class="Image--lazyLoad hide-no-js {% if block.settings.mobile_image != blank %}desktop_img{% endif %}"
+               data-src="{{ image_url }}"
+               data-optimumx="1.2"
+               data-widths="[400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200]"
+               data-sizes="auto"
+               alt="{{ block.settings.image.alt | escape }}"/>
+          {% endif %}
+          {% if block.settings.mobile_image != blank %}
+          {% assign mobile_image_url = block.settings.mobile_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+          <img class="Image--lazyLoad hide-no-js mobile_img"
+               data-src="{{ mobile_image_url }}"
+               data-optimumx="1.2"
+               data-widths="[400, 600, 800]"
+               data-sizes="auto"
+               alt="{{ block.settings.mobile_image_url.alt | escape }}"/>
+          {% endif %}
+        {% if block.settings.btn_url != blank %}
+        </a>
+        {% endif %}
+      </div>
+      <div class="image_info">
+        {% if block.settings.btn_url != blank %}
+        <a href="{% if block.settings.btn_url != blank %}{{ block.settings.btn_url }}{% else %}javascript:void(0);{% endif %}">
+        {% endif %}
+        {% if block.settings.title != blank %}
+        <h2 class="heading">{{ block.settings.title }}</h2>
+        {% endif %}
+        {% if block.settings.info != blank %}
+        {{ block.settings.info }}
+        {% endif %}
+        {% if block.settings.btn_url != blank %}
+        <a class="book_btn" href="{% if block.settings.btn_url != blank %}{{ block.settings.btn_url }}{% else %}javascript:void(0);{% endif %}">{{ block.settings.btn_label }}</a>
+        {% endif %}
+        {% if block.settings.btn_url != blank %}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% if section.settings.wide_width == false %}
+  </div>
+  {% endif %}
+</div>
+<style>
+  {% for block in section.blocks %}
+  .image_with_text_grid.block_{{block.id}}{
+    margin-top:{{block.settings.padding_top}}px;
+    margin-bottom:{{block.settings.padding_bottom}}px;
+    {% if block.settings.bg_color != blank %}
+    background-color:{{block.settings.bg_color}};
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .gift_image_with_text .gift_image_with_text_content .image_info {
+    text-align: {{ block.settings.text_align }};
+  }
+  {% if block.settings.title_color != blank %}
+  #shopify-section-{{ section.id }} .gift_image_with_text .gift_image_with_text_content .image_info .heading {
+    color: {{ block.settings.title_color }};
+  }
+  {% endif %}
+  {% if block.settings.info_color != blank %}
+  #shopify-section-{{ section.id }} .gift_image_with_text .gift_image_with_text_content .image_info p {
+    color: {{ block.settings.info_color }};
+  }
+  {% endif %}
+  {% if block.settings.btn_color != blank %}
+  #shopify-section-{{ section.id }} .gift_image_with_text .gift_image_with_text_content .image_info .book_btn {
+  	color: {{ block.settings.btn_color }};
+  }
+  {% endif %}
+  {% endfor %}
+</style>
+{% schema %}
+  {
+    "name": "Product Image With Text",
+    "settings": [
+	  {
+        "type": "checkbox",
+        "id": "wide_width",
+        "label": "Wide Width",
+		"default":true
+      }
+	],
+	"blocks": [
+    {
+      "type": "product-image-with-text",
+      "name": "Image With Text",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+		{
+          "type": "richtext",
+          "id": "info",
+          "label": "Info"
+        },
+		{
+          "type": "text",
+          "id": "btn_label",
+          "label": "Button Label"
+        },
+		{
+          "type": "url",
+          "id": "btn_url",
+          "label": "Button Url"
+        },
+		{
+          "type": "select",
+          "id": "text_align",
+          "label": "Text Info Align",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
+        },
+		{
+          "type":"select",
+          "id":"grid_layout",
+          "label":"First Grid Position",
+          "options":[
+            {
+              "value":"left",
+              "label":"Left"
+            },
+            {
+              "value":"right",
+              "label":"Right"
+            }
+          ],
+          "default":"left"
+        },
+        {
+          "type": "header",
+          "content": "Advanced"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Top spacing",
+          "min": 0,
+          "max": 80,
+          "default": 20,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Bottom spacing",
+          "min": 0,
+          "max": 80,
+          "default": 20,
+          "unit": "px"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Heading Color"
+        },
+        {
+          "type": "color",
+          "id": "info_color",
+          "label": "Info Color"
+        },
+        {
+          "type": "color",
+          "id": "btn_color",
+          "label": "Button Color"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "text",
+      "name": "Product Image With Text"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

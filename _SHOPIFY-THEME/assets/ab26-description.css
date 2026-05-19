@@ -1,0 +1,91 @@
+/* ============================================================
+   AB26 — Product Description Below Add to Bag
+   ============================================================ */
+
+.ab26-description-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 0;
+  gap: 13px;
+  width: 100%;
+}
+
+/* ── Label ── */
+.ab26-description-label {
+  font-family: 'Instrument Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  color: #666666;
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .ab26-description-label {
+    font-size: 14px;
+  }
+}
+
+/* ── Body text ── */
+.ab26-description-text {
+  font-family: 'Instrument Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  color: #333333;
+  width: 100%;
+  margin: 0;
+}
+
+.ab26-description-text p {
+  margin: 0 0 8px;
+}
+
+.ab26-description-text p:last-child {
+  margin: 0;
+}
+
+/* ── Collapsed state (5-line clamp) ── */
+.ab26-description-text.ab26-collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Read more / Read less toggle ── */
+.ab26-read-more {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 140%;
+  color: #333333;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: none;
+  display: inline;
+}
+
+.ab26-read-more:hover {
+  text-decoration: underline;
+}
+
+/* ── Hide original "Item Description" tab from EasySlider accordion ── */
+.ab26-description-block ~ .ProductMeta__Description .easyslider-item[data-es-handle="slide-item-description"],
+.ProductForm .easyslider-item[data-es-handle="slide-item-description"] {
+  display: none !important;
+}
+
+/* ── Reduce Smile.io points widget emphasis ── */
+.ProductForm .shopify-app-block[id*="smile_io_smile_points_on_product_page"] {
+  font-size: 11px !important;
+  opacity: 0.7;
+}

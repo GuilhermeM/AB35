@@ -1,0 +1,116 @@
+<div class="reviews-page-wrapper">
+  {% render 'okendo-reviews-badge' %}
+  <div class="Container">
+      <header class="PageHeader">
+          <div class="SectionHeader SectionHeader--center">
+              <h1 class="SectionHeader__Heading Heading u-h1">{{ page.title }}</h1>
+          </div>
+      </header>
+
+      <div class="orc-allReviewsCollections">
+          <div id="orc-collection-control" style="display: none">
+              <div id="orc-collection-controls-label" class="orc-collectionControlsLabel">Select a product range</div>
+              <div class="orc-collectionControls" role="radiogroup" aria-labelledby="orc-collection-controls-label">
+                  <div class="orc-collectionControls-item">
+                      <input
+                          id="orc-reviews-control-0"
+                          class="orc-collectionControls-item-input orc-collectionControls-item-input--checked js-orc-collectionRadio"
+                          type="radio"
+                          checked
+                          value="8c58f511-4578-4d46-8561-cecf42437d39"
+                          name="orc-reviews-collection-control"
+                      />
+                      <label for="orc-reviews-control-0" class="orc-collectionControls-item-label">
+                          <span class="orc-collectionControls-item-label-heading"> Everything | Women </span>
+                          <span
+                              class="orc-collectionControls-item-label-background"
+                              style="background-image: url('{{ 'everything-women.jpg' | asset_img_url: '150x' }}')"
+                          ></span>
+                      </label>
+                  </div>
+                  <div class="orc-collectionControls-item">
+                      <input
+                          id="orc-reviews-control-1"
+                          class="orc-collectionControls-item-input js-orc-collectionRadio"
+                          type="radio"
+                          value="af6a4ec5-2d55-4d4c-939c-f2563125fb22"
+                          name="orc-reviews-collection-control"
+                      />
+                      <label for="orc-reviews-control-1" class="orc-collectionControls-item-label">
+                          <span class="orc-collectionControls-item-label-heading"> All Necklaces | Women </span>
+                          <span
+                              class="orc-collectionControls-item-label-background"
+                              style="background-image: url('{{ 'necklaces-women.jpg' | asset_img_url: '150x' }}')"
+                          ></span>
+                      </label>
+                  </div>
+                  <div class="orc-collectionControls-item">
+                      <input
+                          id="orc-reviews-control-2"
+                          class="orc-collectionControls-item-input js-orc-collectionRadio"
+                          type="radio"
+                          value="a69d54ca-b7e7-46b4-969b-2a172dd0c055"
+                          name="orc-reviews-collection-control"
+                      />
+                      <label for="orc-reviews-control-2" class="orc-collectionControls-item-label">
+                          <span class="orc-collectionControls-item-label-heading"> All Rings | Women </span>
+                          <span
+                              class="orc-collectionControls-item-label-background"
+                              style="background-image: url('{{ 'rings-women.jpg' | asset_img_url: '150x' }}')"
+                          ></span>
+                      </label>
+                  </div>
+                  <div class="orc-collectionControls-item">
+                      <input
+                          id="orc-reviews-control-3"
+                          class="orc-collectionControls-item-input js-orc-collectionRadio"
+                          type="radio"
+                          value="733de72e-7f89-48a4-933c-b5e24e892670"
+                          name="orc-reviews-collection-control"
+                      />
+                      <label for="orc-reviews-control-3" class="orc-collectionControls-item-label">
+                          <span class="orc-collectionControls-item-label-heading"> All Bracelets | Women </span>
+                          <span
+                              class="orc-collectionControls-item-label-background"
+                              style="background-image: url('{{ 'bracelets-women.jpg' | asset_img_url: '150x' }}')"
+                          ></span>
+                      </label>
+                  </div>
+                  <div class="orc-collectionControls-item">
+                      <input
+                          id="orc-reviews-control-4"
+                          class="orc-collectionControls-item-input js-orc-collectionRadio"
+                          type="radio"
+                          value="d041095d-ca84-4cf3-bf2a-e545d11e79c6"
+                          name="orc-reviews-collection-control"
+                      />
+                      <label for="orc-reviews-control-4" class="orc-collectionControls-item-label">
+                          <span class="orc-collectionControls-item-label-heading"> All Earrings | Women </span>
+                          <span
+                              class="orc-collectionControls-item-label-background"
+                              style="background-image: url('{{ 'earrings-women.jpg' | asset_img_url: '150x' }}')"
+                          ></span>
+                      </label>
+                  </div>
+                  <div class="orc-collectionControls-item">
+                      <input
+                          id="orc-reviews-control-5"
+                          class="orc-collectionControls-item-input js-orc-collectionRadio"
+                          type="radio"
+                          value="7214e120-2976-45db-9a45-ed1c11626f48"
+                          name="orc-reviews-collection-control"
+                      />
+                      <label for="orc-reviews-control-5" class="orc-collectionControls-item-label">
+                          <span class="orc-collectionControls-item-label-heading"> All Anklets | Women </span>
+                          <span
+                              class="orc-collectionControls-item-label-background"
+                              style="background-image: url('{{ 'anklets-women.jpg' | asset_img_url: '150x' }}')"
+                          ></span>
+                      </label>
+                  </div>
+              </div>
+          </div>
+          <div id="orc-widget-snippet" class="drp-okendo-reviews" data-oke-widget data-oke-reviews-group-id=""></div>
+      </div>
+  </div>
+</div>

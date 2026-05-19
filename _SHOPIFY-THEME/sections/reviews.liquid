@@ -1,0 +1,188 @@
+{% comment %}
+  Section: Reviews
+  Purpose: Homepage section displaying global stats and grouped user reviews (2 per row/slide).
+{% endcomment %}
+
+<section class="reviews">
+  <div class="reviews__inner">
+    <div class="Container">
+      <div class="reviews__wrapper">
+        <div class="reviews__wrap">
+
+          {% if section.settings.title != blank %}
+            <h2 class="reviews__title">{{ section.settings.title | remove: '<p>' | remove: '</p>' }}</h2>
+          {% endif %}
+
+          <div class="reviews__star">
+            <div>
+              <img
+                class="reviews__star-img"
+                src="{{ 'stars.png' | asset_url }}"
+                alt="Star rating"
+                loading="lazy">
+              {% if section.settings.star_rating != blank %}
+                <span>{{ section.settings.star_rating }}</span>
+              {% endif %}
+            </div>
+            {% if section.settings.subtitle != blank %}
+              <p class="reviews__subtitle">{{ section.settings.subtitle }}</p>
+            {% endif %}
+          </div>
+
+          <div class="reviews__items">
+            <div class="reviews__list">
+              {% assign counter = 0 %}
+              {% for block in section.blocks %}
+                {% assign counter = counter | plus: 1 %}
+                
+                {% if forloop.first or counter == 1 %}
+                  <div class="reviews__item">
+                {% endif %}
+
+                <div class="reviews-card" {{ block.shopify_attributes }}>
+                  <div class="reviews-card__Header">
+                    {% if block.settings.reviewer_image != blank %}
+                      <img
+                        class="reviews-card__img"
+                        src="{{ block.settings.reviewer_image | image_url: width: 500 }}"
+                        alt="{{ block.settings.reviewer_name | default: 'Reviewer image' }}"
+                        loading="lazy">
+                    {% endif %}
+                    <div class="reviews-card__Des">
+                      {% if block.settings.review_heading != blank %}
+                        <h4>{{ block.settings.review_heading }}</h4>
+                      {% endif %}
+                      {% if block.settings.short_text != blank %}
+                        <p
+                          data-fullhtml="{{ block.settings.full_text | escape }}"
+                          data-expanded="false">
+                          {{ block.settings.short_text }}
+                          <a href="#" class="reviews-card__readmore">Read more...</a>
+                        </p>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="reviews-card__Footer">
+                    <div class="reviews-card__buyer">
+                      {% if block.settings.reviewer_name != blank %}
+                        {{ block.settings.reviewer_name }}
+                      {% endif %}
+                      <span>Verified Buyer</span>
+                      <img
+                        src="{{ 'verfied.png' | asset_url }}"
+                        alt="Verified badge"
+                        loading="lazy">
+                    </div>
+                    <div class="reviews-card__stars">
+                      <img
+                        src="{{ 'stars.png' | asset_url }}"
+                        alt="Star rating"
+                        loading="lazy">
+                    </div>
+                  </div>
+                </div>
+
+                {% if counter == 2 or forloop.last %}
+                  </div> <!-- /.reviews__item -->
+                  {% assign counter = 0 %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+
+          {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+            <div class="reviews__btn">
+              <a href="{{ section.settings.button_link }}">{{ section.settings.button_text }}</a>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "reviews",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Main Title"
+    },
+    {
+      "type": "text",
+      "id": "star_rating",
+      "label": "Star Rating Number",
+      "default": "4.7"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Across over 23,000 reviews"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "READ ALL REVIEWS"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "reviewer_image",
+          "label": "Reviewer Image"
+        },
+        {
+          "type": "text",
+          "id": "review_heading",
+          "label": "Review Heading"
+        },
+        {
+          "type": "text",
+          "id": "short_text",
+          "label": "Short Text",
+          "info": "Displayed in the card with 'Read more' link."
+        },
+        {
+          "type": "textarea",
+          "id": "full_text",
+          "label": "Full Text",
+          "info": "Displayed inside data-fullhtml attribute for expanded view."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}

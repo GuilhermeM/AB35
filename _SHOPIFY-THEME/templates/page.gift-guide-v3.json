@@ -1,0 +1,333 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gift-page": {
+      "type": "gift-v3-page",
+      "blocks": {
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "icon_url": "https://nominalx.com/cdn/shop/files/product-benefits-img-1.webp?v=1767784874",
+            "text": "WATERPROOF + LIFETIME WARRANTY"
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "icon_url": "https://nominalx.com/cdn/shop/files/product-benefits-img-2.webp?v=1767784934",
+            "text": "100-DAY MONEYBACK GUARANTEE"
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "icon_url": "https://nominalx.com/cdn/shop/files/product-benefits-img-3.webp?v=1767784810",
+            "text": "EVERY ORDER DONATES TO PALESTINE"
+          }
+        },
+        "trust_4": {
+          "type": "trust_item",
+          "settings": {
+            "icon_url": "https://nominalx.com/cdn/shop/files/product-benefits-img-4.avif?v=1767785019",
+            "text": "FREE RETURNS FOR US & CA"
+          }
+        },
+        "trust_5": {
+          "type": "trust_item",
+          "settings": {
+            "icon_url": "https://cdn.shopify.com/s/files/1/2556/8900/files/arabic.svg?v=1774873244",
+            "text": "CUSTOM ARABIC NAMES"
+          }
+        },
+        "quiz_1": {
+          "type": "quiz_chip",
+          "settings": {
+            "chip_label": "For My Bestie",
+            "result_title": "Your picks for Bestie",
+            "result_desc": "<p>Ayatul Kursi Cuff, Custom Name Necklace, or the Henna Hand Chain. Pieces she’ll wear every day.</p>",
+            "result_product_1": "custom-name-necklace",
+            "result_product_2": "im-with-you-best-friend-necklace-set",
+            "result_product_3": "sister-love-necklace",
+            "result_btn_text": "SHOP ALL GIFTS FOR BESTIE →",
+            "result_link": "/collections/for-bestie"
+          }
+        },
+        "quiz_2": {
+          "type": "quiz_chip",
+          "settings": {
+            "chip_label": "For Myself",
+            "result_title": "Your picks for You",
+            "result_desc": "<p>Ayatul Kursi Cuff, Custom Name Necklace, or the Henna Hand Chain. Pieces she’ll wear every day.</p>",
+            "result_product_1": "custom-name-necklace",
+            "result_product_2": "choose-your-hometown-necklace",
+            "result_product_3": "verily-with-hardship-comes-ease-cuff-v2-women",
+            "result_btn_text": "SHOP ALL GIFTS FOR MYSELF →",
+            "result_link": "/collections/all-gifts"
+          }
+        },
+        "quiz_3": {
+          "type": "quiz_chip",
+          "settings": {
+            "chip_label": "For My Mom",
+            "result_title": "Your picks for Mom",
+            "result_desc": "<p>Ayatul Kursi Cuff, Custom Name Necklace, or the Henna Hand Chain. Pieces she’ll wear every day.</p>",
+            "result_product_1": "custom-name-necklace",
+            "result_product_2": "coin-mama-necklace",
+            "result_product_3": "mother-calligraphy-necklace",
+            "result_btn_text": "SHOP ALL GIFTS FOR MY MOM →",
+            "result_link": "/collections/mom"
+          }
+        },
+        "col_1": {
+          "type": "collection_card",
+          "settings": {
+            "title": "The Stones Collection",
+            "image_url": "https://cdn.shopify.com/s/files/1/2556/8900/files/stone-collection.webp?v=1778271944",
+            "link": "/collections/the-stones-collection",
+            "cta_text": "SHOP THE EDIT →"
+          }
+        },
+        "col_2": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Henna Inspired",
+            "image_url": "https://cdn.shopify.com/s/files/1/2556/8900/files/Henna_Inspired.webp?v=1778353470",
+            "link": "/collections/henna-inspired",
+            "cta_text": "SHOP THE EDIT →"
+          }
+        },
+        "col_3": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Palestine Collection",
+            "image_url": "https://cdn.shopify.com/s/files/1/2556/8900/files/Palestine_Collection.webp?v=1778353483",
+            "link": "/collections/palestine-collection",
+            "cta_text": "SHOP THE EDIT →"
+          }
+        },
+        "col_4": {
+          "type": "collection_card",
+          "settings": {
+            "title": "South Asian",
+            "image_url": "https://cdn.shopify.com/s/files/1/2556/8900/files/South_Asian.webp?v=1778353488",
+            "link": "/collections/south-asian",
+            "cta_text": "SHOP THE EDIT →"
+          }
+        },
+        "price_1": {
+          "type": "price_card",
+          "settings": {
+            "price_range": "Under $50",
+            "label": "Sweet Spot",
+            "description": "Meaningful pieces that feel far more generous than the price tag suggests. Perfect for friends, colleagues, and surprise gifts.",
+            "link": "shopify://collections/gifts-under-50"
+          }
+        },
+        "price_2": {
+          "type": "price_card",
+          "settings": {
+            "price_range": "$50 – $100",
+            "label": "Most Popular",
+            "description": "Our best sellers live here. Custom names, henna chains, Quranic cuffs — gifts worn every single day.",
+            "link": "shopify://collections/gifts-50-100"
+          }
+        },
+        "price_3": {
+          "type": "price_card",
+          "settings": {
+            "price_range": "$100+",
+            "label": "Investment Pieces",
+            "description": "Heirloom-quality pieces built to last a lifetime. For moms, brides, and milestones that deserve something exceptional.",
+            "link": "shopify://collections/gifts-100"
+          }
+        },
+        "review_1": {
+          "type": "review_card",
+          "settings": {
+            "reviewer_image_url": "//nominalx.com/cdn/shop/files/1_cdc3e516-6fd1-42ab-8dbc-ececf55f07d2.jpg?v=1760968723&width=500",
+            "review_heading": "Exceeded My Expectations",
+            "short_text": "I bought the Ayatul Kursi Bundle (Men) and I couldn’t be happier with my purchase! The design is abs",
+            "full_text": "I bought the Ayatul Kursi Bundle (Men) and I couldn’t be happier with my purchase! The design is absolutely beautiful, the quality feels premium, and it looks even better in person than online. I live in Europe and was really impressed with how quickly it arrived. Everything about this experience was perfect: from the product itself to the packaging and service. Nominal truly exceeded my expectations!",
+            "reviewer_name": "Daniela",
+            "star_rating": 5
+          }
+        },
+        "review_2": {
+          "type": "review_card",
+          "settings": {
+            "reviewer_image_url": "//nominalx.com/cdn/shop/files/4.webp?v=1767754629&width=500",
+            "review_heading": "The Most Beautiful Ring",
+            "short_text": "I discovered this shop on instagram because they shared their support for Palestine and many other",
+            "full_text": "I discovered this shop on instagram because they shared their support for Palestine and many other countries who need our voices and support. Came for the humanity, stayed for the quality. I love this ring I wear it every day. Will definitely be buying from here again.",
+            "reviewer_name": "Shaylin A.",
+            "star_rating": 5
+          }
+        },
+        "review_3": {
+          "type": "review_card",
+          "settings": {
+            "reviewer_image_url": "//nominalx.com/cdn/shop/files/2.webp?v=1767754538&width=500",
+            "review_heading": "Strong, Sturdy, & Pretty!",
+            "short_text": "I do garden design & maintenance, so I work with my hands all day everyday - this ring really withst",
+            "full_text": "I do garden design & maintenance, so I work with my hands all day everyday - this ring really withstands the tough love!! All my rings eventually either turn my finger green or get super bent, but this one seems to be holding up. Love that it also supports a small Palestinian business! 10/10",
+            "reviewer_name": "Kristina M.",
+            "star_rating": 5
+          }
+        },
+        "review_4": {
+          "type": "review_card",
+          "settings": {
+            "reviewer_image_url": "//nominalx.com/cdn/shop/files/5.avif?v=1767754791&width=500",
+            "review_heading": "Perfect",
+            "short_text": "I knew from others the jewelry was beautiful yet still I was extremely impressed by the quality & we",
+            "full_text": "I knew from others the jewelry was beautiful yet still I was extremely impressed by the quality & weight of the piece. It’s absolutely stunning! I get compliments everytime I wear it which allows for conversations for what truly matters right now, supporting Palestinians both in Gaza & West Bank. I will definitely making more purchases.",
+            "reviewer_name": "Kelly S.",
+            "star_rating": 5
+          }
+        },
+        "review_5": {
+          "type": "review_card",
+          "settings": {
+            "reviewer_image_url": "//nominalx.com/cdn/shop/files/3.webp?v=1767754570&width=500",
+            "review_heading": "More Beautiful In Person",
+            "short_text": "I was so excited to receive my “With Hardship Comes Ease) crescent moon necklace! It’s even more bea",
+            "full_text": "I was so excited to receive my “With Hardship Comes Ease) crescent moon necklace! It’s even more beautiful than in the photos. Nominal also shipped my order very quickly, which I appreciate. Judging by the quality and appearance of my necklace, I will certainly be purchasing more Nominal items soon. It’s a bonus that the company donates a portion of the proceeds to feed hungry families in Palestine.",
+            "reviewer_name": "Andrea W.",
+            "star_rating": 5
+          }
+        },
+        "review_6": {
+          "type": "review_card",
+          "settings": {
+            "reviewer_image_url": "//nominalx.com/cdn/shop/files/6.webp?v=1767754511&width=500",
+            "review_heading": "Beautiful",
+            "short_text": "I recently purchased this ring and I’m absolutely delighted with it. The craftsmanship is excellent—",
+            "full_text": "I recently purchased this ring and I’m absolutely delighted with it. The craftsmanship is excellent—the details are clean and precise, and the finish gives it a luxurious shine. It feels solid and well-made without being too heavy, making it comfortable for daily wear.",
+            "reviewer_name": "Shaista A.",
+            "star_rating": 5
+          }
+        },
+        "video_1": {
+          "type": "video_card",
+          "settings": {
+            "video_url": "//nominalx.com/cdn/shop/videos/c/vp/f9d95ab4f4ae463a916a4d19e0a88bd6/f9d95ab4f4ae463a916a4d19e0a88bd6.HD-1080p-3.3Mbps-60376297.mp4?v=0",
+            "quote": "Allah's love and compassion is always there",
+            "reviewer_name": "Hanan T.",
+            "star_rating": 5
+          }
+        },
+        "video_2": {
+          "type": "video_card",
+          "settings": {
+            "video_url": "//nominalx.com/cdn/shop/videos/c/vp/0735dc48c93e4d4fbf80c3b5c74a2b5f/0735dc48c93e4d4fbf80c3b5c74a2b5f.HD-1080p-3.3Mbps-60376298.mp4?v=0",
+            "quote": "Each piece has a meaningful design",
+            "reviewer_name": "Hanan T.",
+            "star_rating": 5
+          }
+        },
+        "video_3": {
+          "type": "video_card",
+          "settings": {
+            "video_url": "//nominalx.com/cdn/shop/videos/c/vp/f01a1861359b42de9d9607f2bf2d6c9c/f01a1861359b42de9d9607f2bf2d6c9c.HD-1080p-3.3Mbps-60376299.mp4?v=0",
+            "quote": "They're beautiful, long lasting and waterproof",
+            "reviewer_name": "Hanan T.",
+            "star_rating": 5
+          }
+        },
+        "video_4": {
+          "type": "video_card",
+          "settings": {
+            "video_url": "//nominalx.com/cdn/shop/videos/c/vp/07a16e23ffdc46d3af0398e25edb14a7/07a16e23ffdc46d3af0398e25edb14a7.HD-1080p-3.3Mbps-60376300.mp4?v=0",
+            "quote": "Beautiful, Beautiful! I love the details, that's absolutely stunning",
+            "reviewer_name": "Hanan T.",
+            "star_rating": 5
+          }
+        },
+        "video_5": {
+          "type": "video_card",
+          "settings": {
+            "video_url": "//nominalx.com/cdn/shop/videos/c/vp/d9913d6a1b3f48149ff2314b9c8220c3/d9913d6a1b3f48149ff2314b9c8220c3.HD-1080p-3.3Mbps-60376301.mp4?v=0",
+            "quote": "Buying jewellery and you know where your money is going, to and for a better cause",
+            "reviewer_name": "Hanan T.",
+            "star_rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4",
+        "trust_5",
+        "quiz_1",
+        "quiz_2",
+        "quiz_3",
+        "col_1",
+        "col_2",
+        "col_3",
+        "col_4",
+        "price_1",
+        "price_2",
+        "price_3",
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5",
+        "review_6",
+        "video_1",
+        "video_2",
+        "video_3",
+        "video_4",
+        "video_5"
+      ],
+      "settings": {
+        "hero_eyebrow": "The Nominal Gift Guide · 2026",
+        "hero_title": "<p>Gifts That<br/>Carry <em>Meaning</em></p>",
+        "hero_subtitle": "Jewelry rooted in culture. Designed to be worn, remembered, and passed on.",
+        "hero_btn1_text": "Shop All Gifts",
+        "hero_btn1_link": "/collections/all-gifts",
+        "hero_btn2_text": "",
+        "hero_btn2_link": "",
+        "quiz_eyebrow": "Find the Perfect Gift",
+        "quiz_title": "<p>Who Are You Shopping <em>For?</em></p>",
+        "quiz_desc": "Select a recipient to see curated picks",
+        "quiz_result_label": "",
+        "reviews_bar_text": "25,000+ 5-STAR REVIEWS",
+        "collections_title": "Collections That Feel Like Home",
+        "budget_eyebrow": "Shop By Budget",
+        "budget_title": "<p>Every <em>Budget,</em> Perfectly Met</p>",
+        "budget_desc": "From thoughtful everyday pieces to investment heirlooms — the right gift is here.",
+        "products_eyebrow": "What Everyone’s Getting",
+        "products_title": "<p>Most <em>Loved,</em> Most Worn</p>",
+        "products_desc": "These are the pieces 400,000+ customers chose for the women they love most.",
+        "products_collection": "best-sellers-all",
+        "products_limit": 4,
+        "reviews_headline": "<p>Over 2 Million Pieces Sold Across 150+ Countries</p>",
+        "reviews_rating": "4.7",
+        "reviews_subtitle": "Across over 23,000 reviews",
+        "reviews_btn_text": "Read All Reviews",
+        "reviews_btn_link": "",
+        "cta_image": "shopify://shop_images/giftpage-bottom.jpg",
+        "cta_eyebrow": "",
+        "cta_title": "<p>When in doubt, get their<br/>name made in gold.</p>",
+        "cta_desc": "",
+        "cta_btn1_text": "Build a Custom Name →",
+        "cta_btn1_link": "/products/custom-name-necklace",
+        "cta_btn2_text": "",
+        "cta_btn2_link": ""
+      }
+    }
+  },
+  "order": [
+    "gift-page"
+  ]
+}

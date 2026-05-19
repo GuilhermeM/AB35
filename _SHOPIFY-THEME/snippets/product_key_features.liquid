@@ -1,0 +1,415 @@
+<div class="product_key_features">
+  {% assign producttags = product.tags | downcase %}
+  {% for tags in product.tags %}
+  {% assign tag = tags | downcase %}
+    {% if tag == 'women' %}
+      {% if product.handle == 'custom-name-necklace' or product.handle == 'customize-your-bracelet' %}
+        {% for i in (4..6) %}
+          {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+          {% capture key_text %}key_text_{{i}}{% endcapture %}
+          {% if settings[key_text] != blank %}
+          <div class="key_feature_block">
+            {% if settings[key_icon] != blank %}
+            <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+            {% endif %}
+            <span>{{settings[key_text]}}</span>                     
+          </div>
+          {% endif %} 
+        {% endfor %}
+  		{% break %}
+      {% else %} 
+      	{% if producttags contains 'arabic letter necklace' %}
+          {% assign key = 0 %}
+          {% for i in (7..9) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            {% assign key = forloop.index %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+          {% endfor %}	
+          {% if key == 0 %}
+            {% assign subkey = 0 %}	
+            {% for i in (28..30) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            {% assign subkey = forloop.index %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+            {% endfor %}
+            {% if subkey == 0 %}
+              {% for i in (1..3) %}
+                {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+                {% capture key_text %}key_text_{{i}}{% endcapture %}
+                {% if settings[key_text] != blank %}
+                {% assign subkey = forloop.index %}
+                <div class="key_feature_block">
+                  {% if settings[key_icon] != blank %}
+                  <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                  {% endif %}
+                  <span>{{settings[key_text]}}</span>                     
+                </div>
+                {% endif %} 
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+  		{% break %}
+        {% elsif producttags contains 'ak necklace women' %}
+          {% assign key = 0 %}
+          {% for i in (10..12) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            {% assign key = forloop.index %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+          {% endfor %}
+          {% if key == 0 %}
+            {% assign subkey = 0 %}
+            {% for i in (28..30) %}
+              {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+              {% capture key_text %}key_text_{{i}}{% endcapture %}
+              {% if settings[key_text] != blank %}
+              {% assign subkey = forloop.index %}
+              <div class="key_feature_block">
+                {% if settings[key_icon] != blank %}
+                <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                {% endif %}
+                <span>{{settings[key_text]}}</span>                     
+              </div>
+              {% endif %} 
+            {% endfor %}
+            {% if subkey == 0 %}
+              {% for i in (1..3) %}
+                {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+                {% capture key_text %}key_text_{{i}}{% endcapture %}
+                {% if settings[key_text] != blank %}
+                {% assign subkey = forloop.index %}
+                <div class="key_feature_block">
+                  {% if settings[key_icon] != blank %}
+                  <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                  {% endif %}
+                  <span>{{settings[key_text]}}</span>                     
+                </div>
+                {% endif %} 
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+  		{% break %}
+        {% elsif producttags contains 'ak cuff women' %}
+          {% assign key = 0 %}
+          {% for i in (16..18) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+          {% endfor %}
+          {% if key == 0 %}
+            {% assign subkey = 0 %}
+            {% for i in (28..30) %}
+              {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+              {% capture key_text %}key_text_{{i}}{% endcapture %}
+              {% if settings[key_text] != blank %}
+              {% assign subkey = forloop.index %}
+              <div class="key_feature_block">
+                {% if settings[key_icon] != blank %}
+                <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                {% endif %}
+                <span>{{settings[key_text]}}</span>                     
+              </div>
+              {% endif %} 
+            {% endfor %}
+            {% if subkey == 0 %}
+              {% for i in (1..3) %}
+                {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+                {% capture key_text %}key_text_{{i}}{% endcapture %}
+                {% if settings[key_text] != blank %}
+                {% assign subkey = forloop.index %}
+                <div class="key_feature_block">
+                  {% if settings[key_icon] != blank %}
+                  <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                  {% endif %}
+                  <span>{{settings[key_text]}}</span>                     
+                </div>
+                {% endif %} 
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+  		{% break %}
+        {% elsif producttags contains 'map necklace women' %}
+          {% assign key = 0 %}
+          {% for i in (22..24) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            {% assign key = forloop.index %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+          {% endfor %}
+          {% if key == 0 %}
+            {% assign subkey = 0 %}
+            {% for i in (28..30) %}
+              {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+              {% capture key_text %}key_text_{{i}}{% endcapture %}
+              {% if settings[key_text] != blank %}
+              {% assign subkey = forloop.index %}
+              <div class="key_feature_block">
+                {% if settings[key_icon] != blank %}
+                <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                {% endif %}
+                <span>{{settings[key_text]}}</span>                     
+              </div>
+              {% endif %} 
+            {% endfor %}
+            {% if subkey == 0 %}
+              {% for i in (1..3) %}
+                {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+                {% capture key_text %}key_text_{{i}}{% endcapture %}
+                {% if settings[key_text] != blank %}
+                {% assign subkey = forloop.index %}
+                <div class="key_feature_block">
+                  {% if settings[key_icon] != blank %}
+                  <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                  {% endif %}
+                  <span>{{settings[key_text]}}</span>                     
+                </div>
+                {% endif %} 
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+  		{% else %}
+          {% assign key = 0 %}
+          {% for i in (28..30) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            {% assign key = forloop.index %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+          {% endfor %}
+          {% if key == 0 %}
+            {% for i in (1..3) %}
+              {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+              {% capture key_text %}key_text_{{i}}{% endcapture %}
+              {% if settings[key_text] != blank %}
+              {% assign subkey = forloop.index %}
+              <div class="key_feature_block">
+                {% if settings[key_icon] != blank %}
+                <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                {% endif %}
+                <span>{{settings[key_text]}}</span>                     
+              </div>
+              {% endif %} 
+            {% endfor %}
+          {% endif %}
+  		{% endif %}
+      {% endif %} 
+  	{% break %}
+    {% elsif tag == 'men' %}
+      {% if producttags contains 'ak necklace men' %}
+        {% assign key = 0 %}
+        {% for i in (13..15) %}
+          {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+          {% capture key_text %}key_text_{{i}}{% endcapture %}
+          {% if settings[key_text] != blank %}
+          {% assign key = forloop.index %}
+          <div class="key_feature_block">
+            {% if settings[key_icon] != blank %}
+            <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+            {% endif %}
+            <span>{{settings[key_text]}}</span>                     
+          </div>
+          {% endif %} 
+        {% endfor %}
+        {% if key == 0 %}
+        {% assign subkey = 0 %}
+          {% for i in (31..33) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            {% assign subkey = forloop.index %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+          {% endfor %}
+          {% if subkey == 0 %}
+            {% for i in (1..3) %}
+              {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+              {% capture key_text %}key_text_{{i}}{% endcapture %}
+              {% if settings[key_text] != blank %}
+              {% assign subkey = forloop.index %}
+              <div class="key_feature_block">
+                {% if settings[key_icon] != blank %}
+                <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                {% endif %}
+                <span>{{settings[key_text]}}</span>                     
+              </div>
+              {% endif %} 
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+  	  {% break %}
+      {% elsif producttags contains 'ak cuff men' %}
+        {% assign key = 0 %}
+        {% for i in (19..21) %}
+          {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+          {% capture key_text %}key_text_{{i}}{% endcapture %}
+          {% if settings[key_text] != blank %}
+          {% assign key = forloop.index %}
+          <div class="key_feature_block">
+            {% if settings[key_icon] != blank %}
+            <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+            {% endif %}
+            <span>{{settings[key_text]}}</span>                     
+          </div>
+          {% endif %} 
+        {% endfor %}
+        {% if key == 0 %}
+          {% assign subkey = 0 %}
+          {% for i in (31..33) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            {% assign subkey = forloop.index %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+          {% endfor %}
+          {% if subkey == 0 %}
+            {% for i in (1..3) %}
+              {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+              {% capture key_text %}key_text_{{i}}{% endcapture %}
+              {% if settings[key_text] != blank %}
+              {% assign subkey = forloop.index %}
+              <div class="key_feature_block">
+                {% if settings[key_icon] != blank %}
+                <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                {% endif %}
+                <span>{{settings[key_text]}}</span>                     
+              </div>
+              {% endif %} 
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+  		{% break %}
+      {% elsif producttags contains 'map necklace men' %}
+        {% assign key = 0 %}
+        {% for i in (25..27) %}
+          {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+          {% capture key_text %}key_text_{{i}}{% endcapture %}
+          {% if settings[key_text] != blank %}
+          {% assign key = forloop.index %}
+          <div class="key_feature_block">
+            {% if settings[key_icon] != blank %}
+            <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+            {% endif %}
+            <span>{{settings[key_text]}}</span>                     
+          </div>
+          {% endif %} 
+        {% endfor %}
+        {% if key == 0 %}
+          {% assign subkey = 0 %}
+          {% for i in (31..33) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            {% assign subkey = forloop.index %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+          {% endfor %}
+          {% if subkey == 0 %}
+            {% for i in (1..3) %}
+              {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+              {% capture key_text %}key_text_{{i}}{% endcapture %}
+              {% if settings[key_text] != blank %}
+              {% assign subkey = forloop.index %}
+              <div class="key_feature_block">
+                {% if settings[key_icon] != blank %}
+                <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+                {% endif %}
+                <span>{{settings[key_text]}}</span>                     
+              </div>
+              {% endif %} 
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+      {% else %}
+        {% assign key = 0 %}
+        {% for i in (31..33) %}
+          {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+          {% capture key_text %}key_text_{{i}}{% endcapture %}
+          {% if settings[key_text] != blank %}
+          {% assign key = forloop.index %}
+          <div class="key_feature_block">
+            {% if settings[key_icon] != blank %}
+            <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+            {% endif %}
+            <span>{{settings[key_text]}}</span>                     
+          </div>
+          {% endif %} 
+        {% endfor %}
+        {% if key == 0 %}
+          {% for i in (1..3) %}
+            {% capture key_icon %}key_icon_{{i}}{% endcapture %}
+            {% capture key_text %}key_text_{{i}}{% endcapture %}
+            {% if settings[key_text] != blank %}
+            {% assign subkey = forloop.index %}
+            <div class="key_feature_block">
+              {% if settings[key_icon] != blank %}
+              <img src="{{settings[key_icon] | img_url:'50x'}}" alt="{{settings[key_icon].alt}}"/>
+              {% endif %}
+              <span>{{settings[key_text]}}</span>                     
+            </div>
+            {% endif %} 
+          {% endfor %}
+        {% endif %}	
+      {% endif %}
+  {% break %}
+    {% endif %}
+  {% endfor %}
+</div>

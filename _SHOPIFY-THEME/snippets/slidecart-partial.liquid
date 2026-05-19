@@ -1,0 +1,294 @@
+{% if settings.slidecart_partial %}
+<style>
+  .slidecart-partial.active {
+  	display: flex!important;
+    padding: 15px 0 0;
+  }
+  .slidecart-partial input {
+  	width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    background: white;
+    box-shadow: 0px 0px 0px 4px white inset;
+  }
+  .slidecart-partial input:checked {
+  	background: black;
+  }
+  .slidecart-partial label {
+  	flex: 1;
+    margin-left: 10px;
+    font-size: 13px;
+    color: rgba(0,0,0,0.7);
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
+<script>
+  var noteText = "Partial Shipment Requested";
+  var slidecartUS = false;
+  var slidecartHasBoth = false;
+    const region = {
+    'GB': 100,
+    'US': 75,
+    'CA': 150,
+    'CO': 230
+  };
+  const countryCode = `{{ localization.country.iso_code }}`
+  // Fetch the users country
+  axios.get('https://get.geojs.io/v1/ip/geo.json').then(function(res){
+    // Display if in us and app loaded
+    currentRegion = region[res.data.country_code]
+    if(res.data.country_code == 'US') {
+      slidecartUS = true
+      
+      var el = document.querySelector('.slidecart-partial')
+      if (el) el.classList.add('active')
+    }
+  })
+ 
+  var BASE_REWARD_AMOUNT;
+  
+  function scConvertRewardThresholds() {
+    // Change reward values depending on currency
+    const currentRegion = region[countryCode]
+    if (currentRegion) {
+        SLIDECART_STATE()?.settings?.rewards_tiers.forEach((reward) => {
+          if (rewards_type == "free_shipping"){
+            reward.amount = currentRegion             
+          }
+        });      
+    } else{
+      if (window.SLIDECART_STATE().settings.rewards) {
+        let currencyRate = parseFloat(window.Shopify.currency.rate);
+      
+        if (currencyRate && BASE_REWARD_AMOUNT) {
+            SLIDECART_STATE()?.settings?.rewards_tiers.forEach((reward, indx) => {
+            reward.amount = BASE_REWARD_AMOUNT[indx] * currencyRate;
+          });
+        }
+      }      
+    }
+
+  }
+  // Fetch the users country
+  axios.get('https://get.geojs.io/v1/ip/geo.json').then(function(res){
+    // Display if in us and app loaded
+    if(res.data.country_code == 'US') {
+      slidecartUS = true
+      
+      var el = document.querySelector('.slidecart-partial')
+      if (el) el.classList.add('active')
+    }
+  })
+
+  var BASE_REWARD_AMOUNT;
+  
+  function scConvertRewardThresholds() {
+    // Change reward values depending on currency
+    if (window.SLIDECART_STATE().settings.rewards) {
+      let currencyRate = parseFloat(window.Shopify.currency.rate);
+    
+      if (currencyRate && BASE_REWARD_AMOUNT) {
+          SLIDECART_STATE()?.settings?.rewards_tiers.forEach((reward, indx) => {
+          reward.amount = BASE_REWARD_AMOUNT[indx] * currencyRate;
+        });
+      }
+    }
+  }
+  
+  function scToggleMinimumCheckout(cart) {
+    if (cart.item_count > 0) {
+      if (window.cart_minimum && window.cart_minimum.status == true) {
+        var amt = window.cart_minimum.min_amount;
+        amt = amt * window.Shopify.currency.rate;
+        if (amt > cart.total_price) {
+          var cartmsg = window.cart_minimum.message;
+          var minAmount = formatMoney(amt, window.theme.moneyFormat);
+          cartmsg = cartmsg.replace("{amount}", minAmount);
+          
+          $("<span class='cart-min-msg'>"+cartmsg+"</span>").insertBefore($(".slidecarthq .announcements"));
+          $(".footer-sticky .footer-buttons").hide();
+          $(".cart-page-msg").html("<span class='cart-min-msg'>"+cartmsg+"</span>");
+        } else {
+          $(".footer-sticky .footer-buttons").show();
+          $(".cart-min-msg").remove();
+        }
+      }
+    } else {
+      $(".footer-sticky .footer-buttons").show();
+      $(".cart-min-msg").remove();
+    }
+  }
+  
+  function scCheckPartialShipping (cart) {
+    var custom = false;
+    var noncustom = false;
+
+    cart.items.forEach(function(item) {
+      if (item.product_id != 1806632681515) {
+        if (item.title.toLowerCase().indexOf('custom') > -1) {
+          custom = true;
+        } else {
+          noncustom = true;
+        }
+      }
+    })
+
+    if (custom && noncustom) {
+      slidecartHasBoth = true;
+    } else {
+      slidecartHasBoth = false;
+    }
+
+    // Display if in us and app loaded
+    var el = document.querySelector('.slidecart-partial');
+
+    if (slidecartUS && slidecartHasBoth) {
+      if (el) el.classList.add('active');
+
+      // Check if note is present      
+      if (cart.attributes.partial_shipping == "true" && el) {
+        // console.log('in herrr')
+        el.querySelector('input').checked = true;
+      }
+    } else {
+      if (el) el.classList.remove('active')
+
+      if (cart.attributes.partial_shipping == "true") {
+        axios.post('/cart/update.js', { attributes: { partial_shipping: false }})
+      }
+    }
+  }
+
+  function scAdjustSubtotalPosition() {
+    let scFooter = document.querySelector("#slidecarthq .footer-sticky");
+    let scSubtotalRow = document.querySelector("#slidecarthq footer.new-footer");
+    
+    if (scFooter && scSubtotalRow) {
+      let footerHeight = `${scFooter.offsetHeight}px`;
+    
+      scSubtotalRow.style.bottom = footerHeight;
+    }
+  }
+  
+  window.SLIDECART_LOADED = (cart) => {
+    if (window.SLIDECART_STATE().settings.rewards) {
+      BASE_REWARD_AMOUNT = window.SLIDECART_STATE().settings.rewards_tiers.map(reward => reward.amount);
+    }
+
+    setTimeout(window.SLIDECART_UPDATE, 1200);
+  }
+  
+  window.SLIDECART_UPDATED = async cart => {
+    // show compare-at prices start
+    try {
+      var newCart = cart;
+      var total = 0;
+
+      for(var i = 0; i < newCart.items.length; i++) {
+        var item = newCart.items[i];
+        var res = await axios.get('/products/' + item.handle + '.js');
+        var variant = res.data.variants.find(i => i.id == item.variant_id);
+        var compare = variant.compare_at_price;
+        total += (compare - variant.price) * item.quantity;
+        newCart.items[i].original_line_price = compare * item.quantity;
+      }
+
+      newCart.total_discount = total;
+
+      window.SLIDECART_SET_CART(newCart);
+    } catch (e) {
+      console.log('Slide Cart Error: ', e);
+    }
+    // show compare-at prices end
+    
+    scConvertRewardThresholds();
+    
+    scAdjustSubtotalPosition();
+    setTimeout(scAdjustSubtotalPosition, 1500);
+
+    fetch(window.Shopify.routes.root+'cart.js').then(res => res.json()).then((cart) => {
+      scToggleMinimumCheckout(cart);
+      scCheckPartialShipping(cart);
+    });
+  }
+  
+  // Listen for change
+  document.addEventListener('change', function(e) {
+    if (e.target.matches('.slidecart-partial input')) {
+      e.preventDefault();
+      
+      var el = document.querySelector('.slidecart-partial');
+      
+      if (e.target.checked) {
+        axios.post('/cart/update.js', { attributes: { partial_shipping: true }})        
+      } else {
+        axios.post('/cart/update.js', { attributes: { partial_shipping: false }})
+      }
+    }
+  }, false);
+  
+  function formatMoney(cents, format) {
+    if (typeof cents === 'string') {
+      cents = cents.replace('.', '');
+    }
+
+    var placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
+        formatString = format || '${{amount}}';
+
+        function defaultTo(value, defaultValue) {
+          return value == null || value !== value ? defaultValue : value;
+        }
+
+    function formatWithDelimiters(number, precision, thousands, decimal) {
+      precision = defaultTo(precision, 2);
+      thousands = defaultTo(thousands, ',');
+      decimal = defaultTo(decimal, '.');
+
+      if (isNaN(number) || number == null) {
+        return 0;
+      }
+
+      number = (number / 100.0).toFixed(precision);
+      var parts = number.split('.'),
+          dollarsAmount = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
+          centsAmount = parts[1] ? decimal + parts[1] : '';
+      return dollarsAmount + centsAmount;
+    }
+
+    var value = '';
+
+    switch (formatString.match(placeholderRegex)[1]) {
+      case 'amount':
+        value = formatWithDelimiters(cents, 2);
+        break;
+
+      case 'amount_no_decimals':
+        value = formatWithDelimiters(cents, 0);
+        break;
+
+      case 'amount_with_space_separator':
+        value = formatWithDelimiters(cents, 2, ' ', '.');
+        break;
+
+      case 'amount_no_decimals_with_comma_separator':
+        value = formatWithDelimiters(cents, 0, ',', '.');
+        break;
+
+      case 'amount_no_decimals_with_space_separator':
+        value = formatWithDelimiters(cents, 0, ' ');
+        break;
+
+      case 'amount_with_comma_separator':
+        value = formatWithDelimiters(cents, 2, '.', ',');
+        break;
+    }
+
+    if (formatString.indexOf('with_comma_separator') !== -1) {
+      return formatString.replace(placeholderRegex, value).replace(',00', '');
+    } else {
+      return formatString.replace(placeholderRegex, value).replace('.00', '');
+    }
+  }
+</script>
+{% endif %}

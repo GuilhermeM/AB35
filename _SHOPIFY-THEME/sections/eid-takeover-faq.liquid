@@ -1,0 +1,113 @@
+<section data-section-type="faq" data-section-id="{{ section.id }}" class="faq-custom-data">
+  {% if section.settings.title != block %}
+  <div class="faq_heading">
+    <h2>{{section.settings.title}}</h2>
+  </div>
+  {% endif %}
+  <div class="Container">
+    <div class="PageContent faq_custom_banner {% unless has_section_separator %}PageContent--narrow{% endunless %}">
+      <div class="left-and-right-side-faq">
+        <div class="left-side-faq-content">
+          <div class="Faq">
+            {%- for block in section.blocks -%}
+            {% if block.type == 'left' %}
+            <div class="Faq__Item " aria-expanded="false">
+              <div class="Faq__ItemWrapper">
+                <button class="Faq__Question"><span class="Faq__Icon">
+                  <svg class="Icon Icon--select-arrow-right " role="presentation" viewBox="0 0 11 18">
+                    <path d="M1.5 1.5l8 7.5-8 7.5" stroke-width="2" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="square"></path>
+                  </svg></span><span>{{block.settings.title}}</span></button>
+                <div class="Faq__AnswerWrapper" aria-hidden="true">
+                  <div class="Faq__Answer SectionHeader__Description Rte">
+                    {{block.settings.answer}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="right-side-faq-content">
+          <div class="Faq">
+            {%- for block in section.blocks -%}
+            {% if block.type == 'right' %}
+            <div class="Faq__Item " aria-expanded="false">
+              <div class="Faq__ItemWrapper">
+                <button class="Faq__Question"><span class="Faq__Icon">
+                  <svg class="Icon Icon--select-arrow-right " role="presentation" viewBox="0 0 11 18">
+                    <path d="M1.5 1.5l8 7.5-8 7.5" stroke-width="2" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="square"></path>
+                  </svg></span><span>{{block.settings.title}}</span></button>
+                <div class="Faq__AnswerWrapper" aria-hidden="true">
+                  <div class="Faq__Answer SectionHeader__Description Rte">
+                    {{block.settings.answer}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "heading",
+          "default": "Frequently Asked Question"
+        }
+ ],
+  "blocks": [
+    {
+      "type": "left",
+      "name": "Left Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Lorem ipsum dolor sit amet ?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>it's all happning on April 9th.</p>"
+        }
+      ]
+    },
+    {
+      "type": "right",
+      "name": "Right Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Lorem ipsum dolor sit amet ?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>it's all happning on April 9th.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+	{
+	  "name":"Eid Faq",
+	  "category":"Text"
+	}
+  ]
+}
+{% endschema %}

@@ -1,0 +1,433 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "product_meta": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": false,
+            "show_sku": false,
+            "show_product_rating": true,
+            "show_taxes_included": false
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
+            "show_label": false
+          }
+        },
+        "variant_selector": {
+          "type": "variant_selector",
+          "settings": {
+            "selector_mode": "block",
+            "show_color_swatch": true,
+            "show_color_carousel": true,
+            "size_chart": "size-guide"
+          }
+        },
+        "68e0dcec-5de4-434a-b498-d79b53289f2f": {
+          "type": "inventory",
+          "settings": {
+            "inventory_quantity_threshold": 5
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_price_in_button": false,
+            "show_payment_button": false,
+            "show_ship_notification": true,
+            "ship_notification_text": "In Stock - Ships in 1 Business Day",
+            "custom_ship_notification_text": "Hand-Made - Ships in 8-12 days"
+          }
+        },
+        "86f08e54-1ad7-4f6b-94e0-11d01cecd09b": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<div class=\"nominal-bf-countdown\" data-sale-end=\"2026-02-23T04:59:00Z\">\n  <div class=\"nominal-bf-countdown__label-row\">\n    <span class=\"nominal-bf-countdown__dot\"></span>\n    <span class=\"nominal-bf-countdown__label\">\n      2x loyalty points ends in\n    </span>\n  </div>\n\n  <div class=\"nominal-bf-countdown__timer\">\n    <div class=\"nominal-bf-countdown__unit\">\n      <span class=\"nominal-bf-countdown__value\" data-unit=\"days\">00</span>\n      <span class=\"nominal-bf-countdown__text\">Days</span>\n    </div>\n    <div class=\"nominal-bf-countdown__separator\">:</div>\n    <div class=\"nominal-bf-countdown__unit\">\n      <span class=\"nominal-bf-countdown__value\" data-unit=\"hours\">00</span>\n      <span class=\"nominal-bf-countdown__text\">Hours</span>\n    </div>\n    <div class=\"nominal-bf-countdown__separator\">:</div>\n    <div class=\"nominal-bf-countdown__unit\">\n      <span class=\"nominal-bf-countdown__value\" data-unit=\"minutes\">00</span>\n      <span class=\"nominal-bf-countdown__text\">Mins</span>\n    </div>\n    <div class=\"nominal-bf-countdown__separator\">:</div>\n    <div class=\"nominal-bf-countdown__unit\">\n      <span class=\"nominal-bf-countdown__value\" data-unit=\"seconds\">00</span>\n      <span class=\"nominal-bf-countdown__text\">Secs</span>\n    </div>\n  </div>\n</div>\n\n<style>\n  .nominal-bf-countdown {\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, \"SF Pro Text\",\n      \"Helvetica Neue\", Arial, sans-serif;\n    border-radius: 14px;\n    border: 1px solid #e5ddce;\n    padding: 14px 20px;\n    display: inline-flex;\n    flex-direction: column;\n    gap: 8px;\n    align-items: center;\n    justify-content: center;\n    background: #faf7f2;\n    box-shadow: 0 8px 24px rgba(0,0,0,0.04);\n    animation: fadeUp 400ms ease-out;\n  }\n\n  .nominal-bf-countdown__label-row {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    text-align: center;\n  }\n\n  .nominal-bf-countdown__dot {\n    width: 7px;\n    height: 7px;\n    border-radius: 50%;\n    background: #c99b4a;\n    box-shadow: 0 0 0 0 rgba(201,155,74,0.6);\n    animation: dotPulse 1.6s ease-out infinite;\n    flex-shrink: 0;\n  }\n\n  .nominal-bf-countdown__label {\n    font-size: 12px;\n    font-weight: 600;\n    letter-spacing: 0.16em;\n    text-transform: uppercase;\n    color: #3e3a34;\n    line-height: 1.35;\n  }\n\n  .nominal-bf-countdown__timer {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    font-variant-numeric: tabular-nums;\n  }\n\n  .nominal-bf-countdown__value {\n    font-size: 20px;\n    font-weight: 700;\n    color: #b68c42;\n    transition: transform 150ms ease-out;\n  }\n\n  .nominal-bf-countdown__text {\n    font-size: 10px;\n    letter-spacing: .18em;\n    text-transform: uppercase;\n    color: #8d8579;\n    margin-top: 2px;\n  }\n\n  .nominal-bf-countdown__separator {\n    font-size: 17px;\n    font-weight: 600;\n    color: #b8afa1;\n    margin-bottom: 10px;\n  }\n\n  .nominal-bf-countdown__value--tick {\n    transform: translateY(-2px);\n  }\n\n  @keyframes dotPulse {\n    0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(201,155,74,.6); }\n    65%  { transform: scale(1.14); box-shadow: 0 0 0 10px rgba(201,155,74,0); }\n    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201,155,74,0); }\n  }\n\n  @keyframes fadeUp {\n    from { opacity: 0; transform: translateY(5px); }\n    to   { opacity: 1; transform: translateY(0); }\n  }\n\n  @media (max-width: 600px) {\n    .nominal-bf-countdown__label {\n      font-size: 11px;\n      letter-spacing: 0.14em;\n    }\n  }\n</style>\n\n<script>\n(function() {\n  var container = document.querySelector(\".nominal-bf-countdown\");\n  if (!container) return;\n\n  // Feb 22, 2026 11:59 PM EST → Feb 23, 2026 04:59 UTC\n  var saleEnd = new Date(\"2026-02-23T04:59:00Z\");\n\n  var units = {\n    days: container.querySelector('[data-unit=\"days\"]'),\n    hours: container.querySelector('[data-unit=\"hours\"]'),\n    minutes: container.querySelector('[data-unit=\"minutes\"]'),\n    seconds: container.querySelector('[data-unit=\"seconds\"]')\n  };\n\n  function pad(n) { return n < 10 ? \"0\" + n : n; }\n\n  function animate(el) {\n    el.classList.remove(\"nominal-bf-countdown__value--tick\");\n    void el.offsetWidth;\n    el.classList.add(\"nominal-bf-countdown__value--tick\");\n  }\n\n  function update() {\n    var now = new Date();\n    var diff = saleEnd - now;\n\n    if (diff <= 0) {\n      container.style.display = \"none\";\n      clearInterval(intervalId);\n      return;\n    }\n\n    var t = Math.floor(diff / 1000);\n    var d = Math.floor(t / 86400);\n    var h = Math.floor((t % 86400) / 3600);\n    var m = Math.floor((t % 3600) / 60);\n    var s = t % 60;\n\n    var map = { days: d, hours: h, minutes: m, seconds: s };\n\n    for (var key in map) {\n      var el = units[key];\n      var val = pad(map[key]);\n      if (el && el.textContent !== val) {\n        el.textContent = val;\n        animate(el);\n      }\n    }\n  }\n\n  update();\n  var intervalId = setInterval(update, 1000);\n})();\n</script>"
+          }
+        },
+        "donation_blcok_JEPBR6": {
+          "type": "donation_blcok",
+          "settings": {
+            "main_image": "shopify://shop_images/HotMeals.png",
+            "donation_img_1": "shopify://shop_images/HotMeals.png",
+            "donation_img_2": "shopify://shop_images/hotMeals2.png",
+            "donation_img_3": "shopify://shop_images/hotMeals3.png",
+            "donation_img_4": "shopify://shop_images/hotMeals4.png",
+            "donation_banner_text": "<h2>Every Order Donates A <br/>Meal To Palestine</h2><p>With each purchase we provide a meal. Thank you for being part of this impact.</p><p><a>Learn how it works</a></p>",
+            "donation_modal_text": "<h2>Every order donates a  meal to Palestine</h2><p>Since October 2023, we've committed to serving a freshly made meal in Palestine with every single order placed. To date, over <strong>360,000 meals</strong> have been donated, all thanks to you. This is made possible by the brave and selfless Pious Projects team who is on the ground in Gaza City as we speak, making meals amidst the genocide happening in Palestine. Thank you, Nominal Family, for being a part of something bigger.</p>"
+          }
+        },
+        "liquid_7cjn6P": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "{%- if product.compare_at_price_max > product.price -%}\n  <style>\n    .bf-sale-banner {\n      width: 100%;\n      padding: 7px 0 8px;\n      margin: 0 0 14px;\n      background: #fafafa;\n      border-bottom: 1px solid #e6e6e6;\n      color: #1a1a1a;\n      text-align: center;\n      font-size: 11.5px;\n      letter-spacing: 0.04em;\n      position: relative;\n      overflow: hidden;\n      line-height: 1.5;\n    }\n\n    /* serif-sans pairing (Mejuri-inspired editorial tone) */\n    .bf-sale-banner__serif {\n      display: block;\n      font-family: \"Georgia\", \"Times New Roman\", serif;\n      font-weight: 500;\n      font-style: italic;\n      letter-spacing: 0.02em;\n    }\n\n    .bf-sale-banner__sans {\n      display: block;\n      font-family: -apple-system, BlinkMacSystemFont, \"Inter\", \"Segoe UI\", Roboto, sans-serif;\n      font-weight: 400;\n      text-transform: uppercase;\n      font-size: 10.5px;\n      letter-spacing: 0.12em;\n      margin-top: 2px;\n    }\n\n    /* Thin animated accent line */\n    .bf-sale-banner::before {\n      content: \"\";\n      position: absolute;\n      bottom: 0;\n      left: -20%;\n      width: 40%;\n      height: 1px;\n      background: #000;\n      opacity: 0.22;\n      animation: slide-accent 3.2s linear infinite;\n    }\n\n    @keyframes slide-accent {\n      0% { left: -20%; }\n      100% { left: 110%; }\n    }\n  </style>\n\n  <div class=\"bf-sale-banner\">\n    <span class=\"bf-sale-banner__serif\">This product is on sale.</span>\n    <span class=\"bf-sale-banner__sans\">The Black Friday Sale ends soon.</span>\n  </div>\n{%- endif -%}"
+          }
+        },
+        "11685449-d180-41fd-890a-4c715e6febe0": {
+          "type": "key_features",
+          "settings": {
+            "enable_key_features": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share_buttons": {
+          "type": "share_buttons",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "product_meta",
+        "quantity_selector",
+        "variant_selector",
+        "68e0dcec-5de4-434a-b498-d79b53289f2f",
+        "buy_buttons",
+        "86f08e54-1ad7-4f6b-94e0-11d01cecd09b",
+        "donation_blcok_JEPBR6",
+        "liquid_7cjn6P",
+        "11685449-d180-41fd-890a-4c715e6febe0",
+        "description",
+        "share_buttons"
+      ],
+      "settings": {
+        "image_size": "large",
+        "stack_images": false,
+        "show_thumbnails": false,
+        "enable_image_zoom": true,
+        "enable_video_looping": true
+      }
+    },
+    "custom_liquid_3EFmcG": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Custom Liquid",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "{%- if product.compare_at_price_max > product.price -%}\n  <style>\n    .bf-sale-banner {\n      width: 100%;\n      padding: 7px 0 8px;\n      margin: 0 0 14px;\n      background: #fafafa;\n      border-bottom: 1px solid #e6e6e6;\n      color: #1a1a1a;\n      text-align: center;\n      font-size: 11.5px;\n      letter-spacing: 0.04em;\n      position: relative;\n      overflow: hidden;\n      line-height: 1.5;\n    }\n\n    /* serif-sans pairing (Mejuri-inspired editorial tone) */\n    .bf-sale-banner__serif {\n      display: block;\n      font-family: \"Georgia\", \"Times New Roman\", serif;\n      font-weight: 500;\n      font-style: italic;\n      letter-spacing: 0.02em;\n    }\n\n    .bf-sale-banner__sans {\n      display: block;\n      font-family: -apple-system, BlinkMacSystemFont, \"Inter\", \"Segoe UI\", Roboto, sans-serif;\n      font-weight: 400;\n      text-transform: uppercase;\n      font-size: 10.5px;\n      letter-spacing: 0.12em;\n      margin-top: 2px;\n    }\n\n    /* Thin animated accent line */\n    .bf-sale-banner::before {\n      content: \"\";\n      position: absolute;\n      bottom: 0;\n      left: -20%;\n      width: 40%;\n      height: 1px;\n      background: #000;\n      opacity: 0.22;\n      animation: slide-accent 3.2s linear infinite;\n    }\n\n    @keyframes slide-accent {\n      0% { left: -20%; }\n      100% { left: 110%; }\n    }\n  </style>\n\n  <div class=\"bf-sale-banner\">\n    <span class=\"bf-sale-banner__serif\">This product is on sale.</span>\n    <span class=\"bf-sale-banner__sans\">The Black Friday Sale ends soon.</span>\n  </div>\n{%- endif -%}"
+      }
+    },
+    "c4aa895b-fdc2-4924-b8ce-d5ea5460b66f": {
+      "type": "design_pack_-_faq_-_simple",
+      "blocks": {
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-0": {
+          "type": "section_heading",
+          "settings": {
+            "title": "Customers ask..."
+          }
+        },
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-1": {
+          "type": "question",
+          "settings": {
+            "title": "Do you use real gold?",
+            "text": "<p>Absolutely. We only use real gold plating on all of our gold pieces. Underneath, we use pure stainless steel so that you can wear this piece around water and sweat and never worry about any fading or tarnishing. </p><p>Our Rose Gold pieces have the same pure stainless steel base, and are coated with real gold, but blended with copper to achieve its gorgeous rose-colored hue.</p><p>Our Silver pieces are also made from  pure stainless steel, and simply polished for that beautiful lifelong shine.</p><p>Men's pieces are all made with pure stainless steel for the same waterproof &amp; sweatproof promise.</p>"
+          }
+        },
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-2": {
+          "type": "question",
+          "settings": {
+            "title": "What is your return policy?",
+            "text": "<p>It's simple -- if you don't like your piece for any reason, you have 100 days to send it back for a full refund. Period. In the US, we'll even pay for your return label. Start your self-serve return right <a href=\"https://nominal.loopreturns.com/#/\" target=\"_blank\" title=\"https://nominal.loopreturns.com/#/\" aria-label=\"link\">here</a> and we'll take care of the rest.</p>"
+          }
+        },
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-3": {
+          "type": "section_heading",
+          "disabled": true,
+          "settings": {
+            "title": "Shipping"
+          }
+        },
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-4": {
+          "type": "question",
+          "settings": {
+            "title": "Is there a warranty with my piece?",
+            "text": "<p>Absolutely. We cover every single piece we sell with a Lifetime Warranty against any rust or tarnish, with the exception of watches &amp; our fine jewelry collection which contain a different warranty. Read above in the Materials &amp; Warranty section to find exact details. <br></p><p>For standard jewelry, if you ever experience any fading on your jewelry, just e-mail us a photo and we'll get you taken care of.</p>"
+          }
+        },
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-5": {
+          "type": "question",
+          "settings": {
+            "title": "What should I know before gifting?",
+            "text": "<p>We know how important the gifting experience is, so we've made it easy:</p><p>Prices are never shown in the package, and a receipt is never needed for them to begin an exchange. Every piece is packed in a gorgeous gift-ready velvet pouch, and an upgrade to a box for each item is always available. Happy gifting!</p>"
+          }
+        },
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-6": {
+          "type": "question",
+          "settings": {
+            "title": "Can I wear this in the shower?",
+            "text": "<p>Yes! That's exactly why we made Nominal - we felt that beautiful jewelry deserves to be worn daily. Because we use only real gold plating and pure hypoallergenic stainless steel, you can wear your piece day in and day out, including in the shower, with no worries about skin sensitivity, jewelry fading, or anything in between. Wear and enjoy. </p><p><em><strong>*Please note, though, that Qur'anic pieces should be tucked away or removed prior to entering the restroom.*</strong></em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-0",
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-1",
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-2",
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-3",
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-4",
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-5",
+        "template--16177583947963__c4aa895b-fdc2-4924-b8ce-d5ea5460b66f-1684192050f18b8c41-6"
+      ],
+      "settings": {
+        "show_answers": false,
+        "text_size": 80,
+        "alignment": "left",
+        "heading_color": "#121212",
+        "text_color": "#121212",
+        "background_color": "linear-gradient(184deg, rgba(255, 255, 255, 1) 7%, rgba(255, 255, 255, 1) 94%)",
+        "border_color": "#121212",
+        "base_width": 90,
+        "max_width": "",
+        "inner_padding": 0,
+        "outer_margin": 5,
+        "custom_css": "",
+        "mobile_custom_css": "",
+        "override_theme_font": false,
+        "heading_font": "serif",
+        "main_font": "system_ui_n4"
+      }
+    },
+    "1642786755f49fc6b7": {
+      "type": "apps",
+      "blocks": {
+        "988e0705-f7c0-4f5b-8c8a-d83540cb958b": {
+          "type": "shopify://apps/okendo/blocks/media-grid/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "disabled": true,
+          "settings": {
+            "product": ""
+          }
+        },
+        "0c78fddf-7974-43fa-8955-772cfde3d360": {
+          "type": "shopify://apps/okendo/blocks/media-carousel/bb689e69-ea70-4661-8fb7-ad24a2e23c29",
+          "disabled": true,
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "988e0705-f7c0-4f5b-8c8a-d83540cb958b",
+        "0c78fddf-7974-43fa-8955-772cfde3d360"
+      ],
+      "disabled": true,
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "164278068170026b38": {
+      "type": "okendo-reviews-widget",
+      "settings": {
+        "include_margins": true,
+        "heading": "Our Customer Reviews"
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "blocks": {
+        "3d9e580a-2c60-412f-81c2-61110f5f8b13": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "3d9e580a-2c60-412f-81c2-61110f5f8b13"
+      ],
+      "custom_css": [],
+      "settings": {
+        "show_wide_width": false,
+        "heading": "Don't forget these",
+        "show_border": true,
+        "show_product_info": true,
+        "show_vendor": false,
+        "show_color_swatch": false
+      }
+    },
+    "16455147851625de6e": {
+      "type": "product-image-with-text",
+      "blocks": {
+        "968cd5ca-0a22-410c-a93c-8ca065f3d10c": {
+          "type": "product-image-with-text",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of_Water_Shot_2_1.jpg",
+            "title": "Real Waterproof Gold, Always.",
+            "info": "<p>With four layers of real 18-karat gold plating coating your water-resistant steel, you never have to worry about a lack of quality. Since we use hypoallergenic steel instead of silver like other brands, our jewelry is all water-proof & sweat-proof, proudly backed by a <strong>Lifetime Warranty</strong> so you never have to take it off. And just to be extra sure you're in love, every order comes with a 100-Day Moneyback Guarantee.</p>",
+            "btn_label": "",
+            "btn_url": "",
+            "text_align": "left",
+            "grid_layout": "left",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "title_color": "",
+            "info_color": "",
+            "btn_color": "",
+            "bg_color": "#f8f8f8"
+          }
+        },
+        "a27144ed-1f98-4413-a8c5-23808803415c": {
+          "type": "product-image-with-text",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of_Best_Sellers_V5.jpg",
+            "title": "Styles Beyond Time",
+            "info": "<p>While our jewelry is always modern and trendy, we take pride in pieces that go beyond the concept of time. With a blend of essential and meaningful designs, your Nominal pieces are meant to stand the test of time, <strong>both</strong> in design & in quality.</p>",
+            "btn_label": "",
+            "btn_url": "",
+            "text_align": "left",
+            "grid_layout": "right",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "title_color": "",
+            "info_color": "",
+            "btn_color": "",
+            "bg_color": ""
+          }
+        },
+        "8c39f9dd-161d-40eb-8a46-a94b6ec17cdf": {
+          "type": "product-image-with-text",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2022-03-08_at_1.43.41_PM.jpg",
+            "title": "Family-Owned Brand",
+            "info": "<p>Founded by wife-and-husband duo, Lena and Akram, Nominal began in the spare bedroom of a townhouse and still takes pride in the family-oriented values at our brand. By donating portions of every order & paying above-livable wages to the whole team, Nominal is a family before anything else.</p>",
+            "btn_label": "",
+            "btn_url": "",
+            "text_align": "left",
+            "grid_layout": "left",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "title_color": "",
+            "info_color": "",
+            "btn_color": "",
+            "bg_color": "#f8f8f8"
+          }
+        }
+      },
+      "block_order": [
+        "968cd5ca-0a22-410c-a93c-8ca065f3d10c",
+        "a27144ed-1f98-4413-a8c5-23808803415c",
+        "8c39f9dd-161d-40eb-8a46-a94b6ec17cdf"
+      ],
+      "custom_css": [],
+      "settings": {
+        "wide_width": false
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "show_wide_width": false,
+        "title": "Recently viewed",
+        "show_border": true,
+        "show_product_info": true,
+        "show_vendor": false,
+        "show_color_swatch": true
+      }
+    },
+    "1645009453fac10c44": {
+      "type": "order-section",
+      "blocks": {
+        "2626070e-c816-48cd-97a9-3e7e09cfbd51": {
+          "type": "order-image",
+          "settings": {
+            "order_img": "shopify://shop_images/ba0ac756-1554489762900-ir-encased-fullsig-blue-screen-website2_101z01001z00x000002028.png"
+          }
+        },
+        "1f4b04d0-254f-45c8-9663-428ed87f7e95": {
+          "type": "order-image",
+          "settings": {
+            "order_img": "shopify://shop_images/55e6d2c3-image2_102h00u000000000000028.png"
+          }
+        },
+        "029c98dd-6060-44af-925b-ad9c78a853e7": {
+          "type": "order-image",
+          "settings": {
+            "order_img": "shopify://shop_images/4f599165-image-12_102z00w02x00w001000028.png"
+          }
+        }
+      },
+      "block_order": [
+        "2626070e-c816-48cd-97a9-3e7e09cfbd51",
+        "1f4b04d0-254f-45c8-9663-428ed87f7e95",
+        "029c98dd-6060-44af-925b-ad9c78a853e7"
+      ],
+      "disabled": true,
+      "settings": {
+        "order_text": "<p><em>Every order donates to charity. </em><a href=\"/pages/deed-of-the-month\" title=\"Deed of the Month\"><em>Read more</em></a><em> about our </em><strong>Deed of the Month</strong>™</p>",
+        "bg_color": "#ffffff"
+      }
+    },
+    "e15fee9a-f1f9-4fff-b9fe-1a58b3c984a5": {
+      "type": "media",
+      "blocks": {
+        "4edb2240-1433-4832-8e03-04ffa8a98e9e": {
+          "type": "richtext",
+          "settings": {
+            "titles": "",
+            "richtext": "<p>\"One of the top Muslim-owned brands you need to know: Nominal is for anyone obsessed with accessories.\"</p>",
+            "image": "shopify://shop_images/allure-logo-black.png",
+            "image_height": 140
+          }
+        },
+        "bbebc657-e2ff-4268-aa52-f193e8ccb952": {
+          "type": "richtext",
+          "settings": {
+            "titles": "",
+            "richtext": "<p>\"Nominal is a powerful example of what storytelling can do; the brand gives its customers ownership of their stories.\"</p>",
+            "image": "shopify://shop_images/Untitled_design-3.png",
+            "image_height": 100
+          }
+        },
+        "98990dd9-0c87-46d3-8d9b-7b22a1505fe4": {
+          "type": "richtext",
+          "settings": {
+            "titles": "",
+            "richtext": "<p>\"Nominal is a high-quality jewelry and lifestyle brand that specializes in creating modern and minimalist pieces. It's a must-have.\"</p>",
+            "image": "shopify://shop_images/Popsugar_Logo.png",
+            "image_height": 100
+          }
+        }
+      },
+      "block_order": [
+        "4edb2240-1433-4832-8e03-04ffa8a98e9e",
+        "bbebc657-e2ff-4268-aa52-f193e8ccb952",
+        "98990dd9-0c87-46d3-8d9b-7b22a1505fe4"
+      ],
+      "custom_css": [
+        ".richtext-wrapper {height: 50px;}"
+      ],
+      "settings": {
+        "title": "The world's take on us",
+        "show_border": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_liquid_3EFmcG",
+    "c4aa895b-fdc2-4924-b8ce-d5ea5460b66f",
+    "1642786755f49fc6b7",
+    "164278068170026b38",
+    "product-recommendations",
+    "16455147851625de6e",
+    "recently-viewed-products",
+    "1645009453fac10c44",
+    "e15fee9a-f1f9-4fff-b9fe-1a58b3c984a5"
+  ]
+}

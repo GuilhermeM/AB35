@@ -1,0 +1,120 @@
+<div class="text-column">
+  <div class="container">
+    {% for block in section.blocks %}
+    <div class="text-column-block">
+      {% assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+      <img class="Image--lazyLoad hide-no-js"
+           data-src="{{ image_url }}"
+           data-optimumx="1.2"
+           data-widths="[400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200]"
+           data-sizes="auto"
+           alt="{{ block.settings.image.alt | escape }}">
+      {% if block.settings.title != blank %}
+      <h2 class="heading">{{ block.settings.title }}</h2>
+      {% endif %}
+      {% if block.settings.info != blank %}
+      {{ block.settings.info }}
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<style>
+  {% if section.settings.bg_color != blank %}
+  .text-column {
+  	background-color: {{ section.settings.bg_color }};
+  }
+  {% endif %}
+  {% for block in section.blocks %}
+  {% if block.settings.title_color != blank %}
+  .text-column .text-column-block .heading {
+    color: {{ block.settings.title_color }};
+  }
+  {% endif %}
+  {% if block.settings.info_color != blank %}
+  .text-column .text-column-block p {
+    color: {{ block.settings.info_color }};
+  }
+  {% endif %}
+  .text-column .text-column-block {
+    text-align: {{ block.settings.text_align }};
+  }
+  {% endfor %}
+</style>
+{% schema %}
+  {
+   "name":"Text Column",
+   "settings":[
+      {
+         "type":"color",
+         "id":"bg_color",
+         "label":"Background Color"
+      }
+   ],
+   "blocks":[
+      {
+         "type":"text-column",
+         "name":"Text Column",
+         "settings":[
+            {
+               "type":"image_picker",
+               "id":"image",
+               "label":"Image"
+            },
+            {
+               "type":"text",
+               "id":"title",
+               "label":"Heading"
+            },
+            {
+               "type":"richtext",
+               "id":"info",
+               "label":"Info"
+            },
+            {
+               "type":"select",
+               "id":"text_align",
+               "label":"Text Info Align",
+               "options":[
+                  {
+                     "value":"left",
+                     "label":"Left"
+                  },
+                  {
+                     "value":"center",
+                     "label":"Center"
+                  },
+                  {
+                     "value":"right",
+                     "label":"Right"
+                  }
+               ],
+               "default":"left"
+            },
+            {
+               "type":"color",
+               "id":"title_color",
+               "label":"Heading Color"
+            },
+            {
+               "type":"color",
+               "id":"info_color",
+               "label":"Info Color"
+            }
+         ]
+      }
+   ],
+   "presets":[
+      {
+         "category":"text",
+         "name":"Text Column"
+      }
+   ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

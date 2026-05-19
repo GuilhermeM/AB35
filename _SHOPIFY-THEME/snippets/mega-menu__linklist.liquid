@@ -1,0 +1,41 @@
+<div class="mega-menu__linklist">
+  {% assign menu = linklists[menu_link] %}
+  <p class="menu__heading">
+    {% if link_setting != blank %}<a href="{{ link_setting }}">{% endif %}
+      {{ menu.title }}
+    {% if link_setting != blank %}</a>{% endif %}
+  </p>
+  <ul class="Linklist">
+    {% for link in menu.links %}
+      <li class="Linklist__Item">
+        {% if link.type == 'collection_link' %}
+          {% if link.object.featured_image != blank %}
+              {% assign objecturl = link.object.featured_image | img_url:'master'%}
+          {% else %}
+              {% assign objecturl = link.object.products.first.featured_image | img_url:'master'%}
+          {% endif %}
+        {% endif %}
+        
+        <a href="{{ link.url }}" class="mega-menu__linklist-link {% if link.active %}is-active{% endif %}" data-collections-img="{{objecturl}}" data-collections-count="{{link.object.all_products_count}}">
+          <span class="mega-menu-item">{{ link.title }}</span>
+          {% if main_menu_name %}
+            {% if link.handle contains 'new' %}
+              <span class="tag-new tag-content">NEW</span>
+            {% endif %}
+          {% if link.handle contains 'clearance' %}	
+              <span class="tag-sale tag-content">SALE</span>
+            {% endif %}
+          {% endif %}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+<style>
+  span.tag-content {
+    min-width: 25px;
+    text-align: center;
+    line-height: normal;
+    padding: 3px 4px;
+}
+</style>

@@ -1,0 +1,50 @@
+:focus-visible {
+  outline: 5px auto black !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+
+:focus:not(:focus-visible) {
+  outline: none!important;
+}
+
+.ColorSwatch__Radio {
+  opacity: unset;
+}
+
+.ColorSwatch__Radio:focus-visible + label.ColorSwatch {
+  outline: -webkit-focus-ring-color auto 1px;
+  outline: 1px solid black;
+}
+
+.slidecarthq .empty {
+  color: #1c1b1b !important;
+}
+
+#slidecarthq .item .variants-p,
+#slidecarthq .header h2 span{
+      color: rgb(0 0 0 / 60%) !important;
+}
+
+.Button--ATC,
+.Button--ATC::before {
+  background-color: #2C872C;
+}
+
+.ProductForm .shipping-notification span {
+    color: #2A832A;
+}
+
+#sidebar-menu[aria-hidden="true"] {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.oke-w-ratingAverageModule-count,
+.okeReviews[data-oke-container] .oke-w-reviews-count, div.okeReviews .oke-w-reviews-count,
+.okeReviews[data-oke-container] .oke-reviewContent-date, div.okeReviews .oke-reviewContent-date,
+.okeReviews[data-oke-container] .oke-helpful, div.okeReviews .oke-helpful,
+.okeReviews[data-oke-container] .oke-helpful-vote-button, div.okeReviews .oke-helpful-vote-button {
+  color: #736f68!important;
+}

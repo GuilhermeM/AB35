@@ -1,0 +1,157 @@
+<section class="Icon_with_text_section section-{{section.id}} Section--spacingNormal">
+  <div class="Icon_with_text_main_section">
+    <div class="Icon_with_text_container normal_container">
+      <div class="Icon_with_text_main_content">
+        {% if section.settings.main_title != blank %}
+          <header class="SectionHeader SectionHeader--center Border--false">
+            <h2 class="SectionHeader__Heading Heading u-h1">{{section.settings.main_title}}</h2>
+          </header>
+        {% endif %}
+        {% if section.settings.main_descriptions != blank %}
+          <div class="Icon_with_text_description">
+            {{section.settings.main_descriptions}}
+          </div>
+        {% endif %}
+        {% if section.settings.discount_coupen_text != blank %}
+          <div class="Icon_eith_text_dicount_coupen_bar">
+            <h3>{{section.settings.discount_coupen_text}}</h3>
+          </div>
+        {% endif %}
+        <div class="Icon_with_text_content_bar value_{{section.settings.select_grid}} {% if section.settings.show_rewardcard %}has-reward--card{% endif %}">
+          {% for block in section.blocks %}
+            <div class="Icon_with_text_content">
+              {% if section.settings.show_count %}
+                <div class="Icon_with_text_count">
+                  <span>{{ forloop.index }}</span>
+                </div>
+              {% endif %}
+              <div class="Icon_with_text_wrapper">
+                {% if section.settings.show_rewardcard %}
+                <svg width="311px" height="137px" viewBox="0 0 325 151" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-hidden="true" focusable="false" class="yotpo-coupon-icon"><defs><path id="yotpo-path-coupon-background" d="M306.480776,0.110000849 C308.734098,0.110000849 310.560776,1.93667904 310.560776,4.19000077 L310.561303,79.9181718 C310.435187,79.9127445 310.308324,79.910001 310.180777,79.910001 C305.674134,79.910001 302.020778,83.3350226 302.020778,87.5600009 C302.020778,91.7849792 305.674134,95.2100008 310.180777,95.2100008 C310.308324,95.2100008 310.435187,95.2072573 310.561303,95.20183 L310.560776,132.829999 C310.560776,135.083321 308.734098,136.909999 306.480776,136.909999 L4.0807814,136.909999 C1.82745966,136.909999 0.000781476765,135.083321 0.000781476765,132.829999 L1.54209978e-13,96.0651938 C0.385521344,96.121073 0.779771409,96.1499989 1.18077749,96.1499989 C5.68742096,96.1499989 9.34077734,92.4966425 9.34077734,87.9899991 C9.34077734,83.4833556 5.68742096,79.8299992 1.18077749,79.8299992 C0.779771409,79.8299992 0.385521344,79.8589252 1.54543045e-13,79.9148043 L0.000781476765,4.19000077 C0.000781476765,1.93667904 1.82745966,0.110000849 4.0807814,0.110000849 L306.480776,0.110000849 Z"></path><filter id="yotpo-filter-coupon-backgrond" x="-3.5%" y="-7.3%" width="107.1%" height="116.1%" filterUnits="objectBoundingBox"><feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur stdDeviation="3.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0.0162474465   0 0 0 0 0.0480246377   0 0 0 0 0.126408376  0 0 0 0.22 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix></filter></defs><g stroke="none" stroke-width="1" fill="" fill-rule="evenodd"><g transform="translate(-25.000000, -365.000000)"><g><g transform="translate(32.000000, 338.000000)"><g transform="translate(0.000000, 32.000000)"><g><g><g transform="translate(0.000000, 0.889999)"><mask id="yotpo-coupon-mask" fill="white"><use xlink:href="#yotpo-path-coupon-background"></use></mask><g><use fill="black" fill-opacity="1" filter="url(#yotpo-filter-coupon-backgrond)" xlink:href="#yotpo-path-coupon-background"></use><use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#yotpo-path-coupon-background"></use></g><path d="M21,88.6448047 L25.4,88.6448047 L25.4,87.6248047 L21,87.6248047 L21,88.6448047 Z M29.241,88.6448047 L33.64,88.6448047 L33.64,87.6248047 L29.241,87.6248047 L29.241,88.6448047 Z M37.481,88.6448047 L41.88,88.6448047 L41.88,87.6248047 L37.481,87.6248047 L37.481,88.6448047 Z M45.72,88.6448047 L50.12,88.6448047 L50.12,87.6248047 L45.72,87.6248047 L45.72,88.6448047 Z M53.96,88.6448047 L58.36,88.6448047 L58.36,87.6248047 L53.96,87.6248047 L53.96,88.6448047 Z M62.201,88.6448047 L66.6,88.6448047 L66.6,87.6248047 L62.201,87.6248047 L62.201,88.6448047 Z M70.441,88.6448047 L74.84,88.6448047 L74.84,87.6248047 L70.441,87.6248047 L70.441,88.6448047 Z M78.681,88.6448047 L83.08,88.6448047 L83.08,87.6248047 L78.681,87.6248047 L78.681,88.6448047 Z M86.92,88.6448047 L91.32,88.6448047 L91.32,87.6248047 L86.92,87.6248047 L86.92,88.6448047 Z M95.161,88.6448047 L99.56,88.6448047 L99.56,87.6248047 L95.161,87.6248047 L95.161,88.6448047 Z M103.401,88.6448047 L107.8,88.6448047 L107.8,87.6248047 L103.401,87.6248047 L103.401,88.6448047 Z M111.641,88.6448047 L116.04,88.6448047 L116.04,87.6248047 L111.641,87.6248047 L111.641,88.6448047 Z M119.88,88.6448047 L124.28,88.6448047 L124.28,87.6248047 L119.88,87.6248047 L119.88,88.6448047 Z M128.121,88.6448047 L132.52,88.6448047 L132.52,87.6248047 L128.121,87.6248047 L128.121,88.6448047 Z M136.361,88.6448047 L140.76,88.6448047 L140.76,87.6248047 L136.361,87.6248047 L136.361,88.6448047 Z M144.601,88.6448047 L149,88.6448047 L149,87.6248047 L144.601,87.6248047 L144.601,88.6448047 Z M152.84,88.6448047 L157.24,88.6448047 L157.24,87.6248047 L152.84,87.6248047 L152.84,88.6448047 Z M161.08,88.6448047 L165.48,88.6448047 L165.48,87.6248047 L161.08,87.6248047 L161.08,88.6448047 Z M169.321,88.6448047 L173.72,88.6448047 L173.72,87.6248047 L169.321,87.6248047 L169.321,88.6448047 Z M177.561,88.6448047 L181.96,88.6448047 L181.96,87.6248047 L177.561,87.6248047 L177.561,88.6448047 Z M185.8,88.6448047 L190.2,88.6448047 L190.2,87.6248047 L185.8,87.6248047 L185.8,88.6448047 Z M194.04,88.6448047 L198.44,88.6448047 L198.44,87.6248047 L194.04,87.6248047 L194.04,88.6448047 Z M202.281,88.6448047 L206.68,88.6448047 L206.68,87.6248047 L202.281,87.6248047 L202.281,88.6448047 Z M210.521,88.6448047 L214.92,88.6448047 L214.92,87.6248047 L210.521,87.6248047 L210.521,88.6448047 Z M218.76,88.6448047 L223.16,88.6448047 L223.16,87.6248047 L218.76,87.6248047 L218.76,88.6448047 Z M227,88.6448047 L231.4,88.6448047 L231.4,87.6248047 L227,87.6248047 L227,88.6448047 Z M235.241,88.6448047 L239.64,88.6448047 L239.64,87.6248047 L235.241,87.6248047 L235.241,88.6448047 Z M243.481,88.6448047 L247.88,88.6448047 L247.88,87.6248047 L243.481,87.6248047 L243.481,88.6448047 Z M251.721,88.6448047 L256.12,88.6448047 L256.12,87.6248047 L251.721,87.6248047 L251.721,88.6448047 Z M259.96,88.6448047 L264.36,88.6448047 L264.36,87.6248047 L259.96,87.6248047 L259.96,88.6448047 Z M268.201,88.6448047 L272.6,88.6448047 L272.6,87.6248047 L268.201,87.6248047 L268.201,88.6448047 Z M276.441,88.6448047 L280.84,88.6448047 L280.84,87.6248047 L276.441,87.6248047 L276.441,88.6448047 Z M284.681,88.6448047 L289.08,88.6448047 L289.08,87.6248047 L284.681,87.6248047 L284.681,88.6448047 Z" fill="#B8B8B8" mask="url(#yotpo-coupon-mask)"></path></g></g></g></g></g></g></g></g></svg>
+                {% endif %}
+                <div class="Icon_with_text_Details">
+                  <div class="Icon_with_text_title">
+                    {% if block.settings.svg_title != blank %}
+                      <h2>{{block.settings.svg_title}}</h2>
+                    {% endif %}
+                  </div>
+                  <div class="Icon_with_text_subtitle">
+                    {% if block.settings.svg_subtitle != blank %}
+                     {{block.settings.svg_subtitle}}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-{{section.id}} .Icon_with_text_main_section .Icon_with_text_main_content {
+    background-color: {{section.settings.section_bg_color}};
+  }
+  
+  {% for block in section.blocks %}
+    {% if block.settings.block_bg_color != blank %}
+      .section-{{section.id}} .Icon_with_text_main_section .Icon_with_text_content_bar .Icon_with_text_content {
+        background-color: {{block.settings.block_bg_color}};
+      }
+    {% endif %}
+  {% endfor %}
+</style>
+
+{% schema %}
+  {
+    "name": "Custom Icon With text",
+	"max_blocks": 4,
+    "settings": [
+	  {
+		"type":"text",
+		"id":"main_title",
+		"label":"Heading"
+	  },
+	  {
+		"type":"richtext",
+		"id":"main_descriptions",
+		"label":"Sub Heading"
+	  },
+	  {
+		"type":"color",
+		"id":"section_bg_color",
+		"label":"Background Color"
+	  },
+  	  {
+        "type": "checkbox",
+        "id": "show_count",
+        "label": "Show count",
+        "default": false
+      },
+	  {
+        "type": "checkbox",
+        "id": "show_rewardcard",
+        "label": "Show reward card",
+        "default": false
+      },
+	  {
+		"type":"text",
+		"id":"discount_coupen_text",
+		"label":"Discount Coupen Text"
+	  },
+	  {
+        "type": "select",
+        "id": "select_grid",
+        "label": "Select Grid",
+        "options": [
+          {
+            "value": "three",
+            "label": "Three"
+          },
+          {
+            "value": "four",
+            "label": "Four"
+          }
+        ],
+        "default": "three"
+      }
+	],
+	"blocks": [
+	  {
+		 "type":"Content",
+		 "name":"Content",
+		 "settings": [
+			{
+              "type":"color",
+              "id":"block_bg_color",
+              "label":"Background Color"
+            },
+			{
+			  "type":"text",
+			  "id":"svg_title",
+			  "label":"Heading"
+			},
+		    {
+			  "type":"richtext",
+			  "id":"svg_subtitle",
+			  "label":"Sub Heading"
+			}
+		 ]
+	  }
+	],
+	"presets": [
+	  {
+		 "name":"Custom Icon With text",
+		 "category":"Icon With text"
+	  }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

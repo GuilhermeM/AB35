@@ -1,0 +1,86 @@
+{% if shop.metafields.okendo.settings.isWidgetPlusEnabled == true or shop.metafields.okendo.settings.isWidgetPlusAdminEnabled == true %}
+    {% assign renderWidgetPlusScript = true %}
+{% endif %}
+
+  <div class="Section--spacingNormal index__section">
+    <header class="SectionHeader SectionHeader--center Border--true okeReviews-reviewCarousel-heading">
+      <div class="Container">
+        <h3 class="SectionHeader__Heading Heading u-h1">350,000+ STORIES</h3>
+      </div>
+    </header>
+  </div>
+
+{% if section.settings.show_heading %}
+    {% if renderWidgetPlusScript == true %}
+        {% if section.settings.heading != blank %}
+            {% capture heading_data_attribute %} data-oke-header-text="{{ section.settings.heading }}"{% endcapture %}
+        {% endif %}
+        {% if section.settings.link != blank %}
+                {% capture carousel_link_data_attribute %} data-oke-header-badge-url="{{ section.settings.link }}"{% endcapture %}
+        {% endif %}
+    {% else %}
+        {% if section.settings.heading != blank %}
+            {% capture heading_data_attribute %} data-oke-reviews-carousel-heading="{{ section.settings.heading }}"{% endcapture %}
+        {% endif %}
+        {% if section.settings.link != blank %}
+            {% capture carousel_link_data_attribute %} data-oke-reviews-carousel-link="{{ section.settings.link }}"{% endcapture %}
+        {% endif %}
+    {% endif %}
+{% elsif renderWidgetPlusScript != true %}
+    {% capture hide_header_attribute %} data-oke-reviews-carousel-hide-header="true"{% endcapture %}
+{% else %}
+    {% capture hide_header_attribute %} data-oke-hide-header="true"{% endcapture %}
+{% endif %}
+{% if renderWidgetPlusScript == true %}
+    <div
+        data-oke-carousel
+        {{ product_data_attribute }}
+        {{ heading_data_attribute }}
+        {{ carousel_link_data_attribute }}
+        {{ hide_header_attribute }}
+    ></div>
+    {% else %}
+    <div
+        data-oke-reviews-carousel
+        {{ product_data_attribute }}
+        {{ heading_data_attribute }}
+        {{ carousel_link_data_attribute }}
+        {{ hide_header_attribute }}
+    ></div>
+{% endif %}
+
+<div class="Section--spacingNormal oke-reviews-custom-button" style="text-align: center">
+	<a href="pages/reviews-1" class="Button Button--primary">Read All Reviews</a>
+</div>
+
+
+{% schema %}
+{
+  "name": "Okendo Reviews Carousel",
+  "class": "okeReviews-reviews-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Okendo Reviews Carousel",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

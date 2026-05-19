@@ -1,0 +1,583 @@
+{{ 'footer-subscription.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'footer-subscription.js' | asset_url }}" defer></script>
+
+{% if template == 'index' %}
+  {% if section.settings.top_image != blank %}
+  <div class="footer__Top_sec">
+    
+     {% assign image_url = section.settings.top_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+          <img class="Image--lazyLoad Image hide-no-js"
+               data-src="{{ image_url }}"
+               data-optimumx="1.2"
+               data-widths="[400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200]"
+               data-sizes="auto"
+               alt="{{ section.settings.top_image.alt | escape }}"/>
+    
+  </div>
+  {% endif %}
+{% endif %}
+<footer id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="footer" class="Footer {% if section.blocks.size <= 2 %}Footer--center{% endif %}" role="contentinfo">
+  <div class="Container">
+    {%- if section.blocks.size > 0 -%}
+      <div class="Footer__Inner">
+        {%- for block in section.blocks -%}
+          <div class="Footer__Block Footer__Block--{{ block.type }} Footer_Block--{{ block.id }}" {{ block.shopify_attributes }}>
+            {%- case block.type -%}
+              {%- when 'text' -%}
+                {%- if block.settings.title != blank -%}
+                  <h2 class="Footer__Title Heading u-h6">{{ block.settings.title | escape }}</h2>
+                {%- endif -%}
+
+                {%- if block.settings.content != blank -%}
+                  <div class="Footer__Content Rte">
+                    {{ block.settings.content }}
+                  </div>
+                {%- endif -%}
+
+                {%- if block.settings.show_social_media -%}
+                  {% render 'social-media', class: 'Footer__Social', spacing: 'loose' %}
+                {%- endif -%}
+
+              {%- when 'links' -%}
+                {%- assign linklist = linklists[block.settings.menu] -%}
+
+                {%- if linklist != empty -%}
+                  <h2 class="Footer__Title Heading u-h6">{{ linklist.title | escape }}</h2>
+
+                  <ul class="Linklist">
+                    {%- for link in linklist.links -%}
+                      <li class="Linklist__Item">
+                        <a href="{{ link.url }}" class="Link Link--primary">{{ link.title | escape }}</a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+
+              {%- when 'newsletter' -%}
+                {%- if block.settings.title != blank -%}
+          
+                {%- endif -%}
+
+                {%- if block.settings.content != blank -%}
+              
+                {%- endif -%}
+
+                {%- form 'customer', id: 'footer-newsletter', class: 'Footer__Newsletter Form' -%}
+                  {%- if form.posted_successfully? -%}
+                    <p class="Form__Alert Alert Alert--success">{{ 'footer.newsletter.success' | t }}</p>
+                  {%- else -%}
+                    {%- if form.errors -%}
+                      <p class="Form__Alert Alert Alert--error">{{ form.errors.messages['email'] }}</p>
+                    {%- endif -%}
+
+               <div class="klaviyo-form-XdTFEL"></div>
+            
+            
+                  {%- endif -%}
+                {%- endform -%}
+            
+            {%- when 'logo_text' -%}
+            {%- if block.settings.title != blank -%}
+            <h2 class="Footer__Title Heading u-h6">{{ block.settings.title | escape }}</h2>
+            {%- endif -%}
+
+            {%- comment -%} 1. Logo {%- endcomment -%}
+            {%- if block.settings.logo -%}
+            <div class="Footer_logo">
+              <a href="{{ routes.root_url }}" class="Footer__LogoLink">
+                {%- capture image_size -%}{{ block.settings.logo_max_width }}x{%- endcapture -%}
+                <img class="Footer__LogoImage Footer__LogoImage--primary"
+                     src="{{ block.settings.logo | img_url: image_size }}"
+                     srcset="{{ block.settings.logo | img_url: image_size }} 1x, {{ block.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                     width="{{ block.settings.logo.width }}"
+                     height="{{ block.settings.logo.height }}"
+                     alt="{{ block.settings.logo.alt | default: shop.name | escape }}">
+              </a>
+            </div>
+            {%- endif -%}
+
+            {%- comment -%} 2. Contact info (richtext) {%- endcomment -%}
+            {%- if block.settings.content != blank -%}
+            <div class="Footer__Content Rte">
+              {{ block.settings.content }}
+            </div>
+            {%- endif -%}
+
+            {%- comment -%} 3. Newsletter subscription form {%- endcomment -%}
+            {%- if block.settings.show_newsletter -%}
+            <div class="footer-sub" data-footer-subscribe>
+              {%- if block.settings.newsletter_heading != blank -%}
+                <p class="footer-sub__heading">{{ block.settings.newsletter_heading | escape }}</p>
+              {%- endif -%}
+
+              <form class="footer-sub__form" data-footer-subscribe-form action="#" method="post" novalidate>
+                <label for="footer-subscribe-email" class="u-visually-hidden">{{ block.settings.newsletter_placeholder | default: 'Email' }}</label>
+                <input
+                  type="email"
+                  id="footer-subscribe-email"
+                  class="footer-sub__input"
+                  name="email"
+                  placeholder="{{ block.settings.newsletter_placeholder | default: 'Email' | escape }}"
+                  autocomplete="email"
+                  required
+                >
+                <button type="submit" class="footer-sub__btn">
+                  {{ block.settings.newsletter_button_text | default: 'Subscribe' | escape }}
+                </button>
+              </form>
+
+              <p class="footer-sub__error" data-footer-subscribe-error aria-live="polite" hidden>
+                {{ block.settings.newsletter_error_message | default: 'Invalid email. Please try again.' | escape }}
+              </p>
+              <p class="footer-sub__disclaimer">By subscribing you agree to our <a href="/pages/privacy-policy">Privacy Policy</a>. You can unsubscribe at any time.</p>
+            </div>
+
+            {%- comment -%} Success modal {%- endcomment -%}
+            <div class="footer-sub__modal-backdrop" data-footer-subscribe-backdrop hidden></div>
+            <div class="footer-sub__modal" data-footer-subscribe-modal role="dialog" aria-modal="true" aria-label="{{ block.settings.newsletter_success_title | escape }}" hidden>
+              <button class="footer-sub__modal-close" data-footer-subscribe-modal-close aria-label="Close"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L9 9M9 1L1 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+              <h2 class="footer-sub__modal-title">{{ block.settings.newsletter_success_title | default: 'THANKS FOR SUBSCRIBING!' | escape }}</h2>
+              <p class="footer-sub__modal-message">{{ block.settings.newsletter_success_message | default: 'Check your email for a confirmation message' | escape }}</p>
+            </div>
+            {%- endif -%}
+
+            {%- comment -%} 4. Social media icons {%- endcomment -%}
+            {%- if block.settings.show_social_media -%}
+            {% render 'social-media', class: 'Footer__Social footer-sub__social', spacing: 'loose' %}
+            {%- endif -%}
+            {%- endcase -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    
+  </div>
+  <div class="Footer__Aside">
+      {%- if section.settings.show_country_selector and localization.available_countries.size > 1 -%}
+        {%- assign country_selector = true -%}
+      {%- endif -%}
+
+      {%- if section.settings.show_locale_selector and localization.available_languages.size > 1 -%}
+        {%- assign locale_selector = true -%}
+      {%- endif -%}
+
+      {%- if locale_selector or country_selector -%}
+        <div class="Footer__Localization">
+          {%- form 'localization', id: 'localization_form_footer', class: 'Footer__LocalizationForm' -%}
+            {%- if country_selector -%}
+              <div class="Footer__LocalizationItem">
+                <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                <span class="u-visually-hidden">{{ 'footer.general.country' | t }}</span>
+
+                <button type="button" class="SelectButton Link Link--primary u-h8" aria-haspopup="true" aria-expanded="false" aria-controls="footer-currency-popover">
+                  {{- localization.country.name }} ({{ localization.country.currency.iso_code }} {% if localization.country.currency.symbol %}{{ localization.country.currency.symbol }}{%- endif -%})
+                  {%- render 'icon', icon: 'select-arrow' -%}
+                </button>
+
+                <div id="footer-currency-popover" class="Popover Popover--small Popover--noWrap" aria-hidden="true">
+                  <header class="Popover__Header">
+                    <button type="button" class="Popover__Close Icon-Wrapper--clickable" data-action="close-popover">{% render 'icon' with 'close' %}</button>
+                    <span class="Popover__Title Heading u-h4">{{ 'footer.general.country' | t }}</span>
+                  </header>
+
+                  <div class="Popover__Content">
+                    <div class="Popover__ValueList Popover__ValueList--center" data-scrollable>
+                      {%- for country in localization.available_countries -%}
+                        <button type="submit" name="country_code" class="Popover__Value {% if country.iso_code == localization.country.iso_code %}is-selected{% endif %} Heading Link Link--primary u-h6"  value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %}>
+                          {{- country.name }} ({{ country.currency.iso_code }} {% if country.currency.symbol %}{{ country.currency.symbol }}{%- endif -%})
+                        </button>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- if locale_selector -%}
+              <div class="Footer__LocalizationItem">
+                <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}">
+                <span class="u-visually-hidden">{{ 'footer.general.locale' | t }}</span>
+
+                <button type="button" class="SelectButton Link Link--primary u-h8" aria-haspopup="true" aria-expanded="false" aria-controls="footer-locale-popover">
+                  {{- localization.language.endonym_name -}}
+                  {%- render 'icon', icon: 'select-arrow' -%}
+                </button>
+
+                <div id="footer-locale-popover" class="Popover Popover--small Popover--noWrap" aria-hidden="true">
+                  <header class="Popover__Header">
+                    <button type="button" class="Popover__Close Icon-Wrapper--clickable" data-action="close-popover">{% render 'icon' with 'close' %}</button>
+                    <span class="Popover__Title Heading u-h4">{{ 'footer.general.locale' | t }}</span>
+                  </header>
+
+                  <div class="Popover__Content">
+                    <div class="Popover__ValueList Popover__ValueList--center" data-scrollable>
+                      {%- for language in localization.available_languages -%}
+                        <button type="submit" name="locale_code" class="Popover__Value {% if language.iso_code == localization.language.iso_code %}is-selected{% endif %} Heading Link Link--primary u-h6" value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}>
+                          {{- language.endonym_name | capitalize -}}
+                        </button>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+    
+      <div class="Footer__Copyright">
+        <a href="{{ routes.root_url }}" class="Footer__StoreName Heading Link Link--secondary">© 2018 {{ shop.name }} LLC. Nominal jewelry designs are protected by US copyright law. All rights reserved.</a>
+        <svg height="4px" width="4px" class="" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="5"></circle></svg>
+        <a href="#" id="nmnl-accessibility" class="Heading Link Link--secondary">Accessibility</a>
+        <!-- <a href="https://nominalx.com/pages/accessibility" class="Heading Link Link--secondary">Accessibility</a> -->
+        <!-- <p class="Footer__ThemeAuthor">{{ powered_by_link }}</p> -->
+      </div>
+
+      {%- if section.settings.show_payment_methods -%}
+        {%- capture payment_methods -%}
+          {%- for type in shop.enabled_payment_types -%}
+            <li class="HorizontalList__Item">{{ type | payment_type_svg_tag }}</li>
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- if payment_methods != blank -%}
+        <div class="Footer__PaymentList-wrapper">
+          <ul class="Footer__PaymentList HorizontalList">
+            {{ payment_methods }}
+          </ul>
+        </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+</footer>
+
+<style>
+  {%- if settings.footer_background == settings.background -%}
+  .Footer {
+    border-top: 1px solid var(--border-color);
+      }
+  {%- endif -%}
+  {% for block in section.blocks %}
+  
+    .Footer__Block.Footer_Block--{{ block.id }} {
+      text-align: {{ block.settings.text_align }};
+    }
+  	
+    {%- if block.type == 'logo_text' -%}
+      {%- if block.settings.logo -%}
+        .Footer__LogoImage {
+          max-width: {{ block.settings.logo_max_width }}px;
+        }
+        @media screen and (max-width: 640px) {
+          .Footer__LogoImage {
+            max-width: {{ block.settings.mobile_logo_max_width }}px;
+          }
+        }
+      {%- endif -%}
+    {%- endif -%}
+  {% endfor %}
+</style>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "shopify-section--footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_payment_methods",
+      "label": "Show payment methods",
+      "info": "Payment method icons are automatically displayed based on your Shopify payment methods.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Country/region selector",
+      "info": "To add a country/region, go to your [currency settings.](/admin/settings/payments)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country_selector",
+      "label": "Show country/region selector",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Language selector",
+      "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_selector",
+      "label": "Show language selector",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Index Footer Top image"
+    },
+    {
+      "type": "image_picker",
+      "id": "top_image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text / social media",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "About the shop"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Text",
+          "default": "<p>Use this text area to tell your customers about your brand and vision. You can change it in the theme settings.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social_media",
+          "label": "Show social media",
+          "info": "Make sure to have properly configured your social media in the theme settings.",
+          "default": true
+        },
+    	{
+          "type": "select",
+          "id": "text_align",
+          "label": "Text align",
+          "options": [
+            {
+              "value": "left",
+              "label": "left"
+            },
+            {
+              "value": "center",
+              "label": "center"
+            },
+			{
+              "value": "right",
+              "label": "right"
+            }
+          ],
+          "default": "left"
+        }
+      ]
+    },
+    {
+      "type": "links",
+      "name": "Links",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "info": "This menu won't show dropdown items."
+        },
+		{
+          "type": "select",
+          "id": "text_align",
+          "label": "Text align",
+          "options": [
+            {
+              "value": "left",
+              "label": "left"
+            },
+            {
+              "value": "center",
+              "label": "center"
+            },
+			{
+              "value": "right",
+              "label": "right"
+            }
+          ],
+          "default": "left"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Customers who subscribe will have their email address added to the \"accepts marketing\" [customer list](/admin/customers?query=&accepts_marketing=1)."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Newsletter"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Text",
+          "default": "<p>A short sentence describing what someone will receive by subscribing</p>"
+        },
+		{
+          "type": "select",
+          "id": "text_align",
+          "label": "Text align",
+          "options": [
+            {
+              "value": "left",
+              "label": "left"
+            },
+            {
+              "value": "center",
+              "label": "center"
+            },
+			{
+              "value": "right",
+              "label": "right"
+            }
+          ],
+          "default": "left"
+        }
+      ]
+    },
+    {
+      "type": "logo_text",
+      "name": "Logo/Text/social media",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "About the shop"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Footer Logo"
+        },
+        {
+          "type": "range",
+          "id": "logo_max_width",
+          "min": 50,
+          "max": 350,
+          "step": 5,
+          "unit": "px",
+          "label": "Image width",
+          "default": 140
+        },
+        {
+          "type": "range",
+          "id": "mobile_logo_max_width",
+          "min": 50,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "label": "Mobile image width",
+          "default": 90
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Text",
+          "default": "<p>Use this text area to tell your customers about your brand and vision. You can change it in the theme settings.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social_media",
+          "label": "Show social media",
+          "info": "Make sure to have properly configured your social media in the theme settings.",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Newsletter subscription"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_newsletter",
+          "label": "Show newsletter form",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "newsletter_heading",
+          "label": "Newsletter heading",
+          "default": "Subscribe and get 20% discount"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_placeholder",
+          "label": "Input placeholder",
+          "default": "Email"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_button_text",
+          "label": "Button text",
+          "default": "Subscribe"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_success_title",
+          "label": "Success modal title",
+          "default": "THANKS FOR SUBSCRIBING!"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_success_message",
+          "label": "Success modal message",
+          "default": "Check your email for a confirmation message"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_error_message",
+          "label": "Error message",
+          "default": "Invalid email. Please try again."
+        },
+		{
+          "type": "select",
+          "id": "text_align",
+          "label": "Text align",
+          "options": [
+            {
+              "value": "left",
+              "label": "left"
+            },
+            {
+              "value": "center",
+              "label": "center"
+            },
+			{
+              "value": "right",
+              "label": "right"
+            }
+          ],
+          "default": "left"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "text",
+        "settings": {}
+      },
+      {
+        "type": "links",
+        "settings": {
+          "menu": "footer"
+        }
+      },
+      {
+        "type": "newsletter",
+        "settings": {}
+      }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,34 @@
+<div class="header-search-form">
+  <div id="Search" class="">
+    <div class="Search__Inner">
+      <div class="Search__SearchBar">
+        <form action="/search" name="GET" role="search" class="Search__Form">
+          <input type="search" id="search-focus" class="Search__Input Heading" name="q" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="{{ 'search.general.input_placeholder' | t }}" placeholder="{{ 'search.general.input_placeholder' | t }}">
+          <input type="hidden" name="type" value="product">
+          <a href="/search" class="Header__Icon Icon-Wrapper Icon-Wrapper--clickable custom_redirect" data-action="toggle-search" aria-label="Search">
+            <span class="hidden-tablet-and-up"><svg class="Icon Icon--search " role="presentation" viewBox="0 0 18 17">
+              <g transform="translate(1 1)" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="square">
+                <path d="M16 16l-5.0752-5.0752"></path>
+                <circle cx="6.4" cy="6.4" r="6.4"></circle>
+              </g>
+              </svg></span>
+            <span class="hidden-phone"><svg class="Icon Icon--search-desktop " role="presentation" viewBox="0 0 21 21">
+              <g transform="translate(1 1)" stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="square">
+                <path d="M18 18l-5.7096-5.7096"></path>
+                <circle cx="7.2" cy="7.2" r="7.2"></circle>
+              </g>
+              </svg></span>
+          </a>
+        </form>
+      </div>
+      <div class="Search__Results" aria-hidden="true">
+        {%- if settings.search_mode != 'product' -%}
+        <div class="PageLayout PageLayout--breakLap">
+          <div class="PageLayout__Section"></div>
+          <div class="PageLayout__Section PageLayout__Section--secondary"></div>
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>

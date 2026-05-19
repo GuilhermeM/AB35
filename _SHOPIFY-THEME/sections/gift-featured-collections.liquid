@@ -1,0 +1,387 @@
+{%- if section.settings.layout_mode == 'carousel' -%}
+  {%- capture flickity_options -%}
+  {
+    "prevNextButtons": true,
+    "pageDots": false,
+    "wrapAround": false,
+    "contain": true,
+    "cellAlign": "center",
+    "watchCSS": true,
+    "dragThreshold": 8,
+    "groupCells": true,
+    "arrowShape": {"x0": 20, "x1": 60, "y1": 40, "x2": 60, "y2": 35, "x3": 25}
+  }
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- capture section_settings -%}
+{
+  "layout": {{ section.settings.layout_mode | json }}
+}
+{%- endcapture -%}
+
+<section class="Section Section--spacingNormal feature_collection" data-section-id="{{ section.id }}" data-section-type="featured-collections" data-settings='{{ section_settings }}'>
+  <div class="container">
+    <header class="SectionHeader SectionHeader--center">
+      <div class="heading_info {{section.settings.heading_width}}">
+        <div class="section_heading">
+          <h2 class="SectionHeader__Heading Heading u-h1">{{ section.settings.title }}</h2>
+        </div>
+
+        <div class="sub_heading_with_btn">
+          {%- if section.settings.sub_title != blank -%}
+          <h3 class="SectionHeader__SubHeading Heading u-h6">{{ section.settings.sub_title | escape }}</h3>
+          {%- endif -%}
+          {%- if section.settings.button_text != blank -%}
+          <div class="SectionFooter">
+            <a href="{{ section.settings.button_url }}" class="Button Button--secondary desktop_btn">{{ section.settings.button_text | escape }}</a>
+          </div>
+          {%- endif -%}
+        </div>
+
+        {%- if section.blocks.size > 1 -%}
+        <div class="SectionHeader__TabList TabList" role="tablist">
+          {%- for block in section.blocks -%}
+          {%- assign collection = collections[block.settings.collection] -%}
+
+          <button class="Heading u-h1 TabList__Item {% if forloop.first %}is-active{% endif %}" data-action="toggle-tab" aria-controls="block-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" role="tab">
+            {%- if collection != empty -%}
+            {{- block.settings.title | default: collection.title -}}
+            {%- else -%}
+            {{- 'home_page.onboarding.collection_title' | t -}}
+            {%- endif -%}
+          </button>
+          {%- endfor -%}
+        </div>
+        {%- else -%}
+        {%- assign collection = collections[section.blocks.first.settings.collection] -%}
+        {%- endif -%}
+      </div>
+    </header>
+
+    {%- for block in section.blocks -%}
+    {%- assign collection = collections[block.settings.collection] -%}
+
+    <div class="TabPanel" id="block-{{ block.id }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" role="tabpanel" {{ block.shopify_attributes }}>
+      <div class="ProductListWrapper">
+        {%- if collection != empty -%}
+        {%- assign item_count = block.settings.grid_items_count -%}
+
+        {%- if collection.products_count < block.settings.grid_items_count -%}
+        {%- assign item_count = collection.products_count -%}
+        {%- endif -%}
+
+        {%- if section.settings.layout_mode == 'grid' -%}
+        <div class="ProductList ProductList--grid ProductList--removeMargin Grid" data-mobile-count="{{ section.settings.grid_mobile_items_per_row }}" data-desktop-count="{{ section.settings.grid_desktop_items_per_row }}">
+          {%- for product in collection.products limit: block.settings.grid_items_count -%}
+          <div class="Grid__Cell 1/{{ section.settings.grid_mobile_items_per_row }}--phone 1/2--tablet 1/{{ section.settings.grid_desktop_items_per_row }}--lap-and-up">
+            {%- render 'product-item', product: product, show_product_info: section.settings.show_product_info, show_vendor: section.settings.show_vendor, show_color_swatch: section.settings.show_color_swatch, show_labels: true -%}
+          </div>
+          {%- endfor -%}
+        </div>
+        {%- else -%}
+        <div class="ProductList ProductList--carousel Carousel" data-flickity-config='{{ flickity_options }}'>
+          {%- for product in collection.products limit: block.settings.grid_items_count -%}
+          <div class="Carousel__Cell">
+            {%- render 'product-item', product: product, show_product_info: section.settings.show_product_info, show_vendor: section.settings.show_vendor, show_color_swatch: section.settings.show_color_swatch, show_labels: true -%}
+          </div>
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+        {%- else -%}
+        {%- comment -%}If collection is not set, we use placeholder content for all three layout mode{%- endcomment -%}
+
+        {%- capture products_placeholder -%}
+        {%- for i in (1..block.settings.grid_items_count) -%}
+        <div class="{% if section.settings.layout_mode == 'grid' %}Grid__Cell 1/{{ section.settings.grid_mobile_items_per_row }}--phone 1/2--tablet-and-up 1/{{ section.settings.grid_desktop_items_per_row }}--lap-and-up{% else %}Carousel__Cell{% endif %}">
+          {% capture placeholder_index %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {%- render 'product-item-placeholder', placeholder_index: placeholder_index -%}
+        </div>
+        {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- if section.settings.layout_mode == 'grid' -%}
+        <div class="ProductList ProductList--grid ProductList--removeMargin Grid" data-mobile-count="{{ section.settings.grid_mobile_items_per_row }}" data-desktop-count="{{ section.settings.grid_desktop_items_per_row }}">
+          {{ products_placeholder }}
+        </div>
+        {%- else -%}
+        <div class="ProductList ProductList--carousel Carousel" data-flickity-config='{{ flickity_options }}'>
+          {{ products_placeholder }}
+        </div>
+        {%- endif -%}
+        {%- endif -%}
+      </div>
+      {%- if section.settings.button_text != blank -%}
+      <div class="SectionFooter mobile_btn">
+        <a href="{{ section.settings.button_url }}" class="Button Button--secondary">{{ section.settings.button_text | escape }}</a>
+      </div>
+      {%- endif -%}
+    </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .feature_collection .heading_info,.feature_collection .heading_info .SectionFooter{
+    text-align: {{ section.settings.heading_align }};
+  }
+  {% if section.settings.heading_color != blank %}
+  #shopify-section-{{ section.id }} .feature_collection .SectionHeader .heading_info .section_heading h2.SectionHeader__Heading,
+  #shopify-section-{{ section.id }} .feature_collection .SectionHeader .heading_info .sub_heading_with_btn h3.SectionHeader__SubHeading {
+    color: {{ section.settings.heading_color }};
+  }
+  {% endif %}
+  #shopify-section-{{ section.id }} .SectionFooter a.Button.Button--secondary {
+    {% if section.settings.btn_label_color != blank %}
+    color: {{ section.settings.btn_label_color }};
+    {% endif %}
+    {% if section.settings.btn_bg_color != blank %}
+    border-color: {{ section.settings.btn_bg_color }};
+    {% endif %}
+  }
+  {% if section.settings.btn_bg_color != blank %}
+  #shopify-section-{{ section.id }} .SectionFooter a.Button.Button--secondary:before{
+    background-color: {{ section.settings.btn_bg_color }};
+  }
+  {% endif %}
+  {% if section.settings.btn_label_hover_color != blank %}
+  #shopify-section-{{ section.id }} .SectionFooter a.Button.Button--secondary:hover {
+    color: {{ section.settings.btn_label_hover_color }};
+  }
+  {% endif %}
+  #shopify-section-{{ section.id }} .feature_collection .TabPanel .ProductListWrapper .ProductList .Carousel__Cell .ProductItem__Info {
+    text-align: {{ section.settings.product_info_align }};
+  }
+  {% if section.settings.product_heading_color != blank %}
+  #shopify-section-{{ section.id }} .feature_collection .TabPanel .ProductListWrapper .ProductList .Carousel__Cell .ProductItem__Info h2.ProductItem__Title {
+    color: {{ section.settings.product_heading_color }};
+  }
+  {% endif %}
+  {% if section.settings.product_price_color != blank %}
+  #shopify-section-{{ section.id }} .feature_collection .TabPanel .ProductListWrapper .ProductList .Carousel__Cell .ProductItem__Info .ProductItem__Price.Price--highlight .money {
+    color: {{ section.settings.product_price_color }};
+  }
+  {% endif %}
+</style>
+
+{%- capture hack -%}
+{%- comment -%}This is just an ugly hack to make those variables appear as part of the theme editor in the General Settings{%- endcomment -%}
+{% if section.settings.layout_mode == 'grid' %}{{ settings.product_list_horizontal_spacing }},{{ settings.product_list_vertical_spacing }}{% endif %}
+{%- endcapture -%}
+
+{% schema %}
+{
+  "name": "Featured collections",
+  "class": "shopify-section--bordered",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub-heading",
+      "default": "Featured collection"
+    },
+	{
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading Sub-heading Button Align",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+		{
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+	{
+      "type": "select",
+      "id": "heading_width",
+      "label": "Heading Info Width Layout",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        },
+        {
+          "value": "half-width",
+          "label": "Half Width"
+        }
+      ],
+      "default": "half-width"
+    },
+    {
+      "type": "select",
+      "id": "layout_mode",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_info",
+      "label": "Show product info",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatch",
+      "label": "Show color swatch",
+      "info": "Some colors appear white? [Learn more](http://support.maestrooo.com/article/80-product-uploading-custom-color-for-color-swatch).",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Grid",
+      "info": "Those settings apply only if the layout mode is set to grid."
+    },
+    {
+      "type": "select",
+      "id": "grid_mobile_items_per_row",
+      "label": "Products per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "min": 2,
+      "max": 4,
+      "id": "grid_desktop_items_per_row",
+      "label": "Products per row (desktop)",
+      "default": 4
+    },
+	{
+      "type": "select",
+      "id": "product_info_align",
+      "label": "Product Info Align",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+		{
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View all products"
+    },
+	{
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Url"
+    },
+	{
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color"
+    },
+	{
+      "type": "color",
+      "id": "btn_label_color",
+      "label": "Button Label Color"
+    },
+	{
+      "type": "color",
+      "id": "btn_label_hover_color",
+      "label": "Button Label Hover Color",
+	  "default":"#fff"
+    },
+	{
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background Color"
+    },
+	{
+      "type": "color",
+      "id": "product_heading_color",
+      "label": "Product Heading Color"
+    },
+	{
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Product Price Color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "grid_items_count",
+          "min": 2,
+          "max": 50,
+          "step": 1,
+          "label": "Products to show",
+          "default": 8
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Collection",
+      "name": "Gift Featured collections",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

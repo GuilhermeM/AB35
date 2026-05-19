@@ -1,0 +1,42 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collabs": {
+      "type": "apps",
+      "blocks": {
+        "c586e848-c786-47fe-8ae1-5c30f18f9882": {
+          "type": "shopify://apps/collabs/blocks/application-page/54758706-9f25-4fa9-a553-64720a4c998b",
+          "settings": {
+            "heading": "Let's go gold together ♡",
+            "show_square_logo": false,
+            "show_partnership_info": true,
+            "button_text": "Join the Family!",
+            "number_of_images": "4",
+            "logo_position": "above",
+            "corner_style": "square",
+            "button_background_color": "#000000",
+            "button_label_color": "#ffffff",
+            "link_color": "#2c6ecb"
+          }
+        }
+      },
+      "block_order": [
+        "c586e848-c786-47fe-8ae1-5c30f18f9882"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "collabs"
+  ]
+}

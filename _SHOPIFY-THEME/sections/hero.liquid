@@ -1,0 +1,60 @@
+{% assign sec = section.settings %}
+<div class="hero__inner">
+  <div class="hero__wrapper">
+    <div class="hero__bg">
+      <picture>
+        <source media="(max-width:769px)" srcset="{{ sec.mobile_image |  image_url }}">
+        <source media="(min-width:768px)" srcset="{{ sec.desk_image |  image_url }}">
+        <img src="{{ sec.desk_image |  mobile_image }}" alt="logo">
+      </picture>
+    </div>
+    <div class="hero__content">
+      <div class="hero__wrap">
+        {{ sec.heading_text }}
+        <div class="hero__btn">
+          <a class="ButtonGroup__Item Button hero__btn-shop" href="{{ sec.btn_url }}">{{ sec.btn_text }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Hero",
+  "class": "hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desk_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "richtext",
+      "id": "heading_text",
+      "label": "Heading text"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button url"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

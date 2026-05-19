@@ -1,0 +1,16 @@
+$(document).ready(function(){
+  $('.klaviyo_popup_button').click(function(){
+    var _klOnsite = window._klOnsite || []; _klOnsite.push(['openForm', 'RdkyXg']);
+  });
+});
+$(document).ready(function() {
+  var sectionid = $('#rounded-countdown').data('section-id'),
+      date = $('#rounded-countdown').data('date');
+  $('.rounded-countdown-'+sectionid+'').ClassyCountdown({
+    theme: "black-black",
+    labelsOptions: {
+      style: 'font-size:15px; text-transform:uppercase;'
+    },
+    end: Date.parse(new Date(date))
+  });
+});

@@ -1,0 +1,125 @@
+<section class="custom_points_rewards rewards_{{section.id}}">
+  <div class="custom_points_rewards_main Section--spacingNormal">
+    <div class="custom_points_rewards_container section_normal_container">
+      <div class="custom_points_rewards_content_bar">
+        {% if section.settings.main_title != blank %}
+          <header class="SectionHeader SectionHeader--center Border--false">
+            <h2 class="SectionHeader__Heading Heading u-h1">{{section.settings.main_title}}</h2>
+          </header>
+        {% endif %}
+        <div class="custom_points_rewards_details_bar" data-flickity="{ 'watchCSS': true} ">
+          {% for block in section.blocks %}
+            <div class="custom_points_rewards_details points_{{block.id}}">
+              <div class="points_rewards_title_header">
+                {% if block.settings.points_rewards_icon != blank %}
+                  <div class="points_rewards_icon">
+                    {{block.settings.points_rewards_icon}}
+                  </div>
+                {% endif %}
+                {% if block.settings.points_rewards_title != blank %}
+                  <div class="points_rewards_title_bar">
+                    <h2 class="points_rewards_title">{{block.settings.points_rewards_title}}</h2>
+                  </div>
+                {% endif %}
+                {% if block.settings.points_rewards_price != blank %}
+                  <div class="points_rewards_price_bar">
+                    <h5>{{block.settings.points_rewards_price}}</h5>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="custom_section_divider"></div>
+              <div class="points_rewards_Content_details">
+                {{block.settings.points_rewards_html}}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  {% for block in section.blocks %}
+  {% if block.settings.content_title_color != blank %}
+  	.points_{{block.id}} .points_rewards_title_header {
+      background: {{block.settings.content_title_color}};
+    }
+  {% endif %}
+    .points_{{block.id}}.custom_points_rewards_details {
+      background: {{block.settings.content_bg_color}};
+    }
+  {% endfor %}
+</style>
+
+{% schema %}
+  {
+    "name": "Custom Points Rewards",
+	"max_blocks": 3,
+    "settings": [
+	  {
+		"type":"text",
+		"id":"main_title",
+		"label":"Heading"
+	  }
+	],
+	"blocks": [
+	  {
+		"type":"Subscription",
+		"name":"Subscription",
+		"settings": [
+		 {
+			"type":"color",
+			"id":"content_title_color",
+			"label":"Title background"
+		  },
+		  {
+			"type":"color",
+			"id":"content_bg_color",
+			"label":"Background Color"
+		  },
+		  {
+			"type":"header",
+			"content":"Heading"
+		  },
+		  {
+			"type":"html",
+			"id":"points_rewards_icon",
+			"label":"Icon"
+		  },
+		  {
+			"type":"text",
+			"id":"points_rewards_title",
+			"label":"Title"
+		  },
+		  {
+			"type":"text",
+			"id":"points_rewards_price",
+			"label":"Price"
+		  },
+		  {
+			"type":"header",
+			"content":"Details"
+		  },
+		  {
+			"type":"html",
+			"id":"points_rewards_html",
+			"label":"Html"
+		  }
+		]
+	  }
+	],
+	"presets": [
+	  {
+		"name":"Custom Points Rewards",
+		"category":"text"
+	  }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

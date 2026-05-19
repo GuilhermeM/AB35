@@ -1,0 +1,134 @@
+<style>
+  .AnnouncementBar__Wrapper  .AnnouncementBar__Content{
+    display: none;
+  }
+
+  .AnnouncementBar__Wrapper  .AnnouncementBar__Content:nth-child(1) {
+    display: block;
+  }
+  
+  .slick-initialized  .AnnouncementBar__Content {
+    display: block;
+  }
+  .hide {
+    display: none;
+  }
+ .mineBtn {
+    position: absolute;
+    top: 25%;
+    left: 27px;
+    cursor: pointer;
+    z-index: 9999999;
+    display: none;
+}
+  .mineBtn i {
+    font-size: 20px;
+  }
+
+</style>
+
+{%- if section.settings.enable_bar -%}
+  {%- unless section.settings.home_page_only and template != 'index' -%}
+    <section id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="announcement-bar">
+      
+      <div class="AnnouncementBar">
+        <div class="Empty__Wrapper">
+        </div>
+   
+          <div class="AnnouncementBar__Wrapper announce_slider">
+             {% for block in section.blocks  %}
+            <span class="AnnouncementBar__Content Heading">
+              {%- if block.settings.link -%}
+                <a href="{{ block.settings.link }}">{{ block.settings.content | escape }}</a>
+              {%- else -%}
+                {{ block.settings.content | escape }}
+              {%- endif -%}
+            </span>
+            {% endfor %}
+          </div>
+        <div class="Header__Wrapper">
+        </div>
+      </div>
+      <div id="toggle-play" class="mineBtn hide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div id="toggle-pause" class="mineBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </div>
+    </section>
+
+    <style>
+      #section-{{ section.id }} {
+        background: {{ section.settings.background }};
+        color: {{ section.settings.text_color }};
+        position: relative;
+      }
+    </style>
+
+    <script>
+      document.documentElement.style.setProperty('--announcement-bar-height', document.getElementById('shopify-section-announcement').offsetHeight + 'px');
+    </script>
+  {%- endunless -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_bar",
+      "label": "Enable bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": "Home page only",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Text",
+      "default": "Announce something here"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+"blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+        {
+          "type": "text",
+          "id": "content",
+          "label": "Text",
+          "default": "Announce something here"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+       ]
+     }
+   ]
+}
+{% endschema %}

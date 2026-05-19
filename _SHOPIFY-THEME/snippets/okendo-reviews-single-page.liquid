@@ -1,0 +1,13 @@
+{% if shop.metafields.okendo.settings.isWidgetPlusEnabled == true or shop.metafields.okendo.settings.isWidgetPlusAdminEnabled == true %}
+    {% assign renderWidgetPlusScript = true %}
+{% endif %}
+
+
+{% if renderWidgetPlusScript == true %}
+    {%- if shop.metafields.okendo.WidgetPreRenderBodyStyleTags != blank -%}
+        {{- shop.metafields.okendo.WidgetPreRenderBodyStyleTags }}
+    {%- endif -%}
+	<div data-oke-widget=""></div>
+{% else %}
+    <div data-oke-reviews-widget=""></div>
+{% endif %}

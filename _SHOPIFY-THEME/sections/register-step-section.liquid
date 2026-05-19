@@ -1,0 +1,75 @@
+<div class="register-step-section">
+  <div class="container">
+    <div class="section_block_grid">
+       {%- for block in section.blocks -%}
+      <div class="block_grid">
+        <div class="BannerItem__ImageWrapper">
+          
+             {%- capture supported_sizes -%}{%- render 'image-size', sizes: '400,600,700,800,900,1000,1200', image: block.settings.image -%}{%- endcapture -%}
+
+        <div class="AspectRatio" style="max-width: {{ block.settings.image.width }}px; --aspect-ratio: {{ block.settings.image.aspect_ratio }}">
+          {%- assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          <img class="Image--lazyLoad Image--slide{{ block.settings.image_position | capitalize }}" data-src="{{ image_url }}" data-expand="-200" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ block.settings.image.alt | escape }}">
+
+          <noscript>
+            <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.image.alt | escape }}">
+          </noscript>
+        </div>
+        </div>
+        <div class="BannerItem__Content">
+          <span>{{block.settings.title}}</span>
+          <div class="content">
+            {{block.settings.step-info}}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Register steps",
+    "settings": [
+	 
+	],
+	"blocks": [
+    {
+      "type": "text",
+      "name": "Step",
+      "settings": [
+		{
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step",
+          "default": "Step"
+        },
+        {
+          "type": "richtext",
+          "id": "step-info",
+          "label": "Step Info"
+        }
+      ]
+    }
+  ],
+    "presets": [
+      {
+        "category": "Image",
+        "name": " Eid Register steps",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,44 @@
+{% assign sec = section.settings %}
+<div class="top-header">
+  <div class="top-header__inner">
+      <div class="top-header__wrap">
+        <div class="top-header__img">
+          <img src="{{ sec.icon_image |  image_url }}" alt="">
+        </div>
+        <div class="top-header__content">
+          <div class="top-header__content-mobi">{{ sec.content_text }}</div>
+          <div class="top-header__content-desk">{{ sec.content_text_desk }}</div>
+        </div>
+      </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header top",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "icon_image",
+      "label": "Icon image"
+    },
+    {
+      "type": "richtext",
+      "id": "content_text",
+      "label": "Text content Mobile"
+    },
+    {
+      "type": "richtext",
+      "id": "content_text_desk",
+      "label": "Text content Desktop"
+    }
+    
+  ],
+  "presets": [
+    {
+      "name": "Header top"
+    }
+  ]
+}
+{% endschema %}

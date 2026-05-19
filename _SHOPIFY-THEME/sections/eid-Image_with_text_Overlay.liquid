@@ -1,0 +1,252 @@
+<link rel="stylesheet" href="{{ 'new.css' | asset_url }}">
+
+<div class=" eid-sale-banner Image_with_text_overlay_section overlay-{{section.id}}">
+  <div class="Image_with_text_overlay_container">
+    <div class="Image_with_text_overlay_content_bar">
+      <div class="Image_with_text_overlay_animation_label">
+        <marquee class="html-marquee" direction="left" behavior="scroll" scrollamount="12">{% for i in (1..10) %} <span class="off_label {% cycle 'black-txt','white-txt' %}">{{section.settings.animation_top_label}}</span>{% endfor %}</marquee>
+      </div>
+      <div class="Image_with_text_overlay_image_bar">
+        {% if section.settings.overlay_image != blank %}
+          <img srcset="{%- if section.settings.overlay_image.width >= 150 -%}{{ section.settings.overlay_image | img_url: '150x' }} 150w,{%- endif -%}
+                       {%- if section.settings.overlay_image.width >= 200 -%}{{ section.settings.overlay_image | img_url: '200x' }} 200w,{%- endif -%}
+                       {%- if section.settings.overlay_image.width >= 300 -%}{{ section.settings.overlay_image | img_url: '300x' }} 300w,{%- endif -%}
+                       {%- if section.settings.overlay_image.width >= 400 -%}{{ section.settings.overlay_image | img_url: '400x' }} 400w,{%- endif -%}
+                       {%- if section.settings.overlay_image.width >= 480 -%}{{ section.settings.overlay_image | img_url: '480x' }} 480w{%- endif -%}"
+               src="{{ section.settings.overlay_image | img_url: '1x' }}"
+               sizes="auto"
+               alt="{{ section.settings.overlay_image.alt | escape }}"
+               loading="lazy"
+               >
+        {% endif %}
+      </div>
+      <div class="Image_with_text_overlay_animation_label"><marquee class="html-marquee" direction="left" behavior="scroll" scrollamount="12">{% for i in (1..10) %}<span class="off_label {% cycle 'black-txt','white-txt' %}">{{section.settings.animation_bottom_label}}</span>{% endfor %}</marquee></div>
+      <div class="overlay_Image_content">
+        <div class="overlay_main_content">
+          {% if section.settings.title != blank %}
+            <h2 class="SectionHeader__Heading Heading u-h1">{{ section.settings.title | escape }}</h2>
+          {% endif %}
+          {% if section.settings.overlay_button != blank %}
+            <button class="overlay_image_button klaviyo_popup_button">
+              <a href="javascript:void(0)">{{section.settings.overlay_button}}</a>
+            </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .overlay-{{section.id}} .Image_with_text_overlay_content_bar .overlay_Image_content .overlay_main_content h2 {
+    {% if section.settings.overlay_title_color != blank %}
+      color: {{section.settings.overlay_title_color}};
+    {% endif %}
+    {% if section.settings.overlay_title_size != blank %}
+      font-size: {{section.settings.overlay_title_size}}px;
+    {% endif %}
+    {% if section.settings.overlay_title_transform != blank %}
+      text-transform: {{section.settings.overlay_title_transform}};
+    {% endif %}
+    {% if section.settings.overlay_title_align != blank %}
+      text-align: {{section.settings.overlay_title_align}};
+    {% endif %}
+  }
+  
+  .overlay-{{section.id}} .Image_with_text_overlay_content_bar .overlay_Image_content .overlay_main_content .overlay_image_button {
+    color: {{section.settings.overlay_button_color}};
+    font-size: {{section.settings.overlay_button_size}}px;
+    text-transform: {{section.settings.overlay_button_transform}};
+    text-align: {{section.settings.overlay_button_align}};
+    background: {{section.settings.overlay_button_bgcolor}};
+    border: 2px solid {{section.settings.overlay_button_bordercolor}};
+  }
+  
+  .overlay-{{section.id}} .Image_with_text_overlay_animation_label {
+    background: {{section.settings.discount_bg_color}};
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Image With Text Overlay",
+    "settings": [
+	  {
+		"type":"header",
+		"content":"Image"
+	  },
+	  {
+		"type":"richtext",
+		"id":"animation_top_label",
+		"label":"Animation Label"
+	  },
+	  {
+		"type":"color",
+		"id":"discount_bg_color",
+		"label":"Discount bg Color"
+	  },
+	  {
+		"type":"image_picker",
+		"id":"overlay_image",
+		"label":"Image"
+	  },
+	  {
+		"type":"richtext",
+		"id":"animation_bottom_label",
+		"label":"Animation Label"
+	  },
+	  {
+		"type":"header",
+		"content":"Content"
+	  },
+		
+	   {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "This is your Chance to Get Gifts for The Whole Family (And Yourself ) Without Breaking The Bank."
+    },
+	  {
+        "type":"color",
+        "id":"overlay_title_color",
+        "label":"Title Color"
+      },
+	  {
+        "type": "range",
+        "id": "overlay_title_size",
+        "min": 20,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Font size",
+        "default": 30
+      },
+	  {
+        "type": "select",
+        "id": "overlay_title_transform",
+        "label": "Title Transform",
+        "options": [
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ],
+      "default": "lowercase"
+      },
+	  {
+        "type": "select",
+        "id": "overlay_title_align",
+        "label": "Title Align",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+      "default": "center"
+      },
+	  {
+		"type":"header",
+		"content":"Button"
+	  },
+	  {
+		"type":"text",
+		"id":"overlay_button",
+		"label":"Button Heading"
+	  },
+	  {
+        "type":"color",
+        "id":"overlay_button_color",
+        "label":"Button Color"
+      },
+	  {
+        "type":"color",
+        "id":"overlay_button_bgcolor",
+        "label":"Button Bg Color"
+      },
+	  {
+        "type":"color",
+        "id":"overlay_button_bordercolor",
+        "label":"Button Border Color"
+      },
+	  {
+        "type": "range",
+        "id": "overlay_button_size",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Button Font size",
+        "default": 30
+      },
+	  {
+        "type": "select",
+        "id": "overlay_button_transform",
+        "label": "Button Transform",
+        "options": [
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ],
+      "default": "lowercase"
+      },
+	  {
+        "type": "select",
+        "id": "overlay_button_align",
+        "label": "Button Align",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+      "default": "center"
+      }
+	],
+	"presets": [
+	  {
+		"name":"Image With Text Overlay",
+		"category":"Image With Text Overlay"
+	  }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

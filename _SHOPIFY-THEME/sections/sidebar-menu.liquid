@@ -1,0 +1,614 @@
+{%- assign main_menu_handle = section.settings.primary_menu | default: 'main-menu' -%}
+{%- assign main_menu = linklists[main_menu_handle] -%}
+
+<section id="sidebar-menu" class="SidebarMenu Drawer Drawer--small Drawer--fromLeft" aria-hidden="true" i data-section-id="{{ section.id }}" data-section-type="sidebar-menu">
+  <header class="Drawer__Header" data-drawer-animated-left>
+    <button class="Drawer__Close Icon-Wrapper--clickable" data-action="close-drawer" data-drawer-id="sidebar-menu" aria-label="{{ 'header.navigation.close_sidebar' | t }}">
+      {%- render 'icon' with 'close' -%}
+    </button>
+    <div class="Sidebarmenu_Nav_Tab">
+            <div class="sidemenu-tab-wrapper">
+              {%- for link in main_menu.links -%}
+                <div class="Collapsible {% if forloop.first %}activeTab{% endif %}" data-tab-handle="{{link.handle}}">
+                  {%- if link.links != blank -%}
+                    <button class="Collapsible__Button Heading u-h6" data-action="toggle-collapsible" {% if link.links != blank %}aria-expanded="false"{% endif %}>
+                      {{- link.title | escape -}}
+                    </button>
+                    {%- else -%}
+                    <a href="{{ link.url }}" class="Collapsible__Button Heading Link Link--primary u-h6">{{ link.title | escape }}</a>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+  </header>
+  
+  <div class="Drawer__Content">
+    <div class="Drawer__Main" data-drawer-animated-left data-scrollable>
+      <div class="Drawer__Container">
+        <div class="SidebarMenu_Primary_content">
+          
+          <nav class="SidebarMenu__Nav nav-tab-contents  SidebarMenu__Nav--primary" aria-label="{{ 'header.navigation.sidebar_title' | t }}">
+            {%- for link in main_menu.links -%}
+              {%- if link.links != blank -%}  
+              <div class="Collapsible tab-content-wrapper {% unless forloop.first %}tab-contents{% endunless %}" data-tab="{{link.handle}}">
+                <div class="Collapsible__Inner">
+                <div class="Collapsible">
+                    {%- for sub_link in link.links -%}
+                      {% unless sub_link.handle == 'help'  %}
+                        <div class="Collapsible__Content collapsible-content-wrapper">
+                        {%- if sub_link.links != blank -%}
+                          <button class="Collapsible__Button Heading Text--subdued Link--primary u-h7" data-action="toggle-collapsible" {% if sub_link.links != blank %}aria-expanded="false"{% endif %}>
+                            {{- sub_link.title | escape -}}
+                          </button>
+                          <div class="Collapsible__Inner">
+                            <div class="Collapsible__Content">
+                              <ul class="Linklist Linklist--bordered Linklist--spacingLoose">
+                                {%- for sub_sub_link in sub_link.links -%}
+                                  <li class="Linklist__Item">
+                                    <a href="{{ sub_sub_link.url }}" class="Text--subdued Link Link--primary">
+                                      <span>{{ sub_sub_link.title | escape }}</span>
+                                      {% if sub_sub_link.handle contains 'new' %}
+                                      	<span class="tag-new tag-content">NEW</span>
+                                      {% endif %}
+                                      {% if sub_sub_link.handle contains 'clearance' %}	
+                                      	<span class="tag-sale tag-content">SALE</span>
+                                      {% endif %}
+                                    </a>
+                                  </li>
+                                {%- endfor -%}
+                              </ul>
+                            </div>
+                          </div>
+                          {%- else -%}
+                          <a href="{{ sub_link.url }}" class="Collapsible__Button Heading Text--subdued Link Link--primary u-h7">
+                            {{ sub_link.title | escape }}
+                        </a>
+                        {%- endif -%}
+                      </div>
+                        {% endunless %}
+                    {%- endfor -%}
+                                    
+                  </div>
+{%- for sub_link in link.links -%}
+                      {% if sub_link.handle == 'help'  %}
+                      <div class="Collapsible" style="margin-left: 0;">
+                        {%- if sub_link.links != blank -%}
+                          <button class="Collapsible__Button Heading Text--subdued Link--primary u-h7" data-action="toggle-collapsible" {% if sub_link.links != blank %}aria-expanded="false"{% endif %}>
+                            {{- sub_link.title | escape -}}
+                          </button>
+                          <div class="Collapsible__Inner">
+                            <div class="Collapsible__Content">
+                              <ul class="Linklist Linklist--bordered Linklist--spacingLoose">
+                                {%- for sub_sub_link in sub_link.links -%}
+                                  <li class="Linklist__Item">
+                                    <a href="{{ sub_sub_link.url }}" class="Text--subdued Link Link--primary">
+                                      <span>{{ sub_sub_link.title | escape }}</span>
+                                      {% if sub_sub_link.handle == 'newest-releases' %}
+                                      	<span class="tag-new tag-content">NEW</span>
+                                      {% endif %}
+                                      {% if sub_sub_link.handle contains 'clearance' %}	
+                                      	<span class="tag-sale tag-content">SALE</span>
+                                      {% endif %}	
+                                    </a>
+                                  </li>
+                                {%- endfor -%}
+                              </ul>
+                            </div>
+                          </div>
+                          {%- else -%}
+                          <a href="{{ sub_link.url }}" class="Collapsible__Button Heading Text--subdued Link Link--primary u-h7">
+                            {{ sub_link.title | escape }}
+                        </a>
+                        {%- endif -%}
+                      </div>
+                        {% endif %}
+                    {%- endfor -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+            <div class="menu-collections-content">
+              <div class="menu-collections-content-main">
+                {% for block in section.blocks %}                
+                <div class="menu-collections-wrapper tab-content-wrapper {% unless forloop.first%} tab-contents{% endunless %}" data-img-tab="{{block.settings.navigation_mega_menu | downcase}}">
+                  {% for i in (1..5) %}
+                  {% capture img %}push_{{i}}_image{% endcapture %}
+                  {% capture heading %}push_{{i}}_heading{% endcapture %}
+                  {% capture headingcolor %}push_{{i}}_heading_color{% endcapture %}
+                  {% capture url %}push_{{i}}_url{% endcapture %}
+                  {% if block.settings[img] != blank %}
+                  <div class="collections-info-wrapper MegaMenu__Imageblock">
+                      {% render 'mega-menu__imageblock', image: block.settings[img], heading: block.settings[heading], heading_color: block.settings[headingcolor], link: block.settings[url] %}
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+        </nav>
+        
+      </div>
+      
+        <div class="menu-bottom-content">
+      {%- assign secondary_menu = linklists[section.settings.secondary_menu] -%}
+     
+    
+    <nav class="SidebarMenu__Nav SidebarMenu__Nav--secondary">
+      <ul class="Linklist Linklist--spacingLoose">
+        {%- for link in secondary_menu.links -%}
+          <li class="Linklist__Item">
+            <a href="{{ link.url }}" class="Text--subdued Link Link--primary">
+              {% for a in (1..12) %}
+              {% capture menuName %}menuname_{{a}}{% endcapture %}
+              {% capture svgHtml %}svgHtml_{{a}}{% endcapture %}
+              {% assign menuNameIs = section.settings[menuName] | downcase %}
+                {% if link.handle == menuNameIs %}
+              		{{section.settings[svgHtml]}}
+                {% endif %}
+              {% endfor %}
+              <span class="{{link.handle}}">{{ link.title | escape }}</span>
+            </a>
+          </li>
+        {%- endfor -%}
+        
+        {%- comment -%}We automatically add some links to the secondary menu{%- endcomment -%}
+        
+        {%- if shop.customer_accounts_enabled -%}
+          <li class="Linklist__Item">
+            <a href="{{ routes.account_url }}" class="Text--subdued Link Link--primary">
+              <svg width="700pt" height="700pt" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+               <path d="m350 35c-64.977 0-127.29 25.812-173.24 71.758-45.945 45.949-71.758 108.27-71.758 173.24s25.812 127.29 71.758 173.24c45.949 45.945 108.27 71.758 173.24 71.758s127.29-25.812 173.24-71.758c45.945-45.949 71.758-108.27 71.758-173.24 0-43.008-11.32-85.254-32.824-122.5-21.504-37.246-52.43-68.172-89.676-89.676-37.246-21.504-79.492-32.824-122.5-32.824zm0 140c18.566 0 36.371 7.375 49.496 20.504 13.129 13.125 20.504 30.93 20.504 49.496s-7.375 36.371-20.504 49.496c-13.125 13.129-30.93 20.504-49.496 20.504s-36.371-7.375-49.496-20.504c-13.129-13.125-20.504-30.93-20.504-49.496s7.375-36.371 20.504-49.496c13.125-13.129 30.93-20.504 49.496-20.504zm0 315c-49.852 0.11328-98.094-17.641-135.98-50.051 11.25-46.797 45.75-84.531 91.352-99.926 28.27 13.273 60.98 13.273 89.25 0 45.602 15.395 80.102 53.129 91.352 99.926-37.883 32.41-86.125 50.164-135.98 50.051z"/>
+              </svg>
+              <span>{{ 'header.navigation.account' | t }}</span>
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </nav>
+        </div>
+  </div>
+</div>
+
+{%- if section.settings.show_social_media -%}
+  {%- capture social_media -%}
+  {% render 'social-media', class: 'SidebarMenu__Social', spacing: 'fill' %}
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- if social_media != blank -%}
+  <aside class="Drawer__Footer" data-drawer-animated-bottom>
+    {%- if social_media != blank -%}
+      {{ social_media }}
+    {%- endif -%}
+  </aside>
+{%- endif -%}
+</div>
+</section>
+<script>
+   /*
+  document.addEventListener("DOMContentLoaded", function(event) {
+const sidebarLinks = document.querySelectorAll('.Linklist .Linklist__Item .Link');
+
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent the default link behavior
+
+        const url = link.href; // Get the URL of the clicked link
+
+        // Store the URL in sessionStorage
+        sessionStorage.setItem('redirectUrl', url);
+
+        // Reload the page
+        window.location.reload();
+    });
+});
+
+// Check if there is a URL in sessionStorage and redirect if necessary
+window.addEventListener('load', () => {
+    const redirectUrl = sessionStorage.getItem('redirectUrl');
+    if (redirectUrl) {
+        sessionStorage.removeItem('redirectUrl'); // Clear the URL from storage
+        window.location.href = redirectUrl; // Navigate to the stored URL
+    }
+});
+
+  });*/
+</script>
+<style>
+  #shopify-section-sidebar-menu .tag-sale{
+    background:{{section.settings.sale_badge_color}};
+    color:{{section.settings.sale_color}};
+  }
+  #shopify-section-sidebar-menu .tag-new{
+    background:{{section.settings.new_badge_color}};
+    color:{{section.settings.new_color}};
+  }
+</style>
+                 
+{% schema %}
+{
+   "name":"Sidebar menu",
+   "settings":[
+      {
+         "type":"link_list",
+         "id":"primary_menu",
+         "label":"Primary menu",
+         "default":"main-menu"
+      },
+      {
+         "type":"link_list",
+         "id":"secondary_menu",
+         "label":"Secondary menu",
+         "info":"This menu won't show dropdown items."
+      },
+      {
+         "type":"checkbox",
+         "id":"show_social_media",
+         "label":"Show social media",
+         "default":true
+      },
+      {
+         "type":"header",
+         "content":"Secondary Menu Icons"
+      },
+      {
+         "type":"header",
+         "content":"Items 1"
+      },
+      {
+         "type":"text",
+         "id":"menuname_1",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_1",
+         "label":"Svg Html"
+      },
+      {
+         "type":"header",
+         "content":"Items 2"
+      },
+      {
+         "type":"text",
+         "id":"menuname_2",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_2",
+         "label":"Svg Html"
+      },
+      {
+         "type":"header",
+         "content":"Items 3"
+      },
+      {
+         "type":"text",
+         "id":"menuname_3",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_3",
+         "label":"Svg Html"
+      },
+      {
+         "type":"header",
+         "content":"Items 4"
+      },
+      {
+         "type":"text",
+         "id":"menuname_4",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_4",
+         "label":"Svg Html"
+      },
+      {
+         "type":"header",
+         "content":"Items 5"
+      },
+      {
+         "type":"text",
+         "id":"menuname_5",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_5",
+         "label":"Svg Html"
+      },
+      {
+         "type":"header",
+         "content":"Items 6"
+      },
+      {
+         "type":"text",
+         "id":"menuname_6",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_6",
+         "label":"Svg Html"
+      },
+      {
+         "type":"header",
+         "content":"Items 7"
+      },
+      {
+         "type":"text",
+         "id":"menuname_7",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_7",
+         "label":"Svg Html"
+      },
+      {
+         "type":"header",
+         "content":"Items 8"
+      },
+      {
+         "type":"text",
+         "id":"menuname_8",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_8",
+         "label":"Svg Html"
+      },
+      {
+         "type":"header",
+         "content":"Items 9"
+      },
+      {
+         "type":"text",
+         "id":"menuname_9",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_9",
+         "label":"Svg Html"
+      },
+      {
+         "type":"header",
+         "content":"Items 10"
+      },
+      {
+         "type":"text",
+         "id":"menuname_10",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_10",
+         "label":"Svg Html"
+      },
+     {
+         "type":"header",
+         "content":"Items 11"
+      },
+      {
+         "type":"text",
+         "id":"menuname_11",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_11",
+         "label":"Svg Html"
+      },
+     {
+         "type":"header",
+         "content":"Items 12"
+      },
+      {
+         "type":"text",
+         "id":"menuname_12",
+         "label":"Menu item",
+         "info":"Enter menu item to apply a Secondary menu."
+      },
+      {
+         "type":"html",
+         "id":"svgHtml_12",
+         "label":"Svg Html"
+      },
+      {
+        "type": "header",
+        "content": "Sale badge"
+      },
+      {
+        "type": "color_background",
+        "id": "sale_badge_color",
+        "label": "Background",
+        "default": "linear-gradient(#ffffff, #000000)"
+      },
+      {
+        "type": "color",
+        "id": "sale_color",
+        "label": "Text",
+        "default": "#fff"
+      },
+      {
+        "type": "header",
+        "content": "New badge"
+      },
+      {
+        "type": "color_background",
+        "id": "new_badge_color",
+        "label": "Background",
+        "default": "linear-gradient(#ffffff, #000000)"
+      },
+      {
+        "type": "color",
+        "id": "new_color",
+        "label": "Text",
+        "default": "#fff"
+      }
+   ],
+   "blocks":[
+      {
+         "type":"collections_image",
+         "name":"Collections Image",
+         "settings":[
+            {
+               "type":"text",
+               "id":"navigation_mega_menu",
+               "label":"Menu item",
+               "info":"Enter menu item to apply a mega menu dropdown. [Learn more](http://support.maestrooo.com/article/149-navigation-enabling-and-configuring-mega-menu)."
+            },
+            {
+               "type":"header",
+               "content":"Image 1"
+            },
+            {
+               "type":"image_picker",
+               "id":"push_1_image",
+               "label":"Image",
+               "info":"740 x 460 px .jpg recommended"
+            },
+            {
+               "type":"text",
+               "id":"push_1_heading",
+               "label":"Heading",
+               "default":"Example heading"
+            },
+            {
+               "type":"url",
+               "id":"push_1_url",
+               "label":"Link"
+            },
+            {
+               "type":"color",
+               "id":"push_1_heading_color",
+               "label":"Heading Color"
+            },
+            {
+               "type":"header",
+               "content":"Image 2"
+            },
+            {
+               "type":"image_picker",
+               "id":"push_2_image",
+               "label":"Image",
+               "info":"740 x 460 px .jpg recommended"
+            },
+            {
+               "type":"text",
+               "id":"push_2_heading",
+               "label":"Heading",
+               "default":"Example heading"
+            },
+            {
+               "type":"url",
+               "id":"push_2_url",
+               "label":"Link"
+            },
+            {
+               "type":"color",
+               "id":"push_2_heading_color",
+               "label":"Heading Color"
+            },
+            {
+               "type":"header",
+               "content":"Image 3"
+            },
+            {
+               "type":"image_picker",
+               "id":"push_3_image",
+               "label":"Image",
+               "info":"740 x 460 px .jpg recommended"
+            },
+            {
+               "type":"text",
+               "id":"push_3_heading",
+               "label":"Heading",
+               "default":"Example heading"
+            },
+            {
+               "type":"url",
+               "id":"push_3_url",
+               "label":"Link"
+            },
+            {
+               "type":"color",
+               "id":"push_3_heading_color",
+               "label":"Heading Color"
+            },
+            {
+               "type":"header",
+               "content":"Image 4"
+            },
+            {
+               "type":"image_picker",
+               "id":"push_4_image",
+               "label":"Image",
+               "info":"740 x 460 px .jpg recommended"
+            },
+            {
+               "type":"text",
+               "id":"push_4_heading",
+               "label":"Heading",
+               "default":"Example heading"
+            },
+            {
+               "type":"url",
+               "id":"push_4_url",
+               "label":"Link"
+            },
+            {
+               "type":"color",
+               "id":"push_4_heading_color",
+               "label":"Heading Color"
+            },
+            {
+               "type":"header",
+               "content":"Image 5"
+            },
+            {
+               "type":"image_picker",
+               "id":"push_5_image",
+               "label":"Image",
+               "info":"740 x 460 px .jpg recommended"
+            },
+            {
+               "type":"text",
+               "id":"push_5_heading",
+               "label":"Heading",
+               "default":"Example heading"
+            },
+            {
+               "type":"url",
+               "id":"push_5_url",
+               "label":"Link"
+            },
+            {
+               "type":"color",
+               "id":"push_5_heading_color",
+               "label":"Heading Color"
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

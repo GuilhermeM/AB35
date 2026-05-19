@@ -1,0 +1,245 @@
+/* ============================================================
+   NMN|CART|AB25-V2 — Mini Cart: Shipping Bar + Free Gift Modal
+   Extracted from Varify IIFE for Shopify theme-native loading
+   ============================================================ */
+
+/* Font imports — AktivGrotesk via Shopify CDN TTF */
+@font-face {
+  font-family: "AktivGrotesk-Regular";
+  src: url("https://cdn.shopify.com/s/files/1/2556/8900/files/AktivGrotesk_Trial_Rg.ttf?v=1761800578") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "AktivGrotesk-Medium";
+  src: url("https://cdn.shopify.com/s/files/1/2556/8900/files/AktivGrotesk_Trial_Md.ttf?v=1761800603") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Hide existing rewards bar */
+.EG-AB25-MINICART .slidecarthq .rewards { display: none !important; }
+
+/* ===== Wrapper ===== */
+.eg-ab25-wrap {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  font-family: AktivGrotesk-Regular, sans-serif !important;
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+.eg-ab25-wrap *,
+.eg-ab25-wrap *::before,
+.eg-ab25-wrap *::after {
+  box-sizing: border-box !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+/* ===== Shipping + Free Gift Progress Bar ===== */
+.eg-shipping-bar {
+  padding: 10px 16px 12px !important;
+  background: #F4F4F4 !important;
+  margin: 0 !important;
+}
+.eg-shipping-text {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  margin-bottom: 6px !important;
+  font-family: AktivGrotesk-Regular, sans-serif !important;
+  font-size: 10px !important;
+  line-height: 140% !important;
+}
+.eg-shipping-text-left {
+  color: #1C1B1B !important;
+  font-size: 10px !important;
+  line-height: 140% !important;
+  max-width: 48% !important;
+}
+.eg-shipping-text-left strong {
+  font-family: AktivGrotesk-Medium, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 10px !important;
+}
+.eg-shipping-text-left .eg-amount {
+  color: #333333 !important;
+  font-family: AktivGrotesk-Medium, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 10px !important;
+}
+.eg-shipping-text-right {
+  color: #1C1B1B !important;
+  text-align: right !important;
+  font-size: 10px !important;
+  line-height: 140% !important;
+  max-width: 58% !important;
+}
+.eg-shipping-text-right strong {
+  font-family: AktivGrotesk-Medium, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 10px !important;
+}
+.eg-shipping-text-right .eg-amount {
+  color: #333333 !important;
+  font-family: AktivGrotesk-Medium, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 10px !important;
+}
+.eg-shipping-track {
+  position: relative !important;
+  width: 100% !important;
+  height: 24px !important;
+  border-radius: 12px !important;
+  background: #FFFFFF !important;
+  border: 1px dashed rgba(28,27,27,0.4) !important;
+  overflow: visible !important;
+}
+.eg-shipping-fill {
+  position: absolute !important;
+  top: -1px !important;
+  left: -1px !important;
+  height: calc(100% + 2px) !important;
+  border-radius: 12px !important;
+  background: #54684E !important;
+  transition: width 0.4s ease;
+  min-width: 0 !important;
+  border: 1px solid #54684E !important;
+}
+.eg-shipping-icon {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.eg-shipping-icon-badge {
+  position: absolute !important;
+  top: -6px !important;
+  right: -6px !important;
+  z-index: 3 !important;
+  display: none !important;
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50% !important;
+}
+.eg-shipping-icon-badge.eg-visible { display: block !important; }
+.eg-shipping-truck { z-index: 2 !important; }
+.eg-shipping-gift { z-index: 2 !important; }
+
+/* ===== Modal (AB18-proven wrapper pattern) ===== */
+.eg-modal-wrap {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483647 !important;
+  isolation: isolate !important;
+  display: none;
+  pointer-events: none;
+}
+.eg-modal-wrap.eg-modal-open {
+  display: block !important;
+  pointer-events: auto;
+}
+.eg-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,0.5) !important;
+  pointer-events: auto;
+  z-index: 1 !important;
+}
+.eg-modal-card {
+  box-sizing: border-box !important;
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 32px 24px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  z-index: 2 !important;
+  pointer-events: auto;
+  font-family: AktivGrotesk-Regular, sans-serif;
+}
+.eg-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.eg-modal-close:hover { color: #333; }
+.eg-modal-icon { margin: 0 auto 16px; }
+.eg-modal-headline {
+  font-family: AktivGrotesk-Medium, sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #1C1B1B;
+  margin: 0 0 8px;
+}
+.eg-modal-sub {
+  font-size: 14px;
+  color: #333333;
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+.eg-modal-support {
+  font-size: 14px;
+  color: #333333;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+.eg-modal-cta {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  background: #54684E;
+  color: #FFFFFF;
+  font-family: AktivGrotesk-Medium, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  margin-bottom: 12px;
+  transition: opacity 0.2s;
+}
+.eg-modal-cta:hover { opacity: 0.9; }
+.eg-modal-secondary {
+  display: inline-block;
+  font-size: 14px;
+  color: #1C1B1B;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px 0;
+}
+.eg-modal-secondary:hover { color: #333; }
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 380px) {
+  .eg-shipping-text { font-size: 10px !important; }
+  .eg-shipping-text-left { font-size: 10px !important; }
+  .eg-shipping-text-right { font-size: 10px !important; }
+  .eg-shipping-text strong { font-size: 10px !important; }
+}

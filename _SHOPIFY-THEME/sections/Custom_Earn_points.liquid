@@ -1,0 +1,121 @@
+<section class="Earn_points_section section_{{section.id}} Section--spacingNormal">
+  <div class="Earn_points_main_section">
+    <div class="section_normal_container">
+      {% if section.settings.main_title != blank %}
+      <header class="SectionHeader SectionHeader--center Border--false">
+        <h2 class="SectionHeader__Heading Heading u-h1">{{section.settings.main_title}}</h2>
+      </header>
+      {% endif %}
+      <div class="Earn_points_content_details">
+        <div class="Earn_points_points_detail_bar">
+          {% for block in section.blocks %}
+            <div class="Earn_points_bar_content content_{{block.id}}">
+              <div class="detail_content">
+                {% if block.settings.svg_html != blank %}
+                  <div class="Earn_points_svg_bar">
+                    {{block.settings.svg_html}}
+                  </div>
+                {% endif %}
+                <div class="title_content">
+                  {% if block.settings.Image_title != blank %}
+                    <div class="Earn_points_image_title_bar">
+                      <h2>{{block.settings.Image_title}}</h2>
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.Image_subtitle != blank %}
+                    <div class="Earn_points_image_subtitle_bar">
+                      <h4>{{block.settings.Image_subtitle}}</h4>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="Sign_up_button">
+                <a href="{{block.settings.hover_btn_text_url}}" class="Signup_button Button Button--primary">{{block.settings.hover_btn_text}}</a>
+                <span>{{block.settings.hover_btn_label_text}}</span>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+<style>
+  {% for block in section.blocks %}
+    .content_{{block.id}}.Earn_points_bar_content .Sign_up_button .Signup_button {
+      background-color: {{block.settings.hover_btn_text_bg_color}};
+      color: {{block.settings.hover_btn_text_color}};
+    }
+  {% endfor %}
+</style>
+{% endcomment %}
+
+{% schema %}
+  {
+    "name": "Custom Earn points",
+    "settings": [
+	  {
+		"type":"text",
+		"id":"main_title",
+		"label":"Heading"
+	  }
+	],
+	"blocks": [
+	  {
+		"type":"Content",
+		"name":"Content",
+		"settings": [
+		  {
+			"type":"html",
+			"id":"svg_html",
+			"label":"SVG"
+		  },
+		  {
+			"type":"text",
+			"id":"Image_title",
+			"label":"Title"
+		  },
+		  {
+			"type":"text",
+			"id":"Image_subtitle",
+			"label":"Sub Title"
+		  },
+		  {
+			"type":"header",
+			"content":"Hover Effect Text"
+		  },
+		  {
+			"type":"url",
+			"id":"hover_btn_text_url",
+			"label":"Button Heading URL"
+		  },
+		  {
+			"type":"text",
+			"id":"hover_btn_text",
+			"label":"Button Heading"
+		  },
+		  {
+			"type":"richtext",
+			"id":"hover_btn_label_text",
+			"label":"Button Label Heading"
+		  }
+		]
+	  }
+	],
+	"presets": [
+	  {
+		 "name":"Custom Earn points",
+		 "category":"Earn Points"
+	  }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,272 @@
+/* -----------------MOBILE START--------------- */
+
+/* top-header start */
+
+@import url("https://cdn.shopify.com/s/files/1/2556/8900/files/AktivGrotesk_Trial_Rg.ttf?v=1761800578");
+@import url("https://cdn.shopify.com/s/files/1/2556/8900/files/AktivGrotesk_Trial_Md.ttf?v=1761800603");
+
+/* Define the font faces */
+@font-face {
+    font-family: "AktivGrotesk-Regular";
+    src: url("https://cdn.shopify.com/s/files/1/2556/8900/files/AktivGrotesk_Trial_Rg.ttf?v=1761800578")
+        format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "AktivGrotesk-Medium";
+    src: url("https://cdn.shopify.com/s/files/1/2556/8900/files/AktivGrotesk_Trial_Md.ttf?v=1761800603")
+        format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.top-header__inner {
+    background-color: #1c1b1b;
+    padding: 10px 12px;
+}
+
+.top-header__img {
+    width: 40px;
+}
+
+.top-header__content p {
+    font-family: "Instrument Sans";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 160%;
+    text-transform: capitalize;
+    color: #ffffff;
+    margin: 0;
+}
+
+.top-header__content p em {
+    font-style: normal;
+    font-family: "Instrument Sans";
+    color: #c8a983;
+}
+
+.top-header__wrap {
+    display: flex;
+    align-items: center;
+    gap: 0 12px;
+    justify-content: center;
+}
+
+/* .top-header__content {
+    width: calc(100% - 65px);
+} */
+
+.top-header__content-desk {
+    display: none;
+}
+
+/* top-header end */
+
+/* hero start */
+
+.hero__wrap h2 {
+    font-family: "Instrument Sans";
+    font-size: 25px;
+    line-height: 1.4;
+    letter-spacing: 0;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 40px !important;
+}
+
+.hero__wrapper {
+    position: relative;
+}
+
+.hero__content {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    height: 100%;
+    padding: 20px 24px;
+    width: 100%;
+}
+
+.hero__wrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    visibility: hidden;
+    transform: matrix(1, 0, 0, 1, 0, 30);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+.hero__btn-shop {
+    font-family: "Instrument Sans";
+    font-size: 16px;
+    padding: 16px 40px;
+    background-color: #ffffff;
+    color: #1c1b1b;
+    border-radius: 21px;
+    overflow: hidden;
+    margin: 0 !important;
+}
+
+.hero__btn {
+    text-align: center;
+}
+
+.hero__inner {
+    position: relative;
+}
+
+.hero__inner::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(28, 27, 27, 0) 0%, rgba(28, 27, 27, 0.5) 100%);
+    pointer-events: none;
+}
+
+/* hero end */
+
+/* product-benefits start */
+
+.product-benefits__inner {
+    background-color: #1c1b1b;
+    padding: 17px 0;
+}
+
+.product-benefits__img img {
+    width: 24px;
+    height: 24px;
+}
+
+.product-benefits__img a {
+    display: block;
+}
+
+.product-benefits__img {
+    width: 24px;
+}
+
+.product-benefits__content p {
+    font-family: "Instrument Sans";
+    font-weight: 400 !important;
+    font-size: 11px;
+    line-height: 160%;
+    color: #fff;
+}
+
+.product-benefits__item {
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+    flex: 1 0 40%;
+    max-width: calc(100% / 2 - 5px);
+}
+
+.product-benefits__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* product-benefits end */
+
+/* -----------------MOBILE END--------------- */
+
+/* -----------------DESKTOP START--------------- */
+
+@media (min-width: 1024px) {
+    /* top-header start */
+
+    .top-header__content p {
+        font-size: 16px;
+    }
+
+    /* .top-header__content {
+        width: auto;
+    } */
+
+    .top-header__inner {
+        padding: 8px 0;
+    }
+
+    .top-header__content-desk {
+        display: block;
+    }
+
+    .top-header__content-mobi {
+        display: none;
+    }
+
+    /* top-header end */
+
+    /* hero start */
+
+    .hero__wrap h2 {
+        font-size: 30px;
+    }
+
+    .hero__content {
+        top: 50%;
+        transform: translateY(-50%);
+        left: auto;
+        right: 2%;
+        width: max-content;
+        height: auto;
+        padding: 0 70px;
+    }
+
+    .hero__inner::after {
+        background: linear-gradient(270deg, rgba(28, 27, 27, 0.5) 0%, rgba(28, 27, 27, 0) 57.81%);
+    }
+
+    /* hero end */
+
+    /* product-benefits start */
+
+    .product-benefits__img img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .product-benefits__img {
+        width: 32px;
+    }
+
+    .product-benefits__content p {
+        font-size: 12px;
+    }
+
+    .product-benefits__items {
+        justify-content: space-around;
+        gap: 0;
+        max-width: 1420px;
+        margin: 0 auto;
+    }
+
+    .product-benefits__item {
+        flex: none;
+        max-width: none;
+        padding: 0 10px;
+    }
+
+    .product-benefits__inner {
+        padding: 12px 0;
+    }
+
+    /* product-benefits end */
+}
+
+/* -----------------DESKTOP END--------------- */

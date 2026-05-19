@@ -1,0 +1,54 @@
+{%- comment -%}
+  AB26 — Product Description Below Add to Bag
+  Renders the narrative portion of product.description directly below the
+  wishlist button.
+
+  Handles two known description formats:
+    Format A: <p>narrative...</p><h5>Materials & Warranty</h5>...
+    Format B: <h5>Item Description</h5><p>narrative...</p><h5>Materials...</h5>...
+{%- endcomment -%}
+
+{%- if product.description != blank -%}
+  {%- comment -%}
+    Split on '<h5' (without closing >) to catch <h5>, <h5 data-mce-fragment="1">,
+    <h5 class="...">, etc. Shopify's rich text editor often adds attributes.
+  {%- endcomment -%}
+  {%- assign ab26_parts = product.description | split: '<h5' -%}
+  {%- assign ab26_narrative = '' -%}
+
+  {%- comment -%}
+    Strategy: split on <h5. The narrative is in the FIRST part that
+    contains actual text content (not just "Item Description</h5>").
+    - Format A: parts[0] has the narrative paragraphs
+    - Format B: parts[0] is empty, parts[1] starts with ">Item Description</h5><p>narrative...</p>"
+  {%- endcomment -%}
+
+  {%- for ab26_part in ab26_parts -%}
+    {%- comment -%} Strip any leading h5 closing tag remnant (e.g. ">Materials & Warranty</h5>") {%- endcomment -%}
+    {%- assign ab26_clean = ab26_part | remove: 'Item Description</h5>' | remove: 'item description</h5>' | strip_html | strip -%}
+
+    {%- if ab26_clean != blank and ab26_narrative == '' -%}
+      {%- comment -%}
+        Found the first part with real content.
+        If this came after an <h5, it starts with ">heading text</h5>content" — strip that prefix.
+      {%- endcomment -%}
+      {%- if ab26_part contains '</h5>' -%}
+        {%- assign ab26_narrative = ab26_part | split: '</h5>' | last -%}
+      {%- else -%}
+        {%- assign ab26_narrative = ab26_part -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- assign ab26_text_check = ab26_narrative | strip_html | strip -%}
+
+  {%- if ab26_text_check != blank -%}
+    <div class="ab26-description-block">
+      <div class="ab26-description-label">ITEM DESCRIPTION</div>
+      <div class="ab26-description-text ab26-collapsed">
+        {{ ab26_narrative }}
+      </div>
+      <button type="button" class="ab26-read-more" aria-expanded="false">Read more</button>
+    </div>
+  {%- endif -%}
+{%- endif -%}

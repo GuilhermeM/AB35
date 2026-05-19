@@ -1,0 +1,43 @@
+<a href="{{ block.settings.button_link | default: collection.url }}" {{ block.shopify_attributes }} class="CollectionItem {% if section.settings.expand_collection %}CollectionItem--expand{% endif %} Carousel__Cell {% if forloop.first %}is-selected{% endif %}" data-slide-index="{{ forloop.index0 }}">
+  <div class="CollectionItem__ImageWrapper">
+    {% if block.settings.image != blank %}
+    {% assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+    <img class="Image--lazyLoad hide-no-js {% if block.settings.mobile_image != blank %}desktop_img{% endif %}"
+         data-src="{{ image_url }}"
+         data-optimumx="1.2"
+         data-widths="[800, 1000, 1200, 1400, 1600, 1800, 2000, 2200]"
+         data-sizes="auto"
+         alt="{{ block.settings.image.alt | escape }}">
+	{% endif %}
+    {% if block.settings.mobile_image != blank %}
+    {% assign mobile_image_url = block.settings.mobile_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+    <img class="Image--lazyLoad hide-no-js mobile_img"
+         data-src="{{ mobile_image_url }}"
+         data-optimumx="1.2"
+         data-widths="[400, 600, 800]"
+         data-sizes="auto"
+         alt="{{ block.settings.mobile_image_url.alt | escape }}">
+	{% endif %}
+  </div>
+  <div class="CollectionItem__Content CollectionItem__Content--{{ block.settings.content_position | default: 'bottomLeft' }}">
+    <header class="SectionHeader">
+      {%- if block.settings.subheading_show -%}
+      {%- if block.settings.subheading != blank -%}
+      <h3 class="SectionHeader__SubHeading Heading u-h6">{{ block.settings.subheading | escape }}</h3>
+      {%- endif -%}
+      {%- endif -%}
+
+      <h2 class="SectionHeader__Heading SectionHeader__Heading--emphasize Heading u-h1">{{ block.settings.title | default: collection.title | escape }}</h2>
+
+      {%- if block.settings.btn_show -%}
+      <div class="SectionHeader__ButtonWrapper">
+        {%- if block.settings.button_text != blank -%}
+        <span class="CollectionItem__Link Button">{{ block.settings.button_text | escape }}</span>
+        {%- else -%}
+        <span class="CollectionItem__Link Button">{{ 'collection.general.view_products' | t }}</span>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    </header>
+  </div>
+</a>

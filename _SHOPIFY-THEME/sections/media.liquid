@@ -1,0 +1,139 @@
+<style>
+  .richtext-slider_section .flickity-prev-next-button {
+    top: 100%;
+}
+  .richtext-slider_section .flickity-prev-next-button.next {
+    right: 0;
+}
+</style>
+<section id="section-{{ section.id }}" class="Section Section--spacingNormal richtext-slider_section" data-section-id="{{ section.id }}" data-section-type="richtext-slider">
+  <header class="SectionHeader SectionHeader--center Border--{{section.settings.show_border}}">
+    <div class="Container">
+      {%- if section.settings.title != blank -%}
+      <h2 class="SectionHeader__Heading Heading u-h1">{{ section.settings.title }}</h2>
+      {%- endif -%}
+    </div>
+  </header>
+  <div class="richtext-slider-main">
+    <div class="Container">
+      <div class="richtext-contents">
+        <div class="richtext-info">
+          <div class="richtext-wrapper" data-flickity='{
+            "contain": true,
+            "pageDots": false,
+            "draggable": true,
+            "prevNextButtons": true,
+            "autoPlay": 5000,
+            "wrapAround": true,
+            "pauseAutoPlayOnHover": false
+          }'>
+            {% for block in section.blocks %}
+            {%- if block.settings.image != blank -%}
+            <div class="richtext-main">
+              {% if block.settings.titles != blank %}
+              <div class="quote-titles hidden">
+                <h3 class="SectionHeader__Heading--emphasize Heading u-h2">{{ block.settings.titles }}</h3>
+              </div>
+              {% endif %}
+              {% if block.settings.richtext != blank %}
+              <div class="quotes">
+                {{block.settings.richtext}}
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+          <div class="richtext-logo-wrapper" data-flickity='{ "asNavFor": ".richtext-wrapper","contain": true,"pageDots": false,"prevNextButtons": false }'>
+            {% for block in section.blocks %}
+            {%- if block.settings.image != blank -%}
+            <div class="brands-logo">
+              <div class="richtext__ImageContainer">
+                <img srcset="{{ block.settings.image | img_url: '250x' }} 250w"
+                     sizes="auto"
+                     src="{{ block.settings.image | img_url: '1x' }}"
+                     loading="lazy"
+                     alt="{{ block.settings.titles | escape }}" style="height:{{block.settings.image_height}}%"/>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+   "name":"Media",
+   "class": "index__section",
+   "settings":[
+      {
+         "type":"text",
+         "id":"title",
+         "label":"Title"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_border",
+        "label": "Show border",
+        "default": true
+      }
+   ],
+   "blocks":[
+      {
+         "type":"richtext",
+         "name":"Quote",
+         "settings":[
+            {
+               "type":"header",
+               "content":"Info"
+            },
+            {
+               "type":"text",
+               "id":"titles",
+               "label":"Title"
+            },
+            {
+               "type":"richtext",
+               "id":"richtext",
+               "label":"Rich Text"
+            },
+            {
+               "type":"header",
+               "content":"Logo"
+            },
+            {
+               "type":"image_picker",
+               "id":"image",
+               "label":"Image"
+            },
+            {
+              "type": "range",
+              "id": "image_height",
+              "label": "Image Height",
+              "min": 50,
+              "max": 200,
+              "unit": "%",
+			  "step":5,
+              "default": 100
+            }
+         ]
+      }
+   ],
+   "presets":[
+      {
+         "name":"Media",
+         "category":"Media"
+      }
+   ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

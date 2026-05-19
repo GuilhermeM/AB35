@@ -1,0 +1,322 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_large": false
+      }
+    },
+    "164855231365d24ee8": {
+      "type": "sale-page-hero-section",
+      "settings": {
+        "image": "shopify://shop_images/image_1.png",
+        "mobile_image": "shopify://shop_images/imagesss_73b438ea-c73a-43e7-b950-7f3a65819307.png",
+        "title": "<strong>EID MUBARAK It's Happening AGAIN!!</strong>",
+        "content": "<p><strong>The Annual Eid Takeover Sale Is Coming! </strong></p><p><strong>On April 9th</strong>, up to <strong>70%</strong> off begins across our entire site for the biggest sale in Nominal history!<strong><br/></strong></p><p>Our website will be shutting down any minute now because our team is prepping for the <strong>BIGGEST EID Sale </strong>we've ever had.<br/><br/>Click the button below to be one of the first people notified when the sale is live! <br/><br/>(Last year our products sold out in under 3 minutes)</p>",
+        "btn_label": "Notify Me",
+        "content_1": "<p><strong>20+ New Items Releasing</strong></p>",
+        "content_2": "<p><strong>April 9th, 2022</strong></p>",
+        "show_countdown": true,
+        "date": "Apr 09 2022 12:00:00 GMT-4",
+        "background_color": "#d9d9d9"
+      }
+    },
+    "16486601711d67f6ba": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "subheading": "",
+        "title": "Ready. Set. Save! Give A Gift That Lasts A Lifetime (Unlike Baklava)",
+        "liquid": "<center><strong><span class=\"headingone\"></strong></span></center><style> .headingone { font-size: 30px;\nmargin-top: -4em;\n } </style>"
+      }
+    },
+    "16486616261d6ec34c": {
+      "type": "image-text-banner",
+      "settings": {
+        "title": "Ready. Set. Save! Give A Gift That Lasts A Lifetime (Unlike Baklava)",
+        "show_border": false,
+        "image_size": "normal"
+      }
+    },
+    "16485606708cfd08c0": {
+      "type": "register-step-section",
+      "blocks": {
+        "93063475-58ee-4578-85bc-55d49dc1a9f1": {
+          "type": "text",
+          "settings": {
+            "image": "shopify://shop_images/step-one.jpg",
+            "title": "Step 1",
+            "step-info": "<p><strong>Register </strong>below to get a reminder the moment our Sale is live </p>"
+          }
+        },
+        "286bdb24-b38b-4fe8-a615-ca4bf340aef1": {
+          "type": "text",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of_Water_Shot_2_1.jpg",
+            "title": "Step 2",
+            "step-info": "<p>We’re adding 20+ New Products to our site starting March 31st,  <strong>Wishlist </strong>your favorites for a faster checkout before they’re gone <br/></p>"
+          }
+        },
+        "e4370493-61c6-489a-9529-d1eaf13cb8d6": {
+          "type": "text",
+          "settings": {
+            "image": "shopify://shop_images/step-three.jpg",
+            "title": "Step 3",
+            "step-info": "<p><strong>Tell</strong> your friends! We've been ranked #1 for best EID gifts since 2017<br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "93063475-58ee-4578-85bc-55d49dc1a9f1",
+        "286bdb24-b38b-4fe8-a615-ca4bf340aef1",
+        "e4370493-61c6-489a-9529-d1eaf13cb8d6"
+      ],
+      "settings": {}
+    },
+    "164855886579ecc504": {
+      "type": "custom-newsletter",
+      "settings": {
+        "image": "shopify://shop_images/WhatsApp_Image_2022-03-28_at_6.31.07_PM.jpg",
+        "content": "<p>We ONLY run this EID sale once a year. This means you have no time to lose because we care about making you look good (unless you want to bring Baklava for the 4th year in a row). <br/><br/>To make sure you’re on the site the second our annual EID sale launches, enter your info below. <br/><br/></p>",
+        "footertext": "<p>We won't spam you or bother you. <br/><strong>Just the good stuff.</strong></p>"
+      }
+    },
+    "1648690539b632094a": {
+      "type": "custom-html",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "html": "<script> var _klOnsite = window._klOnsite || []; _klOnsite.push(['openForm', 'RdkyXg']); </script>"
+      }
+    },
+    "1648550105f54add7e": {
+      "type": "eid-custom-product-list",
+      "blocks": {
+        "02e558b2-9df7-43b7-a3cb-34e720943a08": {
+          "type": "product",
+          "settings": {
+            "product1": "",
+            "image1": "shopify://shop_images/Arabic-Charm-Necklace-Patience-BLUR.jpg",
+            "title1": "",
+            "timetext1": "Product to be revealed on",
+            "time1": "April 2nd",
+            "product2": "",
+            "image2": "shopify://shop_images/Celestial-Carabiner-Necklace-BLUR.jpg",
+            "title2": "",
+            "timetext2": "Product to be revealed on",
+            "time2": "April 2nd"
+          }
+        },
+        "e175520e-0597-4821-9afa-0e55c0f10b20": {
+          "type": "product",
+          "settings": {
+            "product1": "",
+            "image1": "shopify://shop_images/Garden-Of-Happiness-BLUR.jpg",
+            "title1": "",
+            "timetext1": "Product to be revealed on",
+            "time1": "April 3rd",
+            "product2": "",
+            "image2": "shopify://shop_images/Arabic-Charm-Necklace-Alhamdulillah-BLUR.jpg",
+            "title2": "",
+            "timetext2": "Product to be revealed on",
+            "time2": "April 3rd"
+          }
+        },
+        "8ba73b71-d1d3-40fc-ad2c-ec2bcfcc5722": {
+          "type": "product",
+          "settings": {
+            "product1": "",
+            "image1": "shopify://shop_images/Mother-Calligraphy-Necklace-V2-_1_-BLUR.jpg",
+            "title1": "",
+            "timetext1": "Product to be revealed on",
+            "time1": "April 4th",
+            "product2": "",
+            "image2": "shopify://shop_images/Phases-Of-The-Moon-Earrings-BLUR.jpg",
+            "title2": "",
+            "timetext2": "Product to be revealed on",
+            "time2": "April 4th"
+          }
+        },
+        "8947e2ca-48f2-40e9-87b0-608f3ecdace4": {
+          "type": "product",
+          "settings": {
+            "product1": "",
+            "image1": "shopify://shop_images/Arabic-Charm-Necklace-Alhamdulillah-BLUR_b0bd99a3-eaec-4ee6-91c9-5acfa19728bb.jpg",
+            "title1": "",
+            "timetext1": "Product to be revealed on",
+            "time1": "April 5th",
+            "product2": "",
+            "image2": "shopify://shop_images/Cigar-Band-WMN-BLUR.jpg",
+            "title2": "",
+            "timetext2": "Product to be revealed on",
+            "time2": "April 5th"
+          }
+        },
+        "9781d57b-2988-400d-ab6a-7140728e5d02": {
+          "type": "product",
+          "settings": {
+            "product1": "",
+            "image1": "shopify://shop_images/Phases-Of-the-moon-Necklace-BLUR.jpg",
+            "title1": "",
+            "timetext1": "Product to be revealed on",
+            "time1": "April 6th",
+            "product2": "",
+            "image2": "shopify://shop_images/Arabic-Charm-Necklace-Hope-BLUR.jpg",
+            "title2": "",
+            "timetext2": "Product to be revealed on",
+            "time2": "April 6th"
+          }
+        },
+        "ec7ebcd2-687b-4015-b0db-da84f03d03b7": {
+          "type": "product",
+          "settings": {
+            "product1": "",
+            "image1": "shopify://shop_images/Sister-Calligraphy-Necklace-V2-_1_-BLUR.jpg",
+            "title1": "",
+            "timetext1": "Product to be revealed on",
+            "time1": "April 7th",
+            "product2": "",
+            "image2": "shopify://shop_images/Dome-Necklace-BLUR.jpg",
+            "title2": "",
+            "timetext2": "Product to be revealed on",
+            "time2": "April 7th"
+          }
+        }
+      },
+      "block_order": [
+        "02e558b2-9df7-43b7-a3cb-34e720943a08",
+        "e175520e-0597-4821-9afa-0e55c0f10b20",
+        "8ba73b71-d1d3-40fc-ad2c-ec2bcfcc5722",
+        "8947e2ca-48f2-40e9-87b0-608f3ecdace4",
+        "9781d57b-2988-400d-ab6a-7140728e5d02",
+        "ec7ebcd2-687b-4015-b0db-da84f03d03b7"
+      ],
+      "settings": {
+        "title": "Upcoming EID Releases",
+        "show_border": true,
+        "subtitle": "New releases announced daily on Instagram, @nominal",
+        "button_text": "Shop all",
+        "button_link": "shopify://collections/all",
+        "grid_mobile_items_per_row": "2",
+        "grid_desktop_items_per_row": 4
+      }
+    },
+    "1648559787d7b12ea5": {
+      "type": "eid-takeover-faq",
+      "blocks": {
+        "8c666394-667c-4e89-844e-88669321f07f": {
+          "type": "left",
+          "settings": {
+            "title": "What to expect after you add to your Wishlist?",
+            "answer": "<p>Once the sale is live, you’ll get a notification and be able to go straight to your Wishlist for a faster checkout. BUT just having an item on your Wishlist doesn’t guarantee that you’ll get it, because other people may have already ordered it. Make sure you head to checkout the <strong>moment</strong> you get the notification about the sale going live to ensure you get all of your carefully selected gifts before they’re gone! </p>"
+          }
+        },
+        "fa67ea6e-a0d5-4fb0-8ec1-0285274e469e": {
+          "type": "right",
+          "settings": {
+            "title": "Will I receive my order before EID?",
+            "answer": "<p>Of course! Why else would we be the #1 store for EID gifts since 2017? </p>"
+          }
+        },
+        "4acf5986-b4c7-48de-8253-66529138c493": {
+          "type": "left",
+          "settings": {
+            "title": "What is the Return/Exchange Policy?",
+            "answer": "<p>We accept returns of non-custom made pieces in good and sellable condition within 60 days of their arrival. For more details about our return and exchange policy click <a href=\"https://nominalx.com/pages/return-policy\"><span style=\"text-decoration:underline\">here</span></a>. (make this hyperlink open up a different tab)</p>"
+          }
+        },
+        "802e7d34-be62-4289-bb90-05cab9f08669": {
+          "type": "right",
+          "settings": {
+            "title": "Will the new items be discounted?",
+            "answer": "<p>Yes! All of our items are discounted during our EID sale except for our custom pieces. </p>"
+          }
+        },
+        "66f6240a-0a93-47d8-b4db-5d0c66c9e5fc": {
+          "type": "left",
+          "settings": {
+            "title": "Do all products have lifetime warranty?",
+            "answer": "<p>Wallaw? Of course all of our products have a lifetime warranty. </p>"
+          }
+        },
+        "d58fae2e-1370-4319-bf16-7b4f0d92a586": {
+          "type": "right",
+          "settings": {
+            "title": "How fast will items sell out?",
+            "answer": "<p>There is no specific answer for this, but last year products sold out within 3 minutes! </p>"
+          }
+        },
+        "cb2406fb-31e4-4d33-a916-e544aad2b0f3": {
+          "type": "left",
+          "settings": {
+            "title": "Are the products Gold-Plated?",
+            "answer": "<p>To be honest, we've seen it happen in under 1 minute before. That's why it's so important to be here the second we go live and have your alarms set. There isn't a second to waste.</p>"
+          }
+        },
+        "a66c8486-9aad-422d-b869-1778ba6de9af": {
+          "type": "right",
+          "settings": {
+            "title": "How can I stay in the loop?",
+            "answer": "<p>To make sure you get every single answer, follow us on Instagram @nominal - we will be doing Q&As, Live Sessions, and sneak peeks leading up to the sale!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "8c666394-667c-4e89-844e-88669321f07f",
+        "fa67ea6e-a0d5-4fb0-8ec1-0285274e469e",
+        "4acf5986-b4c7-48de-8253-66529138c493",
+        "802e7d34-be62-4289-bb90-05cab9f08669",
+        "66f6240a-0a93-47d8-b4db-5d0c66c9e5fc",
+        "d58fae2e-1370-4319-bf16-7b4f0d92a586",
+        "cb2406fb-31e4-4d33-a916-e544aad2b0f3",
+        "a66c8486-9aad-422d-b869-1778ba6de9af"
+      ],
+      "settings": {
+        "title": "Frequently Asked Questions"
+      }
+    },
+    "1648547532717e592b": {
+      "type": "eid-Image_with_text_Overlay",
+      "settings": {
+        "animation_top_label": "<p>Up to 70% off on April 9th</p>",
+        "discount_bg_color": "#f6a429",
+        "overlay_image": "shopify://shop_images/image.png",
+        "animation_bottom_label": "<p>BIGGEST SALE IN NOMINAL HISTORY</p>",
+        "title": "This Is Your Chance To Get Gifts For The Whole Family (And Yourself) Without Breaking The Bank Or Your Diet.",
+        "overlay_title_color": "#e68e0b",
+        "overlay_title_size": 32,
+        "overlay_title_transform": "capitalize",
+        "overlay_title_align": "center",
+        "overlay_button": "notify me when the sale begins",
+        "overlay_button_color": "#000000",
+        "overlay_button_bgcolor": "#ffffff",
+        "overlay_button_bordercolor": "#f6a429",
+        "overlay_button_size": 15,
+        "overlay_button_transform": "uppercase",
+        "overlay_button_align": "center"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "164855231365d24ee8",
+    "16486601711d67f6ba",
+    "16486616261d6ec34c",
+    "16485606708cfd08c0",
+    "164855886579ecc504",
+    "1648690539b632094a",
+    "1648550105f54add7e",
+    "1648559787d7b12ea5",
+    "1648547532717e592b"
+  ]
+}

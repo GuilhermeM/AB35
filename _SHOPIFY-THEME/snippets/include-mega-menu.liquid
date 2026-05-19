@@ -1,0 +1,74 @@
+<div class="MegaMenu__Inner">
+  {% case block.settings.header_layout %}
+    {% when 'left-linklist-right-two-image-grid' %}
+    <div class="menu_content_wrapper">
+      {% for i in (1..5) %}
+      {% capture menu %}menu_{{i}}{% endcapture %}
+      {% capture menulink %}menu_{{i}}_link{% endcapture %}
+      {% if block.settings[menu] != blank %}
+        <div class="MegaMenu__Item MegaMenu__Item_links">
+          {% render 'mega-menu__linklist', menu_link: block.settings[menu], link_setting: block.settings[menulink],main_menu_name:main_menu_name %}
+        </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+      {%- if block.settings.push_1_image != blank  or block.settings.push_2_image != blank -%}
+        <div class="image_content_wrapper">
+          {%- if block.settings.push_1_image != blank -%}
+            <div class="MegaMenu__Item MegaMenu__Imageblock">
+              {% render 'mega-menu__imageblock', image: block.settings.push_1_image, heading: block.settings.push_1_heading, heading_color: block.settings.push_1_heading_color, link: block.settings.push_1_url %}
+            </div>
+          {% endif %}
+          {%- if block.settings.push_2_image != blank -%}
+            <div class="MegaMenu__Item MegaMenu__Imageblock">
+              {% render 'mega-menu__imageblock', image: block.settings.push_2_image, heading: block.settings.push_2_heading, heading_color: block.settings.push_2_heading_color, link: block.settings.push_2_url %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% when 'left-linklist-right-two-fimage-grid' %}
+  		<div class="MegaMenu__Item block__empty-column"></div>
+      {% for i in (1..5) %}
+      {% capture menu %}menu_{{i}}{% endcapture %}
+      {% capture menulink %}menu_{{i}}_link{% endcapture %}
+      {% if block.settings[menu] != blank %}
+        <div class="MegaMenu__Item MegaMenu__Item_links">
+          {% render 'mega-menu__linklist', menu_link: block.settings[menu], link_setting: block.settings[menulink] %}
+        </div>
+      {% endif %}
+      {% endfor %}
+  		<div class="MegaMenu__Item block__empty-column"></div>
+      {%- if block.settings.push_1_image != blank or block.settings.push_2_image != blank -%}
+        <div class="MegaMenu__Item MegaMenu__Imageblock">
+          {% render 'mega-menu__imageblock', image: block.settings.push_1_image, heading: block.settings.push_1_heading, heading_color: block.settings.push_1_heading_color, link: block.settings.push_1_url %}
+          {% render 'mega-menu__imageblock', image: block.settings.push_2_image, heading: block.settings.push_2_heading, heading_color: block.settings.push_2_heading_color, link: block.settings.push_2_url %}
+        </div>
+  	  {% endif %}
+    {% when 'left-right-menu-with-image' %}
+  		<div class="MegaMenu__Item block__empty-column"></div>
+      {% if block.settings.menu_1 != blank %}
+        <div class="MegaMenu__Item MegaMenu__Item_links">
+          {% render 'mega-menu__linklist', menu_link: block.settings.menu_1, link_setting: block.settings.menu_1_link %}
+        </div>
+      {% endif %}
+      {%- if block.settings.push_1_image != blank or block.settings.push_2_image != blank -%}
+        <div class="MegaMenu__Item MegaMenu__Imageblock">
+          {% render 'mega-menu__imageblock', image: block.settings.push_1_image, heading: block.settings.push_1_heading, heading_color: block.settings.push_1_heading_color, link: block.settings.push_1_url %}
+          {% render 'mega-menu__imageblock', image: block.settings.push_2_image, heading: block.settings.push_2_heading, heading_color: block.settings.push_2_heading_color, link: block.settings.push_2_url %}
+        </div>
+  	  {% endif %}
+  		<div class="MegaMenu__Item block__empty-bordercolumn"></div>
+      {% if block.settings.menu_2 != blank %}
+        <div class="MegaMenu__Item MegaMenu__Item_links">
+          {% render 'mega-menu__linklist', menu_link: block.settings.menu_2, link_setting: block.settings.menu_2_link %}
+        </div>
+      {% endif %}
+      {%- if block.settings.push_3_image != blank or block.settings.push_4_image != blank -%}
+        <div class="MegaMenu__Item MegaMenu__Imageblock">
+          {% render 'mega-menu__imageblock', image: block.settings.push_3_image, heading: block.settings.push_3_heading, heading_color: block.settings.push_3_heading_color, link: block.settings.push_3_url %}
+          {% render 'mega-menu__imageblock', image: block.settings.push_4_image, heading: block.settings.push_4_heading, heading_color: block.settings.push_4_heading_color, link: block.settings.push_4_url %}
+        </div>
+  	  {% endif %}
+  		<div class="MegaMenu__Item block__empty-column"></div>
+  {% endcase %}
+</div>

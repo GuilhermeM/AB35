@@ -1,0 +1,40 @@
+<section class="Section Section--spacingNormal featured-collections_section featured-collection__Container" data-section-id="{{ section.id }}">
+  <header class="SectionHeader SectionHeader--center Border--true">
+      <div class="Container">
+        <h3 class="SectionHeader__Heading Heading u-h1">HEAR IT FROM <span class="okeReviews-customFont">200,000+</span> Happy Customers</h3>
+      </div>
+    </header>
+<div class="{% if section.settings.include_margins %}Container{% endif %}">
+
+  {%- for block in section.blocks -%}
+    {%- render block -%}
+  {%- endfor -%}
+  <div class="Section--spacingNormal oke-reviews-custom-button" style="text-align: center">
+	<a href="pages/reviews-1" class="Button Button--primary">Read All Reviews</a>
+</div>
+</div>
+</section>
+{% schema %}
+{
+  "name": "Apps",
+  "class": "shopify-section--featured index__section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "include_margins",
+      "label": "Include margins",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Apps"
+    }
+  ]
+}
+{% endschema %}

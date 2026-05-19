@@ -1,0 +1,173 @@
+{% case section.settings.image_size %}
+{% when 'small' %}
+{% assign image_size = 1.5 %}
+{% when 'normal' %}
+{% assign image_size = 1.0 %}
+{% when 'large' %}
+{% assign image_size = 0.85 %}
+{% endcase %}
+
+<section id="section-{{ section.id }}" class="Section Section--spacingNormal image-text-banner_section" data-section-id="{{ section.id }}" data-section-type="image-text-banner">
+  <header class="SectionHeader SectionHeader--center Border--{{section.settings.show_border}}">
+    <div class="Container">
+      {%- if section.settings.title != blank -%}
+      <h2 class="SectionHeader__Heading Heading u-h1">{{ section.settings.title }}</h2>
+      {%- endif -%}
+    </div>
+  </header>
+  <div class="Container">
+    <div class="image_text_banner_block">
+    {% for block in section.blocks %}
+    <div id="block-{{block.id}}" class="banner__grid BannerItem">
+      <a href="{{ block.settings.link }}">
+      {%- if block.settings.image != blank -%}
+      <div class="BannerItem__ImageWrapper">
+        {%- capture supported_sizes -%}{%- render 'image-size', sizes: '400,600,700,800,900,1000,1200', image: block.settings.image -%}{%- endcapture -%}
+        <div class="AspectRatio {% if  block.settings.apply_overlay %}Image--contrast{% endif %}" style="max-width: {{ block.settings.image.width }}px; --aspect-ratio:{{image_size}}">
+          {%- assign image_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          <img class="Image--lazyLoad Image--slide{{ block.settings.image_position | capitalize }}" data-src="{{ image_url }}" data-expand="-200" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ block.settings.image.alt | escape }}">
+          <noscript><img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.image.alt | escape }}"></noscript>
+        </div>
+      </div>
+      {%- endif -%}
+      <div class="BannerItem__Content">
+        <div class="BannerItem_SectionHeader">
+          <h2 class="BannerItem___Heading SectionHeader__Heading--emphasize Heading u-h1">{{ block.settings.title }}</h2>
+          {%- if block.settings.button_text != blank -%}
+          <div class="SectionHeader__ButtonWrapper">
+            <span class="BannerItem__Link Button Button--secondary">{{ block.settings.button_text }}</span>
+          </div>
+          {%- endif -%}
+        </div>
+      </div>
+      </a>
+    </div>
+    {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  {% for block in section.blocks %}
+  #block-{{block.id}} .BannerItem___Heading{
+  	color: {{ block.settings.text_color }};
+  }
+  #block-{{block.id}} .BannerItem__Link {
+    color: {{ block.settings.button_color }};
+    border-color: {{ block.settings.text_color }};
+  }
+  #block-{{block.id}} .BannerItem__Link::before {
+    background-color: {{ block.settings.text_color }};
+  }
+  #block-{{block.id}} .BannerItem__Link:hover {
+    color: {{ block.settings.text_hover_color }};
+  }
+  {% endfor %}
+</style>
+{% schema %}
+{
+  "name": "Image text banner",
+  "class": "index__section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border",
+      "label": "Show border",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "Image size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "normal"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "image banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1120 x 1200px .jpg recommended"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "link"
+        },
+        {
+          "type": "checkbox",
+          "id": "apply_overlay",
+          "label": "Apply overlay on image",
+          "info": "This can improve text visibility.",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button text",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "text_hover_color",
+          "label": "Button Text hover",
+          "default": "#1c1b1b"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name": "Image text banner",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
