@@ -227,8 +227,12 @@
 #${SECTION_ID} .ab35-expand {
   display: block;
   padding-top: 16px;
+  /* Bottom spacer so the textarea + counter clear the sticky checkout footer
+     when this section is scrolled into view. ~140px ≈ Secure Checkout + clearance
+     row + safe-area inset. */
+  padding-bottom: 140px;
 }
-#${SECTION_ID} .ab35-expand[hidden] { display: none; }
+#${SECTION_ID} .ab35-expand[hidden] { display: none; padding-bottom: 0; }
 
 #${SECTION_ID} .ab35-cards-scroll {
   display: flex;
@@ -651,6 +655,9 @@
       if (!state.cardsLoaded) {
         loadCards().then(() => rerenderCardsArea());
       }
+      // Scroll the expanded area into view so the textarea (which lives below the cards
+      // strip) isn't hidden behind the sticky checkout footer.
+      scrollExpandIntoView();
     } else {
       const hadCard = !!state.cardLineKey;
       const hadText = !!(state.noteText && state.noteText.length);
@@ -827,6 +834,63 @@
       b.setAttribute('aria-checked', id === state.selectedCardId ? 'true' : 'false');
     });
   }
+  // Walk up from `node` and return the first ancestor that actually scrolls.
+  function findScrollParent(node) {
+    let el = node && node.parentElement;
+    while (el && el !== document.body) {
+      const style = window.getComputedStyle(el);
+      const oy = style.overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
+        return el;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  // After flipping the note toggle ON, scroll the cart drawer so the entire gift section
+  // (cards strip + textarea + counter) is fully visible above the sticky checkout footer.
+  // Runs twice — immediately, then again after a delay — to handle layout that settles
+  // late (lazy images, slick carousel reflow, font swap, etc.).
+  function scrollExpandIntoView() {
+    const doScroll = () => {
+      const counter = $(`#${SECTION_ID} .ab35-counter`);
+      const textarea = $(`#${SECTION_ID} .ab35-textarea`);
+      // Target the counter (the last *real* content), and accept the padding-bottom on
+      // .ab35-expand as the natural buffer below it.
+      const target = counter || textarea;
+      if (!target) return;
+
+      const scroller = findScrollParent(target);
+      if (!scroller) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        return;
+      }
+
+      // Both footers overlay the bottom — sum them. SlideCart pins .footer-sticky
+      // (Secure Checkout) and footer.footer (Discounts/Subtotal) at the bottom.
+      const stickyFooters = $$('.slidecarthq .footer-sticky, .slidecarthq footer.footer');
+      const overlay = stickyFooters.reduce((h, f) => h + f.getBoundingClientRect().height, 0);
+
+      const scrollerRect = scroller.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      // Want target's bottom 16px above the top of the stacked sticky footers.
+      const desiredBottom = scrollerRect.bottom - overlay - 16;
+      const overflow = targetRect.bottom - desiredBottom;
+      if (overflow > 1) {
+        scroller.scrollTo({
+          top: Math.min(scroller.scrollTop + overflow, scroller.scrollHeight - scroller.clientHeight),
+          behavior: 'smooth',
+        });
+      }
+    };
+
+    // First pass after one frame (expand un-hidden, but card images may not have loaded yet).
+    requestAnimationFrame(doScroll);
+    // Second pass after layout settles (covers late image loads pushing the textarea down).
+    setTimeout(doScroll, 350);
+  }
+
   function rerenderCardsArea() {
     const wrap = $(`#${SECTION_ID} .ab35-cards-scroll`);
     if (!wrap) return;
@@ -1015,16 +1079,53 @@
   }
 
   // ---------- MOUNT ----------
+  // Track whether the upsells carousel has finished initializing on first sight.
+  // Once true, we don't gate subsequent re-mounts (re-renders happen quickly).
+  let upsellsReadyOnce = false;
+
+  function isUpsellsReady(upsells) {
+    if (!upsells) return false;
+    // Slick carousel adds .slick-initialized once it has rendered its slides.
+    if (upsells.querySelector('.slick-initialized')) return true;
+    // If there's no slick wrapper at all (e.g. single upsell or slick disabled),
+    // accept as soon as any .upsell child is present.
+    return !!upsells.querySelector('.upsell');
+  }
+
   function ensureMounted() {
-    if (document.getElementById(SECTION_ID)) return;
     const upsells = document.querySelector('.slidecarthq .upsells');
     if (!upsells || !upsells.parentNode) return;
 
+    // On the very first mount of a session, wait until the upsells carousel is fully
+    // initialized so our section paints below a populated "Grab Gifts:" — not above
+    // a half-rendered one.
+    if (!upsellsReadyOnce) {
+      if (!isUpsellsReady(upsells)) return; // observer will retry on next mutation
+      upsellsReadyOnce = true;
+    }
+
     injectStyles();
 
-    if (isCartEmpty()) return; // don't render when there are no items
+    if (isCartEmpty()) {
+      const present = document.getElementById(SECTION_ID);
+      if (present) present.style.display = 'none';
+      return;
+    }
 
-    const section = buildSection();
+    // If the section already exists, make sure it sits *immediately after* .upsells.
+    // SlideCart re-renders can move .upsells to a different position in the tree;
+    // if that happens, re-position our section instead of leaving it stranded.
+    let section = document.getElementById(SECTION_ID);
+    if (section) {
+      if (upsells.nextSibling !== section) {
+        upsells.parentNode.insertBefore(section, upsells.nextSibling);
+        LOG('repositioned section to follow .upsells after re-render');
+      }
+      section.style.display = '';
+      return;
+    }
+
+    section = buildSection();
     upsells.parentNode.insertBefore(section, upsells.nextSibling);
 
     // Refresh cart snapshot to sync state (does not block render).
@@ -1051,23 +1152,32 @@
   function boot() {
     injectStyles();
 
-    // 1) Poll until SlideCart renders for the first time.
+    // 1) Poll until SlideCart's upsells carousel is fully initialized, then mount.
+    //    This guarantees our section paints *below* a populated "Grab Gifts:" — not
+    //    above a half-rendered one.
     const initInterval = setInterval(() => {
-      if (document.querySelector('.slidecarthq .upsells')) {
+      const upsells = document.querySelector('.slidecarthq .upsells');
+      if (isUpsellsReady(upsells)) {
         clearInterval(initInterval);
         ensureMounted();
       }
     }, 200);
-    setTimeout(() => clearInterval(initInterval), 15000);
+    // Safety: after 3s, drop the readiness gate and mount whatever's there.
+    // Slick typically initializes in 200–800ms; if it hasn't by 3s, something else is
+    // wrong and we shouldn't keep the user waiting on it.
+    setTimeout(() => {
+      clearInterval(initInterval);
+      upsellsReadyOnce = true;
+      ensureMounted();
+    }, 3000);
 
     // 2) Watch the document for cart re-renders / drawer remounts.
-    const observer = new MutationObserver(() => {
-      const upsells = document.querySelector('.slidecarthq .upsells');
-      const present = document.getElementById(SECTION_ID);
-      if (upsells && !present) ensureMounted();
-      else if (present && isCartEmpty()) present.style.display = 'none';
-      else if (present && !isCartEmpty()) present.style.display = '';
-    });
+    //    On every mutation, run ensureMounted() — it handles all four cases internally:
+    //      a) section missing → build & insert,
+    //      b) section present but no longer adjacent to .upsells → reposition,
+    //      c) cart empty → hide,
+    //      d) cart refilled → show.
+    const observer = new MutationObserver(() => ensureMounted());
     observer.observe(document.body, { childList: true, subtree: true });
   }
 

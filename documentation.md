@@ -409,10 +409,28 @@ Built into [ab35-variant-b.js](ab35-variant-b.js). Behavior follows the plan; di
 - **Per-thumb image-load shimmer.** Each real `.ab35-card-thumb` ships with a shimmer overlay (`::before` pseudo) that only fades out when the `<img>`'s `load` or `error` event fires (`is-loaded` class). Cached images get `is-loaded` set synchronously via `img.complete && img.naturalWidth > 0`. This kills the bare grey/black thumbnail flash that's visible on the existing upsells carousel.
 - **Real `<img>` element** with `decoding: 'async'` + `loading: 'lazy'` instead of `background-image`, so the browser handles the image lifecycle and we can hook load events.
 
+### Auto-scroll on note toggle ON
+- **The problem.** When the user flips the note toggle ON, the cards strip + textarea + counter expand below the fold, hidden behind SlideCart's stacked sticky footers (Discounts/Subtotal row + Secure Checkout). The cart's internal scroll position doesn't follow.
+- **Fix.** [ab35-variant-b.js](ab35-variant-b.js) `scrollExpandIntoView()` runs after the toggle flips ON (immediate + 350ms second pass to handle layout settle):
+  1. `findScrollParent()` walks up from the counter to find the first ancestor whose `overflow-y` is `auto`/`scroll` AND has overflowing content — usually `.slidecarthq` itself.
+  2. Measures both `.footer-sticky` (Secure Checkout) AND `footer.footer` (Discounts/Subtotal) heights and sums them, since both overlay the bottom of the scroll area.
+  3. Smoothly scrolls the cart so the counter's bottom sits 16px above the top of the stacked sticky footers, clamped to `scrollHeight - clientHeight` so we never over-scroll.
+- **`.ab35-expand` has `padding-bottom: 140px`** as an intrinsic bottom spacer. Without it, the scroll container often doesn't have enough room below the textarea for the cart to scroll far enough — the cards/textarea/counter would still hide behind the footers even after `scrollTo`. The padding is removed when the expand area is `[hidden]`, so it doesn't bloat the cart in the collapsed state.
+
 ### Re-render handling
 - **MutationObserver on `document.body`** — the entire `.slidecarthq` may unmount/remount on cart operations, not just `.items`. State lives in JS module scope and re-applies via painters (`paintRecipientToggle`, `paintNoteToggle`, `paintSelectedCard`) after each re-inject.
 - **Empty cart** → `#ab35-gift-section` hides via `display:none`. Refill → re-shows, state intact.
 - **Recipient toggle default = ON** per figma. On first paint no `/cart/update.js` fires — only on user flip. `refreshCartSnapshot()` syncs the visual from `cart.attributes['Ship to recipient']` if a prior session set it.
+
+### First-mount ordering — wait for "Grab Gifts:" to populate
+- **The problem.** On first cart open, `.upsells` exists in the DOM before slick.js finishes initializing its slides. If we injected immediately, "Make it a gift" would render above a half-built (or visually empty) "Grab Gifts:" carousel, breaking the spec's intended visual order (`items → upsells → gift → rewards → footers`).
+- **Fix — readiness gate.** `isUpsellsReady(upsells)` returns true only when `.slick-initialized` is present OR any `.upsell` child has rendered. The boot poll (every 200ms) waits for readiness before calling `ensureMounted()` for the first time. A `upsellsReadyOnce` latch ensures we only gate the *first* mount; subsequent re-mounts after cart re-renders skip the gate since the carousel is already up.
+- **Safety timeout: 3s.** Slick usually initializes in 200–800ms. If it hasn't by 3s, we drop the gate and mount anyway so the section still appears (slick disabled, network blocked, single-upsell case, etc.).
+
+### Re-positioning on re-render — keeping the section adjacent to `.upsells`
+- **The problem.** When SlideCart re-renders after a cart mutation, it can move `.upsells` to a different position in the tree (or re-create the entire drawer). Our section, if mounted earlier, ends up stranded above the new `.upsells` — visually breaking the spec's order.
+- **Fix.** `ensureMounted()` no longer early-returns when the section already exists. Instead, it checks whether `upsells.nextSibling === section`. If not, it calls `insertBefore(section, upsells.nextSibling)` again — which **moves** the existing node to the correct position (DOM nodes can only have one parent, so this is a move, not a clone — all state, event listeners, and child layout preserved). Logs `[AB35] repositioned section to follow .upsells after re-render` when this happens.
+- **Consolidated mount logic.** The MutationObserver in `boot()` now simply calls `() => ensureMounted()` on every mutation. `ensureMounted()` handles all four cases internally: section missing → build & insert; section misplaced → reposition; cart empty → hide; cart refilled → show.
 
 ### Cart-refresh signal
 - Dispatches `cart:refresh`, `cart:updated`, and `cart:build` and best-effort calls `window.SlideCart.refresh()`. **QA TODO:** confirm in DevTools which signal SlideCart HQ actually consumes on this theme and trim any that are noisy.
