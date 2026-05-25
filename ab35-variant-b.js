@@ -17,6 +17,20 @@
   const CARD_PROPERTY_KEY = 'Gift Note';
   const RECIPIENT_ATTR_KEY = 'Ship to recipient';
 
+  // Cart attribute key read by Shopify Flow ("Tag orders with gift card handwritten note").
+  // Values: 'blank' (no handwriting) | 'write' (handwriting service selected).
+  // Flow rule: if attributes[gift_card_mode] === 'write' → tag order 'gift-handwritten'.
+  const GIFT_MODE_ATTR_KEY = 'gift_card_mode';
+
+  // Handwriting fee product — created in Shopify Admin, awaiting client approval before enabling.
+  // To enable: set HANDWRITING_FEE_ENABLED = true AND fill in the variant ID + handle below.
+  // When disabled, the seg control still works visually + writes the cart attribute, but no
+  // line item is added (the +$1.99 charge won't actually post).
+  const HANDWRITING_FEE_ENABLED = false;
+  const HANDWRITING_FEE_VARIANT_ID = null; // e.g. 47270000000000
+  const HANDWRITING_FEE_HANDLE = null;     // e.g. 'handwriting-fee'
+  const HANDWRITING_FEE_PRICE_CENTS = 199;
+
   // Verified 2026-05-18 against https://nominalx.com/products/<handle>.js
   // Fallbacks are used when /products/<handle>.js is unreachable (e.g. preview iframe).
   const CARD_FALLBACKS = [
@@ -33,10 +47,12 @@
   // and use the hardcoded fallbacks.
   const IS_NOMINAL_ORIGIN = /(^|\.)nominalx\.com$/i.test(location.hostname);
 
-  const ICON_SHIP = 'https://cdn.shopify.com/s/files/1/2556/8900/files/icon-ship.svg?v=1779146588';
-  const ICON_HANDWRITE = 'https://cdn.shopify.com/s/files/1/2556/8900/files/icon-handwrite.svg?v=1779146589';
+  // Hosted Shopify CDN icons (uploaded per spec §0). Each file includes its own
+  // 32x32 tinted circle background + stroke in #54684E, so the container in CSS
+  // is just a positioning frame with no extra background.
+  const ICON_SHIP_URL = 'https://cdn.shopify.com/s/files/1/2556/8900/files/icon-ship.svg?v=1779146588';
+  const ICON_CARD_URL = 'https://cdn.shopify.com/s/files/1/2556/8900/files/icon-handwrite.svg?v=1779146589';
   const ICON_CHECK = 'https://cdn.shopify.com/s/files/1/2556/8900/files/icon-check.svg?v=1779146588';
-  const ICON_FREE = 'https://cdn.shopify.com/s/files/1/2556/8900/files/icon-free.svg?v=1779146589';
 
   // ---------- STATE (lives across re-renders) ----------
   const state = {
@@ -46,6 +62,11 @@
     selectedCardHandle: null,
     cardLineKey: null,
     noteText: '',
+    // Handwriting mode: 'blank' (default, free) | 'write' (+$1.99, handwriting service).
+    // Set to 'blank' when the card toggle flips ON. Persists in JS state across re-renders;
+    // textarea text is preserved when switching modes so users don't lose their draft.
+    handwriteMode: 'blank',
+    feeLineKey: null, // line item key for the $1.99 handwriting fee, when added
     cards: [], // resolved variants
     cardsLoaded: false,
     cardLoadFailed: false,
@@ -130,38 +151,105 @@
   function injectStyles() {
     if (document.getElementById(STYLE_ID)) return;
     const css = `
+/* Note: prior versions hid .slidecarthq .upsells (Grab Gifts) for Variant B. Client
+   later requested keeping Grab Gifts visible. The IIFE no longer touches it. */
+
+/* Hide the cart's "Discounts" footer row for Variant B — client wants the section
+   to occupy less vertical space. The subtotal still reflects the discount amount;
+   only the explicit "Discounts -$XX" line is hidden.
+   Markup varies — auto-discount uses .amp-sc__footer-row--discount on the outer
+   .footer-row; coupon-applied uses it on an inner span. We hide both the marker
+   itself AND the sibling .slidecart-discount-amount, then collapse the parent
+   .footer-row to zero height so no residual line/padding shows. :has() handles
+   the parent collapse where supported; the explicit child selectors are the
+   fallback that always works. */
+.slidecarthq .footer .footer-row.amp-sc__footer-row--discount,
+.slidecarthq .footer .amp-sc__footer-row--discount,
+.slidecarthq .footer .footer-row:has(.amp-sc__footer-row--discount),
+.slidecarthq .footer .footer-row:has(.slidecart-discount-amount) {
+  display: none !important;
+}
+/* Safety belt: if the parent .footer-row survived due to no :has() support,
+   neutralize its leftover height/padding/border and zero its visible children. */
+.slidecarthq .footer .footer-row .amp-sc__footer-row--discount,
+.slidecarthq .footer .footer-row .slidecart-discount-amount {
+  display: none !important;
+}
+/* The footer itself reserves padding/gap for two rows; with the discount row
+   gone, the top padding leaves a visible empty band above the subtotal. Tighten
+   the footer's own spacing. */
+.slidecarthq footer.footer.new-footer,
+.slidecarthq .footer.new-footer {
+  padding-top: 0 !important;
+  gap: 0 !important;
+}
+/* Neutralize any theme-default borders that the SlideCart skin paints on
+   footer rows or on the rewards/promo block above subtotal — those are what
+   produced doubled lines and the inset (non-full-bleed) divider. */
+.slidecarthq footer.footer .footer-row,
+.slidecarthq footer.footer .footer-row.amp-sc__footer-row--subtotal,
+.slidecarthq footer.footer .amp-sc__rewards,
+.slidecarthq footer.footer .slidecart-rewards,
+.slidecarthq footer.footer .footer-row + .footer-row {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+/* Draw exactly one full-bleed divider directly above the subtotal row.
+   The footer has 30px horizontal padding, so we use a ::before with negative
+   horizontal positioning to span edge-to-edge of the drawer. */
+.slidecarthq footer.footer .footer-row.amp-sc__footer-row--subtotal {
+  position: relative;
+  padding-top: 12px;
+}
+.slidecarthq footer.footer .footer-row.amp-sc__footer-row--subtotal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -30px;
+  right: -30px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+/* Section root — matches figma cart footer background #F2F2F2 + 16px / 20px padding. */
 #${SECTION_ID} {
   font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #000;
-  padding: 16px;
-  border-top: 1px solid rgba(0,0,0,0.1);
-  background: #fff;
+  padding: 16px 20px;
+  background: #F2F2F2;
   box-sizing: border-box;
 }
 #${SECTION_ID} *, #${SECTION_ID} *::before, #${SECTION_ID} *::after { box-sizing: border-box; }
+/* Force Instrument Sans on every text element inside our section — the live theme
+   has higher-specificity rules on .slidecarthq descendants that can otherwise win. */
+#${SECTION_ID},
+#${SECTION_ID} div,
+#${SECTION_ID} span,
+#${SECTION_ID} button,
+#${SECTION_ID} input,
+#${SECTION_ID} textarea,
+#${SECTION_ID} p {
+  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+/* "Make it a gift:" — figma: 13.6px / 17px / 600, color #000, Title Case with colon. */
 #${SECTION_ID} .ab35-title {
   font-size: 13.6px;
   line-height: 17px;
   font-weight: 600;
   color: #000;
-  margin: 0 0 16px 0;
+  margin: 0 0 12px 0;
 }
+/* Rows — figma uses gap 12px between rows + bottom border on the wrapping frame. */
 #${SECTION_ID} .ab35-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding: 12px 0;
 }
-#${SECTION_ID} .ab35-row + .ab35-row { padding-top: 16px; }
-#${SECTION_ID} .ab35-row-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  min-width: 0;
-}
+#${SECTION_ID} .ab35-row + .ab35-row { border-top: 1px solid rgba(0,0,0,0.08); }
+/* Icon container — the hosted SVGs already include the 32x32 tinted circle background
+   and #54684E stroke, so the container here is just a 32x32 box. */
 #${SECTION_ID} .ab35-icon {
   width: 32px;
   height: 32px;
@@ -170,8 +258,16 @@
   align-items: center;
   justify-content: center;
 }
-#${SECTION_ID} .ab35-icon img { display: block; width: 32px; height: 32px; }
-#${SECTION_ID} .ab35-row-text { min-width: 0; }
+#${SECTION_ID} .ab35-icon img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+#${SECTION_ID} .ab35-row-text {
+  flex: 1;
+  min-width: 0;
+}
+/* Row title — figma: 13.6px / 17px / 600 / #000. */
 #${SECTION_ID} .ab35-row-title {
   font-size: 13.6px;
   line-height: 17px;
@@ -179,16 +275,30 @@
   color: #000;
   margin: 0;
 }
+/* "from Free" label — figma: 12px / 15px / 600 / #616161. */
+#${SECTION_ID} .ab35-row-price {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 600;
+  color: #616161;
+  margin: 0 8px 0 0;
+}
+/* Sub-note — figma: 12px / 15px / 400 / #000 (figma uses full black, not muted). */
 #${SECTION_ID} .ab35-row-sub {
   font-size: 12px;
   line-height: 15px;
   font-weight: 400;
-  color: #616161;
-  margin: 2px 0 0 0;
+  color: #000;
+  /* Indent aligns the sub-note's left edge with the row's title (icon 32 + gap 12 = 44). */
+  padding: 0 0 12px 44px;
+  margin: -4px 0 0 0;
 }
-#${SECTION_ID} .ab35-row-sub.ab35-row-sub--bold { font-weight: 600; }
+/* Hide the ship sub-note when the recipient toggle is off — the message only
+   makes sense when ship-direct is enabled. */
+#${SECTION_ID} .ab35-row-sub[hidden] { display: none; }
 
-/* Toggle pill */
+/* Toggle pill — figma: 48x24, radius 32, ON=#468036 / OFF=#FFFFFF with thin outline,
+   thumb 20x20 (ON=white right-aligned / OFF=#CFCFCF left-aligned). */
 #${SECTION_ID} .ab35-toggle {
   position: relative;
   width: 48px;
@@ -226,13 +336,21 @@
 /* Expanded area */
 #${SECTION_ID} .ab35-expand {
   display: block;
-  padding-top: 16px;
-  /* Bottom spacer so the textarea + counter clear the sticky checkout footer
-     when this section is scrolled into view. ~140px ≈ Secure Checkout + clearance
-     row + safe-area inset. */
-  padding-bottom: 140px;
+  padding-top: 12px;
+  /* Small bottom breathing room between counter and the cart's footers below.
+     The scrollExpandIntoView() math accounts for sticky footers, so we don't
+     need a giant intrinsic spacer here. */
+  padding-bottom: 16px;
 }
 #${SECTION_ID} .ab35-expand[hidden] { display: none; padding-bottom: 0; }
+
+#${SECTION_ID} .ab35-picker-label {
+  font-size: 11.9px;
+  line-height: 15px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.7);
+  margin: 0 0 8px 0;
+}
 
 #${SECTION_ID} .ab35-cards-scroll {
   display: flex;
@@ -409,8 +527,68 @@
   margin-top: 2px;
 }
 
-/* Textarea */
+/* "How should we send it?" segmented control */
+#${SECTION_ID} .ab35-seg-label {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.7);
+  margin: 12px 0 8px 0;
+}
+#${SECTION_ID} .ab35-seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 4px;
+  padding: 4px;
+  background: #fff;
+  margin-bottom: 8px;
+}
+#${SECTION_ID} .ab35-seg-btn {
+  background: transparent;
+  border: 0;
+  padding: 10px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #000;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+#${SECTION_ID} .ab35-seg-btn-title {
+  font-size: 13.6px;
+  line-height: 17px;
+  font-weight: 600;
+}
+#${SECTION_ID} .ab35-seg-btn-sub {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+}
+#${SECTION_ID} .ab35-seg-btn.is-active {
+  background: #54684E;
+  color: #fff;
+}
+#${SECTION_ID} .ab35-seg-btn.is-active .ab35-seg-btn-sub {
+  color: rgba(255,255,255,0.85);
+}
+#${SECTION_ID} .ab35-seg-help {
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(0,0,0,0.6);
+  text-align: center;
+  margin: 4px 0 12px 0;
+}
+
+/* Textarea — wrapper hides when handwrite mode is 'blank' */
 #${SECTION_ID} .ab35-textarea-wrap { position: relative; }
+#${SECTION_ID} .ab35-textarea-wrap.is-hidden { display: none; }
 #${SECTION_ID} .ab35-textarea {
   display: block;
   width: 100%;
@@ -550,30 +728,41 @@
   function buildSection() {
     const section = el('div', { id: SECTION_ID, 'data-ab35': '' });
 
+    // Header — Title Case with colon, matches figma "Make it a gift:".
     section.appendChild(el('div', { class: 'ab35-title', text: 'Make it a gift:' }));
 
-    // Row 1 — recipient
+    // Row 1 — recipient (ship icon + title + toggle)
+    const recipientIcon = el('div', { class: 'ab35-icon' }, [
+      el('img', { src: ICON_SHIP_URL, alt: '', loading: 'lazy', decoding: 'async' }),
+    ]);
     const recipientRow = el('div', { class: 'ab35-row', 'data-ab35-row': 'recipient' }, [
-      el('div', { class: 'ab35-row-left' }, [
-        el('div', { class: 'ab35-icon' }, [el('img', { src: ICON_SHIP, alt: '' })]),
-        el('div', { class: 'ab35-row-text' }, [
-          el('div', { class: 'ab35-row-title', text: 'Ship directly to the recipient' }),
-          el('div', { class: 'ab35-row-sub', text: 'No receipt or prices on the packing slip' }),
-        ]),
+      recipientIcon,
+      el('div', { class: 'ab35-row-text' }, [
+        el('div', { class: 'ab35-row-title', text: 'Ship directly to the recipient' }),
       ]),
       buildToggle('recipient', state.shipToRecipient),
     ]);
     section.appendChild(recipientRow);
 
-    // Row 2 — note
+    // Ship sub-note row — only visible when shipToRecipient is ON.
+    const shipNote = el('div', {
+      class: 'ab35-row-sub',
+      'data-ab35-ship-note': '',
+      text: 'No receipt or prices on the packing slip.',
+    });
+    if (!state.shipToRecipient) shipNote.setAttribute('hidden', '');
+    section.appendChild(shipNote);
+
+    // Row 2 — card (envelope icon + title + "from Free" label + toggle)
+    const cardIcon = el('div', { class: 'ab35-icon' }, [
+      el('img', { src: ICON_CARD_URL, alt: '', loading: 'lazy', decoding: 'async' }),
+    ]);
     const noteRow = el('div', { class: 'ab35-row', 'data-ab35-row': 'note' }, [
-      el('div', { class: 'ab35-row-left' }, [
-        el('div', { class: 'ab35-icon' }, [el('img', { src: ICON_HANDWRITE, alt: '' })]),
-        el('div', { class: 'ab35-row-text' }, [
-          el('div', { class: 'ab35-row-title', text: 'Add a handwritten note & card' }),
-          el('div', { class: 'ab35-row-sub ab35-row-sub--bold', text: 'From +$1.99' }),
-        ]),
+      cardIcon,
+      el('div', { class: 'ab35-row-text' }, [
+        el('div', { class: 'ab35-row-title', text: 'Include a greeting card' }),
       ]),
+      el('span', { class: 'ab35-row-price', text: 'from Free' }),
       buildToggle('note', state.noteToggleOpen),
     ]);
     section.appendChild(noteRow);
@@ -581,6 +770,9 @@
     // Expanded area
     const expand = el('div', { class: 'ab35-expand' });
     if (!state.noteToggleOpen) expand.setAttribute('hidden', '');
+
+    // "Pick a card design" label above the cards strip (matches prototype)
+    expand.appendChild(el('div', { class: 'ab35-picker-label', text: 'Pick a card design' }));
 
     const cardsWrap = el('div', { class: 'ab35-cards-scroll', role: 'radiogroup', 'aria-label': 'Choose a greeting card' });
 
@@ -593,6 +785,34 @@
     }
     expand.appendChild(cardsWrap);
 
+    // "How should we send it?" segmented control
+    expand.appendChild(el('div', { class: 'ab35-seg-label', text: 'How should we send it?' }));
+    const segBlank = el('button', {
+      type: 'button',
+      class: 'ab35-seg-btn' + (state.handwriteMode === 'blank' ? ' is-active' : ''),
+      'data-mode': 'blank',
+      'aria-pressed': state.handwriteMode === 'blank' ? 'true' : 'false',
+    }, [
+      el('span', { class: 'ab35-seg-btn-title', text: 'Leave it blank' }),
+      el('span', { class: 'ab35-seg-btn-sub', text: 'Free' }),
+    ]);
+    const segWrite = el('button', {
+      type: 'button',
+      class: 'ab35-seg-btn' + (state.handwriteMode === 'write' ? ' is-active' : ''),
+      'data-mode': 'write',
+      'aria-pressed': state.handwriteMode === 'write' ? 'true' : 'false',
+    }, [
+      el('span', { class: 'ab35-seg-btn-title', text: 'Handwrite for me' }),
+      el('span', { class: 'ab35-seg-btn-sub', text: '+$1.99' }),
+    ]);
+    expand.appendChild(el('div', { class: 'ab35-seg' }, [segBlank, segWrite]));
+    expand.appendChild(el('div', {
+      class: 'ab35-seg-help',
+      text: state.handwriteMode === 'write'
+        ? "Our team hand-letters your note inside the card before it ships."
+        : "We'll tuck it in unwritten so you can fill it in yourself.",
+    }));
+
     const textarea = el('textarea', {
       class: 'ab35-textarea',
       maxlength: NOTE_MAX,
@@ -600,7 +820,10 @@
     });
     textarea.value = state.noteText || '';
     const counter = el('div', { class: 'ab35-counter', text: `${(state.noteText || '').length}/${NOTE_MAX}` });
-    expand.appendChild(el('div', { class: 'ab35-textarea-wrap' }, [textarea, counter]));
+    const textareaWrap = el('div', {
+      class: 'ab35-textarea-wrap' + (state.handwriteMode === 'write' ? '' : ' is-hidden'),
+    }, [textarea, counter]);
+    expand.appendChild(textareaWrap);
 
     section.appendChild(expand);
 
@@ -629,6 +852,11 @@
       btn.addEventListener('click', () => onCardClick(btn));
     });
 
+    // Seg control (Leave it blank / Handwrite for me)
+    $$('.ab35-seg-btn', section).forEach((btn) => {
+      btn.addEventListener('click', () => onSegClick(btn.getAttribute('data-mode')));
+    });
+
     // Textarea
     const textarea = $('.ab35-textarea', section);
     if (textarea) {
@@ -651,6 +879,9 @@
 
     if (state.noteToggleOpen) {
       track('ab35_note_toggle_on', {});
+      // Default to 'blank' on each fresh open so the user explicitly opts into +$1.99.
+      state.handwriteMode = 'blank';
+      paintHandwriteMode();
       // Lazy-load cards on first open if not already.
       if (!state.cardsLoaded) {
         loadCards().then(() => rerenderCardsArea());
@@ -660,18 +891,23 @@
       scrollExpandIntoView();
     } else {
       const hadCard = !!state.cardLineKey;
+      const hadFee = !!state.feeLineKey;
       const hadText = !!(state.noteText && state.noteText.length);
       track('ab35_note_toggle_off', { had_card: hadCard, had_text: hadText });
-      LOG('note toggle OFF — hadCard:', hadCard, 'hadText:', hadText);
-      // Only sweep if a card was actually added in this session. Avoids touching the cart
-      // (and triggering re-renders that wipe our section) when there's nothing to clean.
-      if (hadCard) {
+      LOG('note toggle OFF — hadCard:', hadCard, 'hadFee:', hadFee, 'hadText:', hadText);
+      // Sweep card + fee lines, and reset the cart attribute to 'blank' so the order
+      // doesn't get tagged 'gift-handwritten' if the user changed their mind.
+      if (hadCard || hadFee) {
         state.cardLineKey = null;
+        state.feeLineKey = null;
         enqueueCardWrite(() => removeAllCardLines().then(() => dispatchCartRefresh()));
+        enqueueCardWrite(() => removeAllFeeLines().then(() => dispatchCartRefresh()));
       }
       state.selectedCardId = null;
       state.selectedCardHandle = null;
       state.noteText = '';
+      state.handwriteMode = 'blank';
+      enqueueCardWrite(() => persistHandwriteModeAttr());
       const ta = $(`#${SECTION_ID} .ab35-textarea`);
       if (ta) ta.value = '';
       const counter = $(`#${SECTION_ID} .ab35-counter`);
@@ -737,13 +973,14 @@
       LOG('sweeping existing card lines before add');
       return removeAllCardLines()
         .then(() => {
-          LOG('POST /cart/add.js id=' + variantId);
+          // Only attach the Gift Note property when the user opted into handwriting.
+          // In 'blank' mode the cart line has no property — the 3PL won't try to hand-write.
+          const properties = state.handwriteMode === 'write'
+            ? { [CARD_PROPERTY_KEY]: state.noteText || '' }
+            : undefined;
+          LOG('POST /cart/add.js id=' + variantId + ' mode=' + state.handwriteMode);
           return postJson('/cart/add.js', {
-            items: [{
-              id: variantId,
-              quantity: 1,
-              properties: { [CARD_PROPERTY_KEY]: state.noteText || '' },
-            }],
+            items: [{ id: variantId, quantity: 1, properties }],
           });
         })
         .then((res) => {
@@ -786,7 +1023,9 @@
 
   const debouncedNotePersist = debounce(() => {
     track('ab35_note_typed', { length: state.noteText.length });
-    if (!state.cardLineKey) return;
+    // Only persist the note to the cart when the user opted into handwriting service.
+    // In 'blank' mode we keep the text in JS state but never send it to Shopify.
+    if (!state.cardLineKey || state.handwriteMode !== 'write') return;
     // Route through the same write queue so the checkout hook can drain it.
     enqueueCardWrite(() => postJson('/cart/change.js', {
       id: state.cardLineKey,
@@ -814,10 +1053,100 @@
       .then(() => dispatchCartRefresh());
   }
 
+  // ---------- HANDWRITE MODE ----------
+  // Writes the gift_card_mode cart attribute. Shopify Flow watches this and tags
+  // the order 'gift-handwritten' when value === 'write'.
+  function persistHandwriteModeAttr() {
+    return postJson('/cart/update.js', {
+      attributes: { [GIFT_MODE_ATTR_KEY]: state.handwriteMode },
+    }).catch((e) => WARN('failed to persist gift_card_mode attribute', e));
+  }
+
+  // Sweep any orphan handwriting-fee line items from the cart (idempotent).
+  function removeAllFeeLines() {
+    if (!HANDWRITING_FEE_ENABLED || !HANDWRITING_FEE_VARIANT_ID) return Promise.resolve();
+    return fetch('/cart.js')
+      .then((r) => r.json())
+      .then((cart) => {
+        const feeLines = (cart.items || []).filter((i) => i.variant_id === HANDWRITING_FEE_VARIANT_ID);
+        LOG('removeAllFeeLines — found', feeLines.length, 'fee lines to remove');
+        return feeLines.reduce((p, line) => {
+          return p.then(() => postJson('/cart/change.js', { id: line.key, quantity: 0 }).catch((e) => {
+            WARN('failed to remove fee line', line.key, e);
+            return null;
+          }));
+        }, Promise.resolve());
+      })
+      .catch((e) => { WARN('removeAllFeeLines fetch failed', e); return null; });
+  }
+
+  // Add the $1.99 handwriting fee as a cart line item. No-op when disabled or unconfigured.
+  function addFeeLine() {
+    if (!HANDWRITING_FEE_ENABLED || !HANDWRITING_FEE_VARIANT_ID) {
+      LOG('addFeeLine skipped — fee disabled or variant not configured');
+      return Promise.resolve();
+    }
+    return removeAllFeeLines()
+      .then(() => postJson('/cart/add.js', {
+        items: [{ id: HANDWRITING_FEE_VARIANT_ID, quantity: 1 }],
+      }))
+      .then((res) => {
+        const item = (res && res.items && res.items[0]) || res;
+        if (item && item.key) {
+          state.feeLineKey = item.key;
+          LOG('handwriting fee added — line key:', item.key);
+        }
+      })
+      .catch((e) => WARN('addFeeLine failed', e));
+  }
+
+  function onSegClick(mode) {
+    if (mode !== 'blank' && mode !== 'write') return;
+    if (state.handwriteMode === mode) return;
+
+    state.handwriteMode = mode;
+    paintHandwriteMode();
+    track('ab35_handwrite_mode_changed', { mode });
+
+    // Persist the attribute immediately so the Flow rule sees the right value at checkout.
+    // Route through the write queue so it's drained at checkout.
+    enqueueCardWrite(() => persistHandwriteModeAttr());
+
+    if (mode === 'write') {
+      // Bring the newly-revealed textarea into view, same UX as opening the card row.
+      scrollTextareaIntoView();
+      enqueueCardWrite(() => addFeeLine());
+      // If a card was already added with no note, persist the current noteText (if any).
+      if (state.cardLineKey && state.noteText) {
+        enqueueCardWrite(() => postJson('/cart/change.js', {
+          id: state.cardLineKey,
+          quantity: 1,
+          properties: { [CARD_PROPERTY_KEY]: state.noteText },
+        }).then(() => dispatchCartRefresh()).catch((e) => WARN('note persist failed', e)));
+      }
+    } else {
+      // 'blank' — remove the fee, and clear the Gift Note from the card line (text stays in JS).
+      state.feeLineKey = null;
+      enqueueCardWrite(() => removeAllFeeLines().then(() => dispatchCartRefresh()));
+      if (state.cardLineKey) {
+        enqueueCardWrite(() => postJson('/cart/change.js', {
+          id: state.cardLineKey,
+          quantity: 1,
+          properties: { [CARD_PROPERTY_KEY]: '' },
+        }).then(() => dispatchCartRefresh()).catch((e) => WARN('note clear failed', e)));
+      }
+    }
+  }
+
   // ---------- PAINTERS ----------
   function paintRecipientToggle() {
     const btn = $(`#${SECTION_ID} .ab35-toggle[data-ab35-toggle="recipient"]`);
     if (btn) btn.setAttribute('aria-checked', state.shipToRecipient ? 'true' : 'false');
+    const shipNote = $(`#${SECTION_ID} [data-ab35-ship-note]`);
+    if (shipNote) {
+      if (state.shipToRecipient) shipNote.removeAttribute('hidden');
+      else shipNote.setAttribute('hidden', '');
+    }
   }
   function paintNoteToggle() {
     const btn = $(`#${SECTION_ID} .ab35-toggle[data-ab35-toggle="note"]`);
@@ -834,6 +1163,22 @@
       b.setAttribute('aria-checked', id === state.selectedCardId ? 'true' : 'false');
     });
   }
+  function paintHandwriteMode() {
+    $$(`#${SECTION_ID} .ab35-seg-btn`).forEach((b) => {
+      const mode = b.getAttribute('data-mode');
+      const active = mode === state.handwriteMode;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    const help = $(`#${SECTION_ID} .ab35-seg-help`);
+    if (help) {
+      help.textContent = state.handwriteMode === 'write'
+        ? "Our team hand-letters your note inside the card before it ships."
+        : "We'll tuck it in unwritten so you can fill it in yourself.";
+    }
+    const wrap = $(`#${SECTION_ID} .ab35-textarea-wrap`);
+    if (wrap) wrap.classList.toggle('is-hidden', state.handwriteMode !== 'write');
+  }
   // Walk up from `node` and return the first ancestor that actually scrolls.
   function findScrollParent(node) {
     let el = node && node.parentElement;
@@ -848,18 +1193,57 @@
     return null;
   }
 
-  // After flipping the note toggle ON, scroll the cart drawer so the entire gift section
-  // (cards strip + textarea + counter) is fully visible above the sticky checkout footer.
-  // Runs twice — immediately, then again after a delay — to handle layout that settles
+  // After flipping the note toggle ON, scroll the cart drawer so the picker label
+  // (top of the expand) anchors at the top of the visible area — and the cards + seg
+  // control sit comfortably above the sticky checkout footer.
+  // Runs three times — immediately, +50ms, and +350ms — to handle layout that settles
   // late (lazy images, slick carousel reflow, font swap, etc.).
   function scrollExpandIntoView() {
     const doScroll = () => {
-      const counter = $(`#${SECTION_ID} .ab35-counter`);
-      const textarea = $(`#${SECTION_ID} .ab35-textarea`);
-      // Target the counter (the last *real* content), and accept the padding-bottom on
-      // .ab35-expand as the natural buffer below it.
-      const target = counter || textarea;
+      const section = document.getElementById(SECTION_ID);
+      const pickerLabel = $(`#${SECTION_ID} .ab35-picker-label`);
+      // Anchor on the "Pick a card design" label — that's the top of the new content.
+      const target = pickerLabel || section;
       if (!target) return;
+
+      const scroller = findScrollParent(target);
+      if (!scroller) {
+        // Last resort: ask the browser to bring the picker label into view.
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        LOG('scrollExpandIntoView: no scroll parent, used native scrollIntoView');
+        return;
+      }
+
+      const scrollerRect = scroller.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      // We want the picker label ~12px below the scroller's visible top.
+      const desiredTop = scrollerRect.top + 12;
+      const delta = targetRect.top - desiredTop;
+      if (Math.abs(delta) > 1) {
+        const next = Math.max(
+          0,
+          Math.min(scroller.scrollTop + delta, scroller.scrollHeight - scroller.clientHeight),
+        );
+        scroller.scrollTo({ top: next, behavior: 'smooth' });
+        LOG('scrollExpandIntoView: scrolled', delta, 'px');
+      }
+    };
+
+    requestAnimationFrame(doScroll);
+    setTimeout(doScroll, 50);
+    setTimeout(doScroll, 350);
+  }
+
+  // After flipping the seg control to "Handwrite for me", scroll the cart drawer so
+  // the textarea + counter are fully visible above the sticky checkout footer.
+  // Uses the same scroll-parent walk + sticky-footer math as scrollExpandIntoView,
+  // but anchors on the textarea wrapper (which is what the user just revealed).
+  function scrollTextareaIntoView() {
+    const doScroll = () => {
+      const wrap = $(`#${SECTION_ID} .ab35-textarea-wrap`);
+      const counter = $(`#${SECTION_ID} .ab35-counter`);
+      const target = counter || wrap;
+      if (!target || wrap?.classList.contains('is-hidden')) return;
 
       const scroller = findScrollParent(target);
       if (!scroller) {
@@ -867,8 +1251,7 @@
         return;
       }
 
-      // Both footers overlay the bottom — sum them. SlideCart pins .footer-sticky
-      // (Secure Checkout) and footer.footer (Discounts/Subtotal) at the bottom.
+      // Account for stacked sticky footers at the bottom of the drawer.
       const stickyFooters = $$('.slidecarthq .footer-sticky, .slidecarthq footer.footer');
       const overlay = stickyFooters.reduce((h, f) => h + f.getBoundingClientRect().height, 0);
 
@@ -882,12 +1265,12 @@
           top: Math.min(scroller.scrollTop + overflow, scroller.scrollHeight - scroller.clientHeight),
           behavior: 'smooth',
         });
+        LOG('scrollTextareaIntoView: scrolled', overflow, 'px');
       }
     };
 
-    // First pass after one frame (expand un-hidden, but card images may not have loaded yet).
     requestAnimationFrame(doScroll);
-    // Second pass after layout settles (covers late image loads pushing the textarea down).
+    setTimeout(doScroll, 50);
     setTimeout(doScroll, 350);
   }
 
@@ -976,10 +1359,17 @@
           state.selectedCardHandle = null;
         }
       }
-      // Sync recipient flag from cart attributes (in case it was set previously this session).
-      const attr = cart.attributes && cart.attributes[RECIPIENT_ATTR_KEY];
-      if (attr === 'Yes') state.shipToRecipient = true;
-      else if (attr === 'No') state.shipToRecipient = false;
+      if (state.feeLineKey) {
+        const feeStillThere = (cart.items || []).some((i) => i.key === state.feeLineKey);
+        if (!feeStillThere) state.feeLineKey = null;
+      }
+      // Sync recipient flag and handwrite mode from cart attributes.
+      const attrs = cart.attributes || {};
+      const ship = attrs[RECIPIENT_ATTR_KEY];
+      if (ship === 'Yes') state.shipToRecipient = true;
+      else if (ship === 'No') state.shipToRecipient = false;
+      const mode = attrs[GIFT_MODE_ATTR_KEY];
+      if (mode === 'write' || mode === 'blank') state.handwriteMode = mode;
       return cart;
     }).catch(() => null);
     return cartSnapshotPromise;
@@ -1092,6 +1482,26 @@
     return !!upsells.querySelector('.upsell');
   }
 
+  // JS fallback for hiding the cart's "Discounts" footer row. The CSS rules above
+  // cover modern browsers (:has() supported); this catches older browsers where
+  // the parent .footer-row survives because :has() didn't match.
+  function hideDiscountRow() {
+    const footer = document.querySelector('.slidecarthq footer.footer, .slidecarthq .footer');
+    if (!footer) return;
+    // Find any element that signals "this row is the discount row".
+    const markers = footer.querySelectorAll('.amp-sc__footer-row--discount, .slidecart-discount-amount');
+    markers.forEach((m) => {
+      // Walk up until we find the wrapping .footer-row, then hide it.
+      let row = m;
+      while (row && row !== footer && !row.classList.contains('footer-row')) {
+        row = row.parentElement;
+      }
+      if (row && row.classList.contains('footer-row')) {
+        row.style.display = 'none';
+      }
+    });
+  }
+
   function ensureMounted() {
     const upsells = document.querySelector('.slidecarthq .upsells');
     if (!upsells || !upsells.parentNode) return;
@@ -1105,6 +1515,9 @@
     }
 
     injectStyles();
+    // SlideCart re-renders the footer on every cart change (incl. coupon apply),
+    // so re-apply the discount-row hide on every ensureMounted() call.
+    hideDiscountRow();
 
     if (isCartEmpty()) {
       const present = document.getElementById(SECTION_ID);
@@ -1133,6 +1546,7 @@
       // Re-apply visuals in case attributes/line state changed.
       paintRecipientToggle();
       paintSelectedCard();
+      paintHandwriteMode();
     });
 
     // Kick off card load on first mount so the strip is ready when user toggles the note row.

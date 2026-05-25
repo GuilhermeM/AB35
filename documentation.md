@@ -442,8 +442,59 @@ Built into [ab35-variant-b.js](ab35-variant-b.js). Behavior follows the plan; di
 - No `localStorage`, no jQuery, no `@import`, no external CSS/JS injection. Single inline `<style id="ab35-style">` block, all rules scoped under `#ab35-gift-section`.
 - `track(name, payload)` is a no-op; call-sites cover every event listed in §9. Analyst replaces the function body.
 
+### Handwrite mode — "Leave it blank" vs "Handwrite for me"
+Added per client request 2026-05-20. The expanded area now contains a segmented control between the cards strip and the textarea, with two options:
+
+- **Leave it blank** (default, free) — card is added to the cart with **no** `Gift Note` property. Textarea is hidden. Help text: "We'll tuck it in unwritten so you can fill it in yourself."
+- **Handwrite for me** (+$1.99) — textarea is shown, user types the note. A handwriting-fee line item is added to the cart. Help text: "Our team hand-letters your note inside the card before it ships."
+
+**Cart-side contract:**
+- Cart attribute `gift_card_mode` is written on every mode change (`'blank'` or `'write'`). Shopify Flow watches this — when value is `'write'` the order auto-gets the tag `gift-handwritten`. Flow workflow named **"Tag orders with gift card handwritten note"** is configured in nominalx-co Shopify Admin (turned on 2026-05-25).
+- Card line's `Gift Note` property is **only** set when mode === `'write'`. In blank mode the property is omitted (or cleared if the user switched from write→blank after adding the card).
+- Note text persists in JS state across mode switches — switching write→blank→write restores the draft. The text is **never** sent to the cart while mode is `'blank'`.
+
+**Handwriting fee line item — currently gated.**
+- Constants at the top of [ab35-variant-b.js](ab35-variant-b.js#L25-L33): `HANDWRITING_FEE_ENABLED = false`, `HANDWRITING_FEE_VARIANT_ID = null`, `HANDWRITING_FEE_HANDLE = null`, `HANDWRITING_FEE_PRICE_CENTS = 199`.
+- To enable: client creates a "Handwriting Fee" product in Shopify at $1.99, then flips `HANDWRITING_FEE_ENABLED = true` and fills in the variant ID. The seg control already works visually + writes the cart attribute regardless; only the actual line-item add is gated.
+- `addFeeLine()` sweeps any existing fee lines first (idempotent) then `/cart/add.js` qty 1. `removeAllFeeLines()` filters cart items by `variant_id === HANDWRITING_FEE_VARIANT_ID` and sequentially removes them. Both routed through `cardWriteQueue` so the checkout drain hook sees them.
+
+**Default mode on each open:** every time the note toggle flips ON, `state.handwriteMode` resets to `'blank'`. Users must explicitly opt into the +$1.99 charge.
+
+**Lifecycle summary:**
+- Note toggle ON → `handwriteMode = 'blank'`, no fee, no Gift Note property.
+- Pick a card → card line added (no property, since blank).
+- Click "Handwrite for me" → writes attribute, adds fee line, sets Gift Note property on card line from current `noteText`.
+- Type in textarea → debounced 600ms `change.js` updates Gift Note property (only when mode === 'write').
+- Click "Leave it blank" → writes attribute, removes fee line, clears Gift Note property on card line.
+- Note toggle OFF → removes card, removes fee, resets attribute to 'blank', clears noteText.
+
+### Footer compactness — hide Discounts row + single full-bleed divider
+Added per client feedback 2026-05-25. Two related cleanups in the cart footer to make the section feel less crowded and match figma:
+
+- **Discounts row hidden.** SlideCart's footer normally shows two rows above Secure Checkout: "Discounts -$XX" and "Subtotal $YY". The discount amount is still reflected in the subtotal, so the explicit row is redundant and just adds height. CSS rules at [ab35-variant-b.js:166-176](ab35-variant-b.js#L166-L176) hide it across both markup variants (auto-discount uses `.amp-sc__footer-row--discount` on the outer `.footer-row`; coupon-applied uses it on an inner span). `:has()` handles modern browsers; the `hideDiscountRow()` JS helper ([ab35-variant-b.js:1469-1483](ab35-variant-b.js#L1469-L1483)) is the fallback for older ones and runs on every `ensureMounted()` call so it survives SlideCart's footer re-renders.
+- **Single full-bleed divider above Subtotal.** With the discount row gone, the footer had leftover top padding/gap that produced a visible empty band, and the SlideCart theme painted multiple inset border-tops (constrained by the footer's 30px horizontal padding) that looked like duplicated lines with gaps at the drawer edges. Fix at [ab35-variant-b.js:178-211](ab35-variant-b.js#L178-L211):
+  1. `footer.new-footer { padding-top: 0; gap: 0 }` collapses the empty band.
+  2. Zero out every theme-default `border-top`/`border-bottom` on `.footer-row`, `.amp-sc__rewards`, `.slidecart-rewards`, and adjacent rows so nothing doubles up.
+  3. Draw exactly one divider via `.amp-sc__footer-row--subtotal::before` — absolutely positioned at `top: 0`, `left: -30px`, `right: -30px`, `height: 1px`, `background: rgba(0,0,0,0.1)`. The negative horizontal offsets escape the footer's 30px padding so the line spans the full drawer width edge-to-edge.
+
+### Shopify Flow — order tagging for handwriting service
+Workflow **"Tag orders with gift card handwritten note"** is configured in nominalx-co Shopify Admin and was turned on 2026-05-25. End-to-end flow:
+
+1. Customer toggles **"Handwrite for me"** in the cart drawer → script writes cart attribute `gift_card_mode = write` (or `blank` if they chose Leave it blank).
+2. Attribute travels through checkout and lands on the order as a custom attribute.
+3. Flow triggers on **Order created**, evaluates the condition `custom_attributes['gift_card_mode'] == 'write'`, and if true adds the tag **`gift-handwritten`** to the order.
+
+**Why this helps fulfillment:**
+- Operators filter the Orders view by the `gift-handwritten` tag to instantly see every order that needs hand-lettering — no manual review of line-item properties.
+- The note text still rides along on the greeting card line item as the `Gift Note` property, so it appears in the order detail + on the packing slip alongside the tag.
+- Unlocks downstream automations later (routing handwritten orders to a specific location, notifying the calligrapher, weekly handwriting-uptake reports).
+
+Status shared with client (Ian Park) on 2026-05-25 alongside the Varify preview link `https://nominalx.com/?varify-preview=54355-variation-1` and a request to create the $1.99 Handwriting Fee product in Shopify so the charge can post at checkout.
+
 ### Outstanding QA items (need live store access to verify)
 1. Confirm which `cart:*` event SlideCart HQ listens to and trim the others.
 2. Verify the 5 card variant IDs in `CARD_FALLBACKS` still match production (re-curl if any product is renamed).
 3. Confirm with merch whether a `$0` "Free" card variant is desired — if so, create it in Shopify and the pill will appear automatically.
 4. Verify the checkout deferral is invisible to users in the common case (writes typically settle in <500ms; the 4s timeout is only a safety net).
+5. **Handwriting Fee product — pending client approval.** Client to create a "Handwriting Fee" product at $1.99 in Shopify Admin, then flip `HANDWRITING_FEE_ENABLED = true` and paste the variant ID into the constants block. Until then the seg control works visually + the order tag flows correctly via the cart attribute, but the +$1.99 won't actually be charged.
+6. **End-to-end Flow test.** Place a test order with "Handwrite for me" selected and confirm Shopify Flow applies the `gift-handwritten` tag to the resulting order. The workflow's "Select test event" can dry-run against a historical order before going live.
